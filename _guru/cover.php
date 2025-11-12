@@ -8,7 +8,7 @@
                                     <!-- <P>
                                         <b>Bagaimana kalau Agenda di isi setelah Guru/ admin menginputkan mapel.. lalu tampil ke hal Agenda guru .. Lalu guru menambahkan agenda berdasarkan mapel yg dia inginkan </b>
                                     </P> -->
-                                     <h2>APLIKASI KEGIATAN HARIAN GURU</h2>
+                                     <h2>APLIKASI AGENDA HARIAN GURU</h2>
                                      <h3>TAHUN AJARAN
                                      <!-- Manampilkan Tahun ajaran -->
                                                 <?php
@@ -25,7 +25,7 @@
 
                                      	<hr style="border: 1.5px dashed;">
                                     <a href="#">
-                                        <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="../images/logo.jpg">
+                                        <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="../images/logoEsaka.png">
                                     </a>
                                     	<br>
                                     	<br>
@@ -47,9 +47,9 @@
                                     </table>
                                  </center>
                                     <hr>
-                                    <h2>SMK NEGERI 4 PAYAKUMBUH </h2>
+                                    <h2>SMP N 1 Kaliwungu </h2>
                                     
-                                    <p>Jl.Koto Kaciak, Padang Sikabu, Kec Lamposi Tigo Nagori <br> Email : <a href="#">smkn4pyk@com</a></p>
+                                    <p>Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361 <br> Telepon: <a href="#">(0291) 438068</a></p>
                                 </div>
                             </section>
                         </div>

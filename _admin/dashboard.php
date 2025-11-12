@@ -32,7 +32,7 @@
         <div class="sufee-alert alert with-close alert-primary alert-dismissible fade show">
             <span class="badge badge-pill badge-primary"style="background-color: #e91e63;"><img src="../images/<?php echo $data['photo']; ?>" class="img-responsive" style=" border:2px dashed silver; border-radius:100%; height: 30px;width: 30px;"> <?php echo $data['nama_guru'] ?></span>
 
-               <a href="?page=v_mapelagenda&idg=<?php echo $data['id_mapel'] ?>" style="color:black;"> Telah Mengis Agenda Hari Ini Tanggal [ <b><?php echo $data['tgl'] ?></b>] Mata Pelajaran <b><?php echo $data['nama_mapel'] ?></b></a>
+               <a href="?page=v_mapelagenda&idg=<?php echo $data['id_mapel'] ?>" style="color:black;"> Telah Mengisi Agenda Hari Ini Tanggal [ <b><?php echo $data['tgl'] ?></b>] Mata Pelajaran <b><?php echo $data['nama_mapel'] ?></b></a>
 
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

@@ -91,7 +91,17 @@ if (isset($_POST['euser'])) {
 
      //  </script> ";
 }
-
-
+if (isset($_POST['ajukan_pengganti'])) {
+    
+    // Termasuk dan jalankan processor khusus untuk pengajuan
+    // Asumsi: Anda menyimpan kode processor di file m-pengganti.php
+    
+    // GANTILAH 'm-pengganti.php' DENGAN NAMA FILE PROCESSOR ANDA
+    include 'm-pengganti.php';
+    
+    // Setelah proses selesai (berhasil/gagal), eksekusi kode di m-pengganti.php 
+    // akan melakukan redirect (menggunakan JavaScript).
+    exit; // Penting: Hentikan eksekusi script setelah processor berjalan.
+}
 ?>
      <!-- window.location='?page=add-agenda&idg=<?php echo $data[id_mapel]; ?> '; -->
