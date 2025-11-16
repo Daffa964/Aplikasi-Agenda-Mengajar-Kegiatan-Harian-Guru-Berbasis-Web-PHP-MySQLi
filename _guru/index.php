@@ -19,7 +19,7 @@ $data = mysqli_fetch_array($sql);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>E-Jurnal || Page Guru</title>
+    <title>E-Piket || Halaman Guru</title>
     <meta name="description" content="E-Jurnal Agenda Harian Guru Piket">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -66,7 +66,7 @@ $data = mysqli_fetch_array($sql);
                     
                     <h3 class="menu-title">Menu Utama</h3>
                     
-                    <li class="<?php echo (@$_GET['page'] == '' || @$_GET['page'] == 'cover') ? 'active' : ''; ?>">
+                    <li class="<?php echo ($_GET['page'] == '' || $_GET['page'] == 'cover') ? 'active' : ''; ?>">
                         <a href="?page=cover" > 
                             <i class="menu-icon fa fa-home" style="font-size: 23px;color: #40c4ff;"></i>Dashboard 
                         </a>
@@ -87,7 +87,7 @@ $data = mysqli_fetch_array($sql);
                             </li>
                             <li>
                                 <i class="menu-icon fa fa-user" style="font-size: 20px;color:#f50057 ;"></i>
-                                <a href="?page=t_presensi_guru"> Presensi Kehadiran</a>
+                                <a href="?page=v_kehadiran_guru"> Presensi Kehadiran</a>
                             </li>
                         </ul>
                     </li>
@@ -103,11 +103,10 @@ $data = mysqli_fetch_array($sql);
                             </li>
                             <li>
                                 <i class="menu-icon fa fa-clock-o" style="font-size: 20px;color:#f50057 ;"></i>
-                                <a href="?page=v_keterlambatan"> Catat Keterlambatan</a>
+                                <a href="?page=v_keterlambatan_siswa"> Catat Keterlambatan</a>
                             </li>
                         </ul>
                     </li>
-
                     <h3 class="menu-title">Data & Laporan</h3> 
                     
                     <li class="menu-item-has-children dropdown">
@@ -129,6 +128,7 @@ $data = mysqli_fetch_array($sql);
                             </li>
                         </ul>
                     </li>
+                    
 
                     <li>
                         <a href="?page=file"> 
@@ -201,110 +201,126 @@ $data = mysqli_fetch_array($sql);
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-md-12"> 
+                        
                         <?php
-                        // Gunakan error_reporting(0) seperti di Admin untuk konsistensi
                         error_reporting(0);
-                        $page = @$_GET['page'];
-                        
-                        // DASHBOARD
-                        if ($page == '' || $page == 'cover') {
-                            include 'cover.php';
-                        }
-                        // PENGATURAN & ACTION
-                        elseif ($page == 'profil') {
-                            include 'profil.php';
-                        }
-                        elseif ($page == 'act') {
-                            include 'proses.php'; // Halaman proses untuk aksi CRUD
-                        }
-                        
-                        // TUGAS GURU PIKET
-                        elseif ($page == 'v_jadwal_saya') {
-                            include 'V-JadwalSaya.php';
-                        }
-                        elseif ($page == 'v_ajukan_pengganti') {
-                            include 'V-AjukanPengganti.php';
-                        }
-                        elseif ($page == 't_ajukan_pengganti') {
-                            include 'T-AjukanPengganti.php';
-                        }
-                        elseif ($page == 't_presensi_guru') {
-                            include 'T-PresensiGuru.php'; // Tambah Presensi
-                        }
-                        
-                        // KEDISIPLINAN SISWA
-                        elseif ($page == 'v_izin_siswa') {
-                            include 'V-IzinSiswa.php';
-                        }
-                        elseif ($page == 'v_keterlambatan') {
-                            include 'V-KeterlambatanSiswa.php'; // Asumsi file yang spesifik
-                        }
+                        // Default page adalah 'cover' jika $_GET['page'] tidak diset
+                        $page = $_GET['page'] ?? 'cover'; 
 
-                        // DATA AGENDA - MATA PELAJARAN
-                        elseif ($page == 'mapel') {
-                            include 'V-Mapel.php';
-                        }
-                        // EDIT & DELETE MAPEL (Jika Guru diizinkan)
-                        elseif ($page == 'edit-mapel') {
-                            include 'E-Mapel.php';
-                        }
-                        elseif ($page == 'hapus-mapel') {
-                            include 'D-Mapel.php';
-                        }
-                        
-                        // DATA AGENDA - AGENDA PENGAJARAN (JURNAL)
-                        elseif ($page == 'jurnal') {
-                            include 'V-Jurnal.php';
-                        }
-                        elseif ($page == 'add-agenda') {
-                            include 'T-Agenda.php';
-                        }
-                        elseif ($page == 'edit-agenda') {
-                            include 'E-Agenda.php';
-                        }
-                        elseif ($page == 'del-agenda') {
-                            include 'D-Agenda.php';
-                        }
-                        
-                        // DATA AGENDA - KEGIATAN LAINNYA
-                        elseif ($page == 'aglain') {
-                            include 'V-AgendaLain.php';
-                        }
-                        elseif ($page == 'taglain') {
-                            include 'T-AgendaLain.php';
-                        }
-                        elseif ($page == 'eaglain') {
-                            include 'E-AgendaLain.php';
-                        }
-                        elseif ($page == 'daglain') {
-                            include 'D-AgendaLain.php';
-                        }
-                        
-                        // FILE PERANGKAT
-                        elseif ($page == 'file') {
-                            include 'V-Upload-File.php';
-                        }
-                        elseif ($page == 'add-file') {
-                            include 'T-FilePerangkat.php';
-                        }
-                        elseif ($page == 'view-file') {
-                            include 'Detail-File.php';
-                        }
-                        elseif ($page == 'del-file') {
-                            include 'D-File.php';
-                        }
-                        
-                        // LAPORAN
-                        elseif ($page == 'lap-harian') {
-                            include 'L-Harian.php'; // Asumsi nama file laporan harian
-                        }
-                        
-                        // DEFAULT - HALAMAN TIDAK DITEMUKAN
-                        else {
-                            echo "<center> <h3><b> Maaf Halaman Tidak Tersedia !!</b></h3> </center>";
+                        switch ($page) {
+                            
+                            // --- CASE BARU UNTUK FITUR PIKET DARI FOLDER ADMIN ---
+                            case 'proses':
+                                // PENTING: Menangkap kiriman form dari V-KehadiranGuru, V-IzinSiswa, dll.
+                                include '../_admin/proses.php'; 
+                                break;
+                            case 'v_kehadiran_guru':
+                                include '../_admin/V-KehadiranGuru.php';
+                                break;
+                            case 'e_kehadiran_guru': // Halaman edit kehadiran
+                                include '../_admin/E-KehadiranGuru.php';
+                                break;
+                            case 'v_keterlambatan_siswa': // Link dari menu 'v_keterlambatan'
+                                include '../_admin/V-Keterlambatan.php';
+                                break;
+                            case 't_keterlambatan_siswa': // Halaman tambah keterlambatan
+                                include '../_admin/T-KeterlambatanSiswa.php';
+                                break;
+                            case 'd_keterlambatan_siswa': // Halaman hapus keterlambatan
+                                include '../_admin/D-KeterlambatanSiswa.php';
+                                break;
+                            case 'v_izin_siswa': // Link dari menu 'v_izin_siswa'
+                                include '../_admin/V-IzinSiswa.php';
+                                break;
+                            case 't_izin_siswa': // Halaman tambah izin
+                                include '../_admin/T-IzinSiswa.php';
+                                break;
+                            case 'e_izin_siswa': // Halaman edit/persetujuan izin
+                                include '../_admin/E-IzinSiswa.php';
+                                break;
+                            case 'd_izin_siswa': // Halaman hapus izin
+                                include '../_admin/D-IzinSiswa.php';
+                                break;
+                            
+                            // --- CASE YANG SUDAH ADA DI FILE ASLI ANDA ---
+                            case 'cover':
+                                include 'cover.php';
+                                break;
+                            case 'profil':
+                                include 'profil.php';
+                                break;
+                            case 'act':
+                                // Ini adalah proses.php milik _guru (untuk ajukan pengganti)
+                                include 'proses.php'; 
+                                break;
+                            
+                            // Tugas Piket Lokal
+                            case 'v_jadwal_saya':
+                                include 'V-JadwalSaya.php';
+                                break;
+                            case 'v_ajukan_pengganti':
+                                include 'V-AjukanPengganti.php';
+                                break;
+                            
+                            // Agenda Harian
+                            case 'mapel':
+                                include 'V-Mapel.php';
+                                break;
+                            case 'edit-mapel':
+                                include 'E-Mapel.php';
+                                break;
+                            case 'hapus-mapel':
+                                include 'D-Mapel.php';
+                                break;
+                            case 'jurnal':
+                                include 'V-Jurnal.php';
+                                break;
+                            case 'add-agenda': // Link dari V-Jurnal.php
+                                include 'T-Agenda.php';
+                                break;
+                            case 'edit-agenda':
+                                include 'E-Agenda.php';
+                                break;
+                            case 'del-agenda':
+                                include 'D-Agenda.php';
+                                break;
+                            case 'aglain':
+                                include 'V-AgendaLain.php';
+                                break;
+                            case 'taglain': // Link dari V-AgendaLain.php
+                                include 'T-AgendaLain.php';
+                                break;
+                            case 'eaglain':
+                                include 'E-AgendaLain.php';
+                                break;
+                            case 'daglain':
+                                include 'D-AgendaLain.php';
+                                break;
+
+                            // File & Laporan
+                            case 'file':
+                                include 'V-Upload-File.php';
+                                break;
+                            case 'add-file':
+                                include 'T-FilePerangkat.php';
+                                break;
+                            case 'view-file':
+                                include 'Detail-File.php';
+                                break;
+                            case 'del-file':
+                                include 'D-File.php';
+                                break;
+                            case 'lap-harian':
+                                include 'L-Harian.php'; 
+                                break;
+                                
+                            // Default
+                            default:
+                                echo "<center> <h3><b> Maaf Halaman Tidak Tersedia !!</b></h3> </center>";
+                                break;
                         }
                         ?>
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -340,6 +356,25 @@ $data = mysqli_fetch_array($sql);
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
             $('#bootstrap-data-table-export1').DataTable();
+        });
+    </script>
+    
+    <script>
+        jQuery(document).ready(function($) {
+            // Ketika tombol "Ajukan" di-klik
+            $(document).on('click', '.btn-ajukan-pengganti', function() { // Menggunakan 'on' pada document
+
+                // 1. Ambil data-id dan data-tanggal dari tombol yang diklik
+                var idJadwal = $(this).data('id');
+                var tglPiket = $(this).data('tanggal');
+
+                // 2. Masukkan data tersebut ke dalam form di modal
+                // Memasukkan ID Jadwal ke input hidden
+                $('#input_id_jadwal').val(idJadwal);
+
+                // Menampilkan tanggal di modal
+                $('#tgl_piket_display').text(tglPiket);
+            });
         });
     </script>
 

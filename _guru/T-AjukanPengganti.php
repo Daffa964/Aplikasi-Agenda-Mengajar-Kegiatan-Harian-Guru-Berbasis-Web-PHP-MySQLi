@@ -8,7 +8,7 @@ if (!isset($con) || !isset($sesi)) {
     exit;
 }
 
-if (isset($_POST['t_ajukan_pengganti'])) {
+if (isset($_POST['ajukan_pengganti'])) {
     
     $id_jadwal          = mysqli_real_escape_string($con, $_POST['id_jadwal']);
     $id_guru_pengganti  = mysqli_real_escape_string($con, $_POST['id_guru_pengganti']);

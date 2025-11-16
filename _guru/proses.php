@@ -97,7 +97,7 @@ if (isset($_POST['ajukan_pengganti'])) {
     // Asumsi: Anda menyimpan kode processor di file m-pengganti.php
     
     // GANTILAH 'm-pengganti.php' DENGAN NAMA FILE PROCESSOR ANDA
-    include 'm-pengganti.php';
+    include 'T-AjukanPengganti.php';
     
     // Setelah proses selesai (berhasil/gagal), eksekusi kode di m-pengganti.php 
     // akan melakukan redirect (menggunakan JavaScript).
