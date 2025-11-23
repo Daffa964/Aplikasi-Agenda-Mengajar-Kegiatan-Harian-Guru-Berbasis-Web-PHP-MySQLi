@@ -22,7 +22,7 @@ $data = mysqli_fetch_array($sql);
 
                         </div>
                         <div class="card-body">
-                            <form action="?page=act" method="post" accept-charset="utf-8">
+                            <form action="proses.php" method="post" accept-charset="utf-8">
 
 
                                 <div class="form-group">

@@ -3,17 +3,17 @@ session_start();
 include '../koneksi.php';
 
 if (isset($_POST['euser'])) {
-       $id_guru = $_POST['id_guru'];
-       $user = trim(mysqli_real_escape_string($con, $_POST['user']));
-       $pass = trim(mysqli_real_escape_string($con, $_POST['pass']));
+    $id_guru = $_POST['id_guru'];
+    $user = trim(mysqli_real_escape_string($con, $_POST['user']));
+    $pass = trim(mysqli_real_escape_string($con, $_POST['pass']));
 
-       mysqli_query($con, "UPDATE  tb_guru SET username='$user',password='$pass' WHERE id_guru='$id_guru' ") or die(mysqli_error($con)) ;
-       echo " <script>
+    mysqli_query($con, "UPDATE  tb_guru SET username='$user',password='$pass' WHERE id_guru='$id_guru' ") or die(mysqli_error($con));
+    echo " <script>
        alert('Data Berhasil Diubah !!');
        window.location='?page=profil';
 
        </script> ";
-       exit();
+    exit();
 } elseif (isset($_POST['Tmapel'])) {
 
     $id_guru    = mysqli_real_escape_string($con, $_POST['id_guru']);
@@ -41,68 +41,65 @@ if (isset($_POST['euser'])) {
             die("Error MySQL: " . mysqli_error($con));
         } else {
             echo "<script>
-                    alert('Data Berhasil Disimpan !!');
-                    window.location='?page=mapel';
-                  </script>";
+                alert('Data Berhasil Disimpan !!');
+                window.location='index.php?page=mapel'; 
+                </script>";
             exit();
         }
     }
+} elseif (isset($_POST['Emapel'])) {
+    $id = $_POST['id'];
+    $nama_mapel = trim(mysqli_real_escape_string($con, $_POST['nama_mapel']));
+    $jurusan = trim(mysqli_real_escape_string($con, $_POST['jurusan']));
+    $tingkat = trim(mysqli_real_escape_string($con, $_POST['tingkat']));
 
+    mysqli_query($con, "UPDATE  tb_mapel SET nama_mapel='$nama_mapel',jurusan='$jurusan',tingkat='$tingkat' WHERE id_mapel='$id' ") or die(mysqli_error($con));
 
-
-}elseif (isset($_POST['Emapel'])) {
-       $id = $_POST['id'];
-       $nama_mapel = trim(mysqli_real_escape_string($con, $_POST['nama_mapel']));
-       $jurusan = trim(mysqli_real_escape_string($con, $_POST['jurusan']));
-       $tingkat = trim(mysqli_real_escape_string($con, $_POST['tingkat']));
-
-       mysqli_query($con, "UPDATE  tb_mapel SET nama_mapel='$nama_mapel',jurusan='$jurusan',tingkat='$tingkat' WHERE id_mapel='$id' ") or die(mysqli_error($con)) ;
-
-       echo " <script>
+    echo " <script>
        alert('Data Berhasil Diubah !!');
        window.location='?page=mapel';
 
        </script> ";
-       exit();
+    exit();
 
-// Query Simapan ke tb_agenda
-}elseif (isset($_POST['save-agenda'])) {
+    // Query Simapan ke tb_agenda
+} elseif (isset($_POST['save-agenda'])) {
 
-        $id_guru = $_POST['id_guru'];
-        $id_mapel = $_POST['id_mapel'];
-        $jam = $_POST['jam'];
-        $tgl = $_POST['tgl'];
-        $materi = $_POST['materi'];
-        $absen = $_POST['absen'];
-        $ket = $_POST['ket'];
+    $id_guru = $_POST['id_guru'];
+    $id_mapel = $_POST['id_mapel'];
+    $jam = $_POST['jam'];
+    $tgl = $_POST['tgl'];
+    $materi = $_POST['materi'];
+    $absen = $_POST['absen'];
+    $ket = $_POST['ket'];
 
 
 
-          // simpan ke tb_agenda
-     $result = mysqli_query($con, " INSERT INTO tb_agenda (id_guru,id_mapel,tgl,jam,materi,absen,ket)
-      VALUES('$id_guru','$id_mapel','$tgl','$jam','$materi','$absen','$ket') ") or die(mysqli_error($con)) ;
+    // simpan ke tb_agenda
+    $result = mysqli_query($con, " INSERT INTO tb_agenda (id_guru,id_mapel,tgl,jam,materi,absen,ket)
+      VALUES('$id_guru','$id_mapel','$tgl','$jam','$materi','$absen','$ket') ") or die(mysqli_error($con));
 
-     if($result) {
-         echo "<script>
+    if ($result) {
+        echo "<script>
                  alert('Data Berhasil Disimpan !!');
-                 window.location='?page=add-agenda&idg=".$id_mapel."';
+                 window.location='?page=add-agenda&idg=" . $id_mapel . "';
                </script>";
-         exit();
-     } else {
-         echo "<script>
+        exit();
+    } else {
+        echo "<script>
                  alert('Gagal menyimpan data !!');
-                 window.location='?page=add-agenda&idg=".$id_mapel."';
+                 window.location='?page=add-agenda&idg=" . $id_mapel . "';
                </script>";
-         exit();
-     }
+        exit();
+    }
 
 
-     // echo "
-     //  <script>
-     //  alert('Data Berhasil Diubah !!');
-     //  window.location='?page=add-agenda&idg&=$id_mapel;
+    // echo "
+    //  <script>
+    //  alert('Data Berhasil Diubah !!');
+    //  window.location='?page=add-agenda&idg&=$id_mapel;
 
-     //  </script> ";
+    //  </script> ";
 }
 // KODE BARU UNTUK PROSES AJUKAN PENGGANTI
 
@@ -162,9 +159,9 @@ if (isset($_POST['save_kehadiran_guru'])) {
     if ($status == 'Hadir' || $status == 'Terlambat') {
         // Jika status Hadir/Terlambat, gunakan waktu yang diinput, atau NULL jika kosong
         if (!empty($waktu_masuk_input)) {
-             $waktu_masuk_sql = "'" . mysqli_real_escape_string($con, $waktu_masuk_input) . "'";
+            $waktu_masuk_sql = "'" . mysqli_real_escape_string($con, $waktu_masuk_input) . "'";
         } else {
-             $waktu_masuk_sql = 'NULL';
+            $waktu_masuk_sql = 'NULL';
         }
     } else {
         // Jika status lain (Izin, Sakit, Alpa), pastikan waktu_masuk adalah NULL
@@ -245,7 +242,7 @@ elseif (isset($_POST['keterlambatan_siswa'])) {
     $id_guru_piket = $_SESSION['guru']; // Ambil dari session guru yang login
 
     // Jika id_guru_piket kosong (misal: admin umum yang login), tetapkan ke NULL
-    $id_guru_piket_sql = is_null($id_guru_piket) ? 'NULL' : "'".mysqli_real_escape_string($con, $id_guru_piket)."'";
+    $id_guru_piket_sql = is_null($id_guru_piket) ? 'NULL' : "'" . mysqli_real_escape_string($con, $id_guru_piket) . "'";
 
     // 5. Query INSERT
     // Perhatikan: Kolom disesuaikan dengan struktur tb_keterlambatan
@@ -284,7 +281,7 @@ elseif (isset($_POST['s_izin_siswa'])) {
     $status_izin    = 'Menunggu';
     // ID Guru Piket diisi dengan ID guru yang sedang login
     $id_guru_piket  = $_SESSION['guru']; // Ambil dari session guru yang login
-    $id_guru_piket_sql = "'".mysqli_real_escape_string($con, $id_guru_piket)."'";
+    $id_guru_piket_sql = "'" . mysqli_real_escape_string($con, $id_guru_piket) . "'";
 
     // Cek apakah sudah ada data izin untuk tanggal yang sama
     $cek_izin = mysqli_query($con, "SELECT id_izin FROM tb_izin_siswa
@@ -321,4 +318,35 @@ elseif (isset($_POST['s_izin_siswa'])) {
         }
     }
 }
-?>
+
+// --- Proses Simpan Agenda Lain (Non-Mapel) ---
+elseif (isset($_POST['add-agendalain'])) {
+    
+    $id_guru  = $_POST['id_guru'];
+    $tgl      = $_POST['tgl'];
+    $kegiatan = mysqli_real_escape_string($con, $_POST['kegiatan']);
+    $isi      = mysqli_real_escape_string($con, $_POST['isi']); 
+    $ket      = mysqli_real_escape_string($con, $_POST['ket']);
+
+    // Validasi sederhana
+    if (empty($kegiatan) || empty($tgl)) {
+         echo "<script>alert('Kegiatan dan Tanggal tidak boleh kosong!'); window.location='index.php?page=taglain';</script>";
+         exit();
+    }
+
+    // Query Insert (Pastikan tb_agendalain sudah AUTO_INCREMENT)
+    $insert = mysqli_query($con, "INSERT INTO tb_agendalain (id_guru, tgl_kgt, kegiatan, isi, keterangan) VALUES ('$id_guru', '$tgl', '$kegiatan', '$isi', '$ket')");
+
+    if ($insert) {
+        echo "
+            <script>
+                alert('Agenda Lain Berhasil Disimpan!'); 
+                // Arahkan kembali ke index.php?page=aglain (Halaman Daftar Agenda Lain)
+                window.location='index.php?page=aglain'; 
+            </script>";
+        exit();
+    } else {
+        echo "<script>alert('Gagal menyimpan: " . mysqli_error($con) . "'); window.location='index.php?page=taglain';</script>";
+        exit();
+    }
+}
