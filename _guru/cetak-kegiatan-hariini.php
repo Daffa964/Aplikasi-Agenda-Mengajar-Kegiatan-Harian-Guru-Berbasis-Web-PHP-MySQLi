@@ -141,14 +141,116 @@ SMK NEGERI 4 PAYAKUMBUH</h3>
   
    
   </tr>
-  <?php 
+  <?php
    }
 
    ?>
- 
+
 </tbody>
 </table>
-    <?php 
+
+<br>
+
+<?php
+// Fetch today's student absence data (izin)
+$today = date('Y-m-d');
+$sql_izin = mysqli_query($con, "SELECT i.*, s.nama_siswa, s.nis, k.kelas
+    FROM tb_izin_siswa i
+    INNER JOIN tb_siswa s ON i.id_siswa = s.id_siswa
+    INNER JOIN tb_kelas k ON s.idkelas = k.idkelas
+    WHERE i.id_guru_piket = '$idg' AND i.tanggal_izin = '$today'
+    ORDER BY s.nama_siswa") or die(mysqli_error($con));
+
+// Fetch today's student tardiness data (keterlambatan)
+$sql_keterlambatan = mysqli_query($con, "SELECT k.*, s.nama_siswa, s.nis, kelas.kelas
+    FROM tb_keterlambatan k
+    INNER JOIN tb_siswa s ON k.id_siswa = s.id_siswa
+    INNER JOIN tb_kelas kelas ON s.idkelas = kelas.idkelas
+    WHERE k.id_guru_piket = '$idg' AND k.tanggal = '$today'
+    ORDER BY s.nama_siswa") or die(mysqli_error($con));
+?>
+
+<h3 class="tex"><b>Data Siswa Izin Hari Ini</b></h3>
+
+	<table class="table" width="100%" border="2" style="border-collapse: collapse;" cellpadding="3" cellspacing="0">
+	<thead>
+	<tr style="height: 40px;background-color:#E9FEBE;">
+	<th width="30">No.</th>
+	<th>NIS</th>
+	<th>Nama Siswa</th>
+	<th>Kelas</th>
+	<th>Jenis Izin</th>
+	<th>Keterangan</th>
+
+	</tr>
+	</thead>
+	<tbody>
+	<?php
+
+	$no=1;
+
+	while ($d = mysqli_fetch_array($sql_izin)) {
+	?>
+	<tr>
+	<td><?php echo $no++; ?>.</td>
+	<td><?php echo $d['nis']; ?></td>
+	<td><?php echo $d['nama_siswa']; ?></td>
+	<td><?php echo $d['kelas']; ?></td>
+	<td><?php echo $d['jenis_izin']; ?></td>
+	<td><?php echo $d['keterangan']; ?></td>
+
+	</tr>
+	<?php
+
+
+	}
+
+	?>
+
+	</tbody>
+	</table>
+
+	<h3 class="tex"><b>Data Siswa Terlambat Hari Ini</b></h3>
+
+	<table class="table" width="100%" border="2" style="border-collapse: collapse;" cellpadding="3" cellspacing="0">
+	<thead>
+	<tr style="height: 40px;background-color:rgb(203,215,224);">
+	<th width="30">No.</th>
+	<th>NIS</th>
+	<th>Nama Siswa</th>
+	<th>Kelas</th>
+	<th>Waktu Terlambat (menit)</th>
+	<th>Keterangan</th>
+
+	</tr>
+	</thead>
+	<tbody>
+	<?php
+
+	$no=1;
+
+	while ($d = mysqli_fetch_array($sql_keterlambatan)) {
+	?>
+	<tr>
+	<td><?php echo $no++; ?>.</td>
+	<td><?php echo $d['nis']; ?></td>
+	<td><?php echo $d['nama_siswa']; ?></td>
+	<td><?php echo $d['kelas']; ?></td>
+	<td><?php echo $d['waktu_terlambat']; ?> menit</td>
+	<td><?php echo $d['keterangan']; ?></td>
+
+	</tr>
+	<?php
+
+
+	}
+
+	?>
+
+	</tbody>
+	</table>
+
+    <?php
     include '../koneksi.php';
 
   $sqlMapel= mysqli_query($con, "SELECT * FROM tb_kepsek ORDER BY id_kepsek DESC LIMIT 1

@@ -50,9 +50,9 @@ $data = mysqli_fetch_array($sql);
   </tr>
 </thead>
 <tbody>
-  <?php 
+  <?php
   $no=1;
-    $now = date('y-m-d'); 
+    $now = date('Y-m-d');
 
   $sql = mysqli_query($con," SELECT * FROM tb_agenda WHERE tgl='$now' AND id_guru = '$idg'") or die(mysqli_error($con));
 
@@ -66,8 +66,8 @@ $data = mysqli_fetch_array($sql);
      <b>Teaching</b>
       <hr>
     <ul class="list-group">
-       <?php 
-  $now = date('y-m-d'); 
+       <?php
+  $now = date('Y-m-d');
   $sql = mysqli_query($con,"SELECT * FROM tb_agenda
   INNER JOIN tb_guru ON tb_agenda.id_guru=tb_guru.id_guru
   INNER JOIN tb_mapel ON tb_agenda.id_mapel=tb_mapel.id_mapel
@@ -85,7 +85,7 @@ $data = mysqli_fetch_array($sql);
       <hr>
       <ul class="list-group">
       <?php 
-      $now = date('y-m-d'); 
+      $now = date('Y-m-d'); 
       $sql = mysqli_query($con,"SELECT * FROM tb_agenda
       INNER JOIN tb_guru ON tb_agenda.id_guru=tb_guru.id_guru
       INNER JOIN tb_mapel ON tb_agenda.id_mapel=tb_mapel.id_mapel
@@ -124,7 +124,7 @@ $data = mysqli_fetch_array($sql);
       <hr>
       <ul class="list-group">
       <?php 
-      $now = date('y-m-d'); 
+      $now = date('Y-m-d'); 
       $sql = mysqli_query($con,"SELECT * FROM tb_agenda
       INNER JOIN tb_guru ON tb_agenda.id_guru=tb_guru.id_guru
       INNER JOIN tb_mapel ON tb_agenda.id_mapel=tb_mapel.id_mapel

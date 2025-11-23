@@ -12,14 +12,12 @@ $data = mysqli_fetch_array($sql);
                         <div class="card-header">
                             <h3>
                               <strong class="card-title"> <span class="fa fa-folder-open"></span> Daftar Agenda Guru</strong>
-
-
-
                             </h3>
-
+                            <div class="card-header">
+                                <a href="javascript:history.back()" class="btn btn-warning"> <span class="fa fa-chevron-left"></span> Kembali </a>
+                            </div>
                         </div>
                         <div class="card-body">
-
 
                   <table id="bootstrap-data-table" class="table table-condensed table-hover table-striped">
                     <thead>
@@ -29,7 +27,7 @@ $data = mysqli_fetch_array($sql);
                         <th>Tingkat</th>
                         <th>Kelas</th>
                         <th>Agenda</th>
-                                          
+
                       </tr>
                     </thead>
                     <!-- Query lama -->
@@ -38,16 +36,16 @@ $data = mysqli_fetch_array($sql);
                     INNER JOIN tb_kelas ON tb_agenda.idkelas=tb_kelas.idkelas
                     INNER JOIN tb_guru ON tb_agenda.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi'
                      -->
-                     <!-- SELECT tb_kelas .*,tb_mapel.id_mapel,tb_mapel.nama_mapel,tb_mapel.tingkat,tb_guru.id_guru FROM tb_kelas 
+                     <!-- SELECT tb_kelas .*,tb_mapel.id_mapel,tb_mapel.nama_mapel,tb_mapel.tingkat,tb_guru.id_guru FROM tb_kelas
                         INNER JOIN tb_mapel ON tb_kelas.idkelas=tb_mapel.id_mapel
                         INNER JOIN tb_guru ON tb_kelas.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi' -->
                     <tbody>
-                    <?php 
+                    <?php
                     $no=1;
                     $sql = mysqli_query($con,"SELECT tb_mapel.*,tb_kelas.idkelas,tb_kelas.kelas,tb_guru.id_guru
-                    FROM tb_mapel 
+                    FROM tb_mapel
                     INNER JOIN tb_kelas ON tb_mapel.idkelas=tb_kelas.idkelas
-                    INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi'") 
+                    INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi'")
                     or die(mysqli_error($con));
                     ;
                   while ( $data=mysqli_fetch_array($sql)) {
@@ -58,16 +56,16 @@ $data = mysqli_fetch_array($sql);
                         <td> <?=$data['tingkat'];?></td>
                         <td><?=$data['kelas'];?></td>
                         <td>
-                          <a href="?page=add-agenda& idg= <?php echo $data['id_mapel']; ?> " title="" class="btn btn-success btn-xs"> <span class="fa fa-search-plus"></span> View Agenda</a>
+                          <a href="?page=add-agenda&idg=<?php echo $data['id_mapel']; ?>" title="" class="btn btn-success btn-xs"> <span class="fa fa-search-plus"></span> View Agenda</a>
                         </td>
-                      
-                       
+
+
                       </tr>
-                      <?php 
+                      <?php
                        }
 
                        ?>
-                     
+
                     </tbody>
                   </table>
                         </div>

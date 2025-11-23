@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Pastikan variabel koneksi database ($con) sudah tersedia
 
 // --- 1. Ambil Tahun Ajaran Aktif ---
@@ -14,38 +14,49 @@ if (mysqli_num_rows($sqlTa) > 0) {
 
 // --- 2. Ambil Data Siswa dan Kelas untuk Dropdown ---
 $querySiswa = mysqli_query($con, "
-    SELECT 
-        a.id_siswa, 
-        a.nama_siswa, 
+    SELECT
+        a.id_siswa,
+        a.nama_siswa,
         b.kelas  -- Menggunakan kolom 'kelas' dari tb_kelas
-    FROM 
+    FROM
         tb_siswa a
-    INNER JOIN 
+    INNER JOIN
         tb_kelas b ON a.idkelas = b.idkelas
-    ORDER BY 
+    ORDER BY
         b.kelas, a.nama_siswa
+") or die(mysqli_error($con));
+
+// --- 3. Ambil Data Guru untuk Dropdown Guru Piket ---
+$queryGuru = mysqli_query($con, "
+    SELECT
+        id_guru,
+        nama_guru
+    FROM
+        tb_guru
+    ORDER BY
+        nama_guru
 ") or die(mysqli_error($con));
 ?>
 
 <div class="card">
     <div class="card-header">
-        <strong class="card-title"> 
+        <strong class="card-title">
             <span class="fa fa-pencil"></span> Form Input Data Keterlambatan Siswa
         </strong>
     </div>
     <div class="card-body">
-        
-        <form action="?page=act" method="POST"> 
+
+        <form action="?page=act" method="POST">
             <div class="form-group">
                 <label for="tanggal">Tanggal Terlambat</label>
                 <input type="date" name="tanggal" id="tanggal" class="form-control" required value="<?php echo date('Y-m-d'); ?>">
             </div>
-            
+
             <div class="form-group">
                 <label for="id_siswa">Nama Siswa / Kelas</label>
                 <select name="id_siswa" id="id_siswa" class="form-control" required>
                     <option value="">-- Pilih Siswa --</option>
-                    <?php 
+                    <?php
                     // Loop data siswa dari database
                     while($dataSiswa = mysqli_fetch_array($querySiswa)) { ?>
                         <option value="<?=$dataSiswa['id_siswa']?>">
@@ -54,34 +65,50 @@ $querySiswa = mysqli_query($con, "
                     <?php } ?>
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label for="waktu_masuk">Waktu Masuk</label>
                 <input type="time" name="waktu_masuk" id="waktu_masuk" class="form-control" required>
                 <small class="form-text text-muted">Contoh: 07:15. Waktu siswa tiba di sekolah.</small>
             </div>
-            
+
+            <div class="form-group">
+                <label for="id_guru_piket">Guru Piket yang Mencatat</label>
+                <select name="id_guru_piket" id="id_guru_piket" class="form-control">
+                    <option value="">-- Pilih Guru Piket --</option>
+                    <option value="">Tidak Diketahui (Diisi oleh Admin)</option>
+                    <?php
+                    // Loop data guru dari database
+                    while($dataGuru = mysqli_fetch_array($queryGuru)) { ?>
+                        <option value="<?=$dataGuru['id_guru']?>">
+                            <?=$dataGuru['nama_guru']?>
+                        </option>
+                    <?php } ?>
+                </select>
+                <small class="form-text text-muted">Pilih guru yang seharusnya mencatat kehadiran ini.</small>
+            </div>
+
             <div class="form-group">
                 <label for="keterangan">Keterangan</label>
                 <textarea name="keterangan" id="keterangan" class="form-control" rows="3"></textarea>
                 <small class="form-text text-muted">Catatan/alasan keterlambatan (Opsional).</small>
             </div>
-            
+
             <hr>
-            
+
             <div class="form-group">
-                <button type="submit" name="keterlambatan_siswa" class="btn btn-info"> 
-                    <span class="fa fa-save"></span> Simpan 
+                <button type="submit" name="keterlambatan_siswa" class="btn btn-info">
+                    <span class="fa fa-save"></span> Simpan
                 </button>
-                <button type="reset" class="btn btn-danger"> 
-                    <span class="fa fa-refresh"></span> Reset 
+                <button type="reset" class="btn btn-danger">
+                    <span class="fa fa-refresh"></span> Reset
                 </button>
-                <a href="javascript:history.back()" class="btn btn-warning"> 
-                    <span class="fa fa-chevron-left"></span> Kembali 
+                <a href="javascript:history.back()" class="btn btn-warning">
+                    <span class="fa fa-chevron-left"></span> Kembali
                 </a>
             </div>
-            
+
         </form>
-        
+
     </div>
 </div>

@@ -1,4 +1,19 @@
-<div class="row">   
+<?php
+session_start();
+include '../koneksi.php';
+
+// Pastikan hanya user dengan sesi 'guru' yang bisa mengakses
+if (!isset($_SESSION['guru'])) {
+    header("Location: ../index.php"); // Arahkan ke index jika sesi tidak ada
+    exit();
+}
+
+$sesi = $_SESSION['guru']; // Menggunakan $_SESSION['guru']
+$sql = mysqli_query($con, "SELECT * FROM tb_guru WHERE id_guru = '$sesi'") or die(mysqli_error($con));
+$data = mysqli_fetch_array($sql);
+?>
+
+<div class="row">
 
 <div class="col-md-8 offset-md-3 mr-auto ml-auto">
                     <div class="card" style="border-radius:10px;">
@@ -44,8 +59,9 @@
                                 </div>
                                  <div class="form-group">
                                     <label>Jurusan</label>
-                                    <select name="jurusan" data-placeholder="Choose a country..." multiple class="standardSelect">
+                                    <select name="jurusan" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
                                     <option value=""></option>
+                                    <option value="" selected>- Pilih Jurusan -</option>
                                         <option value="TKJ"> TKJ</option>
                                         <option value="TKR"> TKR</option>
                                         <option value="RPL"> RPL</option>
@@ -63,9 +79,9 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <button class="btn btn-primary" type="submit" name="Tmapel"> <span class="fa fa-save"></span> Simpan</button>  
+                                    <button class="btn btn-primary" type="submit" name="Tmapel"> <span class="fa fa-save"></span> Simpan</button>
                                      <button class="btn btn-danger" type="reset"> <span class="fa fa-close"></span> Reset</button>
-                                     <a href="javascript:history.back()" class="btn btn-warning"> <span class="fa fa-chevron-left"></span> Kembali </a>                                   
+                                     <a href="javascript:history.back()" class="btn btn-warning"> <span class="fa fa-chevron-left"></span> Kembali </a>
                                 </div>
 
                             </form>

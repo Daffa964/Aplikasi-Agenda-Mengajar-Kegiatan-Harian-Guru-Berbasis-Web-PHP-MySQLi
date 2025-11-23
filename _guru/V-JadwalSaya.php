@@ -58,22 +58,30 @@ if ($sqlTa && mysqli_num_rows($sqlTa) > 0) {
                     <tbody>
                         <?php 
                         $no = 1;
-                        // Query Jadwal Piket: Filter berdasarkan ID Guru yang sedang login ($sesi)
+                        
+                        // ### KODE YANG DIPERBAIKI ###
+                        // Query Jadwal Piket: Filter berdasarkan ID Guru ATAU ID Guru Pengganti
                         $sqlJadwalSaya = mysqli_query($con, "
                             SELECT 
                                 jp.*, 
-                                gp.nama_guru AS nama_guru_pengganti
+                                gp.nama_guru AS nama_guru_pengganti,
+                                ga.nama_guru AS nama_guru_asli /* Mengambil nama guru asli */
                             FROM 
                                 tb_jadwal_piket jp
                             LEFT JOIN 
                                 tb_guru gp ON jp.id_guru_pengganti = gp.id_guru
+                            LEFT JOIN 
+                                tb_guru ga ON jp.id_guru = ga.id_guru /* JOIN kedua untuk guru asli */
                             WHERE 
-                                jp.id_guru = '" . mysqli_real_escape_string($con, $id_guru_sesi) . "'
+                                (jp.id_guru = '" . mysqli_real_escape_string($con, $id_guru_sesi) . "'
+                                 OR 
+                                 jp.id_guru_pengganti = '" . mysqli_real_escape_string($con, $id_guru_sesi) . "')
                                 " . ($id_tajaran_aktif ? "AND jp.id_tajaran = '$id_tajaran_aktif'" : "") . "
                             ORDER BY 
                                 jp.tanggal_piket DESC
                         "); 
-                        
+                        // ### AKHIR KODE YANG DIPERBAIKI ###
+
                         // Pengecekan Error Query
                         if (!$sqlJadwalSaya) {
                             echo "<tr><td colspan='6' class='text-center text-danger'>SQL ERROR: " . mysqli_error($con) . "</td></tr>";
@@ -86,21 +94,30 @@ if ($sqlTa && mysqli_num_rows($sqlTa) > 0) {
                                 if ($data['status_pengganti'] == 'Ya') {
                                     $badge_class = 'badge-success';
                                 } elseif ($data['status_pengganti'] == 'Tidak') {
-                                     $badge_class = 'badge-danger';
+                                    $badge_class = 'badge-danger';
                                 }
+                                
+                                // Cek apakah guru ini adalah pengganti
+                                $isPengganti = ($data['id_guru_pengganti'] == $id_guru_sesi);
                                 ?>
                                 <tr>
                                     <td><center><?= $no++; ?>.</center></td>
                                     <td>
                                         <strong><?= date('d F Y', strtotime($data['tanggal_piket'])); ?></strong>
+                                        <?php if ($isPengganti): ?>
+                                            <br><span class="badge badge-info">Tugas Pengganti</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>**<?= htmlspecialchars($data['hari_piket']); ?>**</td>
                                     <td>
                                         <?php 
+                                        if ($isPengganti) {
+                                            // Jika login sebagai pengganti, tampilkan guru asli
+                                            echo 'Menggantikan: <strong>' . htmlspecialchars($data['nama_guru_asli']) . '</strong>';
+                                        } else {
+                                            // Jika login sebagai guru asli, tampilkan guru pengganti (jika ada)
                                             echo htmlspecialchars($data['nama_guru_pengganti'] ?? 'Tidak Ada');
-                                            if (!empty($data['catatan_penggantian'])) {
-                                                echo '<br><small class="text-muted">Catatan: ' . htmlspecialchars($data['catatan_penggantian']) . '</small>';
-                                            }
+                                        }
                                         ?>
                                     </td>
                                     <td>

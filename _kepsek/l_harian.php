@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">
           <span class="fa fa-file-o"></span> Laporan Kegiatan Harian
-        </h3> 
+        </h3>
 
 
     </div>
@@ -19,14 +19,14 @@
        Aksi
      </th>
 
-                      
+
   </tr>
 </thead>
 <tbody>
-  <?php 
+  <?php
   $no=1;
-    $now = date('y-m-d'); 
-  $sql = mysqli_query($con," SELECT * FROM tb_guru GROUP BY id_guru ASC") or die(mysqli_error($con));
+    $now = date('Y-m-d');
+  $sql = mysqli_query($con," SELECT * FROM tb_guru ORDER BY id_guru ASC") or die(mysqli_error($con));
   while ( $data=mysqli_fetch_array($sql)) {
   ?>
   <tr>
@@ -34,7 +34,7 @@
     <td><?php echo $data['nama_guru'] ?> </td>
     <td>
 <?php
- $now = date('y-m-d'); 
+ $now = date('y-m-d');
 $pr =mysqli_num_rows(mysqli_query($con,"SELECT * FROM tb_agenda WHERE tgl='$now' AND id_guru='$data[id_guru]' "));
 ?>
 <?php
@@ -47,7 +47,7 @@ echo "<b><span style='color:red;font-size:23px;'>$pr</span> </b> Kali Mengisi Ag
 
   </tr>
 <?php } ?>
- 
+
 </tbody>
 </table>
     </div>

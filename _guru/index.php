@@ -16,6 +16,7 @@ $data = mysqli_fetch_array($sql);
 
 <!doctype html>
 <html class="no-js" lang="">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,6 +42,7 @@ $data = mysqli_fetch_array($sql);
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
 </head>
+
 <body>
     <aside id="left-panel" class="left-panel" style="font-family: sans-serif;">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -55,25 +57,25 @@ $data = mysqli_fetch_array($sql);
 
             <div id="main-menu" class="main-menu collapse navbar-collapse" style="font-family: sans-serif;">
                 <ul class="nav navbar-nav">
-                    <li> 
+                    <li>
                         <br>
                         <center>
                             <img src="../images/<?php echo htmlspecialchars($data['photo']); ?>" class="img-responsive" style=" border:2px dashed silver; border-radius:100%; height: 80px;width: 80px;">
                             <p> <code><b><?php echo htmlspecialchars($data['nama_guru']); ?></b> </code> </p>
                         </center>
-                    </li> 
+                    </li>
                     <hr style="border:1px solid white; width: 100%;">
-                    
+
                     <h3 class="menu-title">Menu Utama</h3>
-                    
+
                     <li class="<?php echo ($_GET['page'] == '' || $_GET['page'] == 'cover') ? 'active' : ''; ?>">
-                        <a href="?page=cover" > 
-                            <i class="menu-icon fa fa-home" style="font-size: 23px;color: #40c4ff;"></i>Dashboard 
+                        <a href="?page=cover">
+                            <i class="menu-icon fa fa-home" style="font-size: 23px;color: #40c4ff;"></i>Dashboard
                         </a>
-                    </li> 
+                    </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-calendar-check-o" style="font-size: 23px;color: #40c4ff;"></i> Tugas Piket
                         </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -87,30 +89,42 @@ $data = mysqli_fetch_array($sql);
                             </li>
                             <li>
                                 <i class="menu-icon fa fa-user" style="font-size: 20px;color:#f50057 ;"></i>
-                                <a href="?page=v_kehadiran_guru"> Presensi Kehadiran</a>
+                                <a href="?page=t_kehadiran"> Input Kehadiran Harian</a>
+                            </li>
+                            <li>
+                                <i class="menu-icon fa fa-history" style="font-size: 20px;color:#f50057 ;"></i>
+                                <a href="?page=v_kehadiran"> Riwayat Kehadiran Saya</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-users" style="font-size: 23px;color:#40c4ff ;"></i> Kedisiplinan Siswa
                         </a>
                         <ul class="sub-menu children dropdown-menu">
                             <li>
                                 <i class="menu-icon fa fa-file-text" style="font-size: 20px;color:#f50057 ;"></i>
-                                <a href="?page=v_izin_siswa"> Catat Izin Siswa</a>
+                                <a href="?page=t_izin_siswa"> Catat Izin Siswa</a>
                             </li>
                             <li>
                                 <i class="menu-icon fa fa-clock-o" style="font-size: 20px;color:#f50057 ;"></i>
-                                <a href="?page=v_keterlambatan_siswa"> Catat Keterlambatan</a>
+                                <a href="?page=t_keterlambatan_siswa"> Catat Keterlambatan</a>
+                            </li>
+                            <li>
+                                <i class="menu-icon fa fa-history" style="font-size: 20px;color:#f50057 ;"></i>
+                                <a href="?page=v_izin_siswa"> Lihat Riwayat Izin</a>
+                            </li>
+                            <li>
+                                <i class="menu-icon fa fa-history" style="font-size: 20px;color:#f50057 ;"></i>
+                                <a href="?page=v_keterlambatan_siswa"> Lihat Riwayat Keterlambatan</a>
                             </li>
                         </ul>
                     </li>
-                    <h3 class="menu-title">Data & Laporan</h3> 
-                    
+                    <h3 class="menu-title">Data & Laporan</h3>
+
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-tasks" style="font-size: 23px;color: #40c4ff;"></i> Agenda Harian
                         </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -128,25 +142,25 @@ $data = mysqli_fetch_array($sql);
                             </li>
                         </ul>
                     </li>
-                    
+
 
                     <li>
-                        <a href="?page=file"> 
-                            <i class="menu-icon fa fa-folder-open" style="font-size: 23px;color: #40c4ff;"></i> File Pengajaran 
+                        <a href="?page=file">
+                            <i class="menu-icon fa fa-folder-open" style="font-size: 23px;color: #40c4ff;"></i> File Pengajaran
                         </a>
                     </li>
                     <li>
-                        <a href="?page=lap-harian"> 
-                            <i class="menu-icon fa fa-print" style="font-size: 23px;color: #40c4ff;"></i> Laporan Harian 
+                        <a href="?page=lap-harian">
+                            <i class="menu-icon fa fa-print" style="font-size: 23px;color: #40c4ff;"></i> Laporan Harian
                         </a>
                     </li>
 
-                    <h3 class="menu-title">Pengaturan</h3> 
+                    <h3 class="menu-title">Pengaturan</h3>
                     <li>
-                        <a href="?page=profil"> 
+                        <a href="?page=profil">
                             <i class="menu-icon fa fa-cog" style="font-size: 23px;color: #40c4ff;"></i> My Profile
                         </a>
-                    </li> 
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -200,19 +214,33 @@ $data = mysqli_fetch_array($sql);
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-md-12"> 
-                        
+                    <div class="col-md-12">
+
                         <?php
                         error_reporting(0);
                         // Default page adalah 'cover' jika $_GET['page'] tidak diset
-                        $page = $_GET['page'] ?? 'cover'; 
+                        $page = $_GET['page'] ?? 'cover';
 
                         switch ($page) {
-                            
+
+                            // Kedisiplinan Siswa - Teacher local versions (must be first!)
+                            case 't_izin_siswa':
+                                include 'T-IzinSiswa.php';
+                                break;
+                            case 'v_izin_siswa':
+                                include 'V-IzinSiswa.php';
+                                break;
+                            case 't_keterlambatan_siswa':
+                                include 'T-KeterlambatanSiswa.php';
+                                break;
+                            case 'v_keterlambatan_siswa':
+                                include 'V-KeterlambatanSiswa.php';
+                                break;
+
                             // --- CASE BARU UNTUK FITUR PIKET DARI FOLDER ADMIN ---
                             case 'proses':
                                 // PENTING: Menangkap kiriman form dari V-KehadiranGuru, V-IzinSiswa, dll.
-                                include '../_admin/proses.php'; 
+                                include '../_admin/proses.php';
                                 break;
                             case 'v_kehadiran_guru':
                                 include '../_admin/V-KehadiranGuru.php';
@@ -220,20 +248,8 @@ $data = mysqli_fetch_array($sql);
                             case 'e_kehadiran_guru': // Halaman edit kehadiran
                                 include '../_admin/E-KehadiranGuru.php';
                                 break;
-                            case 'v_keterlambatan_siswa': // Link dari menu 'v_keterlambatan'
-                                include '../_admin/V-Keterlambatan.php';
-                                break;
-                            case 't_keterlambatan_siswa': // Halaman tambah keterlambatan
-                                include '../_admin/T-KeterlambatanSiswa.php';
-                                break;
                             case 'd_keterlambatan_siswa': // Halaman hapus keterlambatan
                                 include '../_admin/D-KeterlambatanSiswa.php';
-                                break;
-                            case 'v_izin_siswa': // Link dari menu 'v_izin_siswa'
-                                include '../_admin/V-IzinSiswa.php';
-                                break;
-                            case 't_izin_siswa': // Halaman tambah izin
-                                include '../_admin/T-IzinSiswa.php';
                                 break;
                             case 'e_izin_siswa': // Halaman edit/persetujuan izin
                                 include '../_admin/E-IzinSiswa.php';
@@ -241,8 +257,28 @@ $data = mysqli_fetch_array($sql);
                             case 'd_izin_siswa': // Halaman hapus izin
                                 include '../_admin/D-IzinSiswa.php';
                                 break;
-                            
+
                             // --- CASE YANG SUDAH ADA DI FILE ASLI ANDA ---
+                            case 't_ajukan_pengganti':
+                                include 'T-AjukanPengganti.php'; // Muat file form
+                                break;
+
+                            case 't_kehadiran':
+                                include 'T-Kehadiran.php';
+                                break;
+                            case 'v_kehadiran':
+                                include 'V-Kehadiran.php';
+                                break;
+
+                            // Tugas Piket Lokal
+                            case 'v_jadwal_saya':
+                                include 'V-JadwalSaya.php';
+                                break;
+                            case 'v_ajukan_pengganti':
+                                include 'V-AjukanPengganti.php';
+                                break;
+
+
                             case 'cover':
                                 include 'cover.php';
                                 break;
@@ -251,20 +287,15 @@ $data = mysqli_fetch_array($sql);
                                 break;
                             case 'act':
                                 // Ini adalah proses.php milik _guru (untuk ajukan pengganti)
-                                include 'proses.php'; 
+                                include 'proses.php';
                                 break;
-                            
-                            // Tugas Piket Lokal
-                            case 'v_jadwal_saya':
-                                include 'V-JadwalSaya.php';
-                                break;
-                            case 'v_ajukan_pengganti':
-                                include 'V-AjukanPengganti.php';
-                                break;
-                            
+
                             // Agenda Harian
                             case 'mapel':
                                 include 'V-Mapel.php';
+                                break;
+                            case 'add-mapel':
+                                include 'T-Mapel.php';
                                 break;
                             case 'edit-mapel':
                                 include 'E-Mapel.php';
@@ -277,6 +308,9 @@ $data = mysqli_fetch_array($sql);
                                 break;
                             case 'add-agenda': // Link dari V-Jurnal.php
                                 include 'T-Agenda.php';
+                                break;
+                            case 'add-agendamapel': // Link dari T-Agenda.php untuk menambah agenda
+                                include 'T-AgendaMapel.php';
                                 break;
                             case 'edit-agenda':
                                 include 'E-Agenda.php';
@@ -311,16 +345,16 @@ $data = mysqli_fetch_array($sql);
                                 include 'D-File.php';
                                 break;
                             case 'lap-harian':
-                                include 'L-Harian.php'; 
+                                include 'L-Harian.php';
                                 break;
-                                
+
                             // Default
                             default:
                                 echo "<center> <h3><b> Maaf Halaman Tidak Tersedia !!</b></h3> </center>";
                                 break;
                         }
                         ?>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -352,13 +386,13 @@ $data = mysqli_fetch_array($sql);
                 width: "100%"
             });
         });
-        
+
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
             $('#bootstrap-data-table-export1').DataTable();
         });
     </script>
-    
+
     <script>
         jQuery(document).ready(function($) {
             // Ketika tombol "Ajukan" di-klik
@@ -379,4 +413,5 @@ $data = mysqli_fetch_array($sql);
     </script>
 
 </body>
+
 </html>
