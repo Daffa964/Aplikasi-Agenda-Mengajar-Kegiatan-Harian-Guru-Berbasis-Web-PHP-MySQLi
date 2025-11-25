@@ -46,7 +46,7 @@
           </div>
           <div class="form-group">
             <label for="nf-password" class=" form-control-label">Keterangan</label>
-            <textarea class="form-control" name="ket"><?php echo $data['ket']; ?></textarea>
+            <textarea class="form-control" name="ket" placeholder="Catatan profesional mengenai pelaksanaan pembelajaran..."><?php echo $data['ket']; ?></textarea>
           </div>
 
         </div>
@@ -81,9 +81,9 @@
       // header('window.location=?page=add-agenda&idg='.$id_mapel);
 
 
-      echo " 
+      echo "
 <script>
-alert('Data Berhasil Disimpan !!');
+alert('Data Berhasil Disimpan.');
 window.location='?page=add-agenda& idg=  $data[id_mapel] ';
 
 

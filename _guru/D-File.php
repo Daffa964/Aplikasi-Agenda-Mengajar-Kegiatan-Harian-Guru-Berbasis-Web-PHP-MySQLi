@@ -8,17 +8,12 @@ INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru
 WHERE download.id_perangkat = '$idg'");
 $data= mysqli_fetch_array($sqlMapel);
 ?>
-<!-- YamibBae Says !! Koding diatas gak harus ada karena saya capek ngetik ulang ya copas aja [ yang perlu itu cuma mengambil data id mapel nya aja supaya bisa kembali ke halaman semula] -->
-
-
-
-
-<?php 
+<?php
 $idg= $_GET['idg'];
 mysqli_query($con,"DELETE FROM download WHERE id_perangkat='$idg' ") or die(mysqli_error($con)) ;
-echo " 
+echo "
 <script>
-alert('Data Telah Terhapus !!');
+alert('Data Berhasil Dihapus.');
 window.location='?page=add-file& idg=  $data[id_mapel] ';
 
 

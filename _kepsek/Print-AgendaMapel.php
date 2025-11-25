@@ -5,17 +5,17 @@
 	<style>
 	body{
 		font-family: "Arial Narrow", Arial, sans-serif;
-		
-	
+
+
 	}
 	</style>
 </head>
 <body>
-		<?php 
+		<?php
 		include '../koneksi.php';
 	$idg = $_GET['idg'];
 	$sqlMapel= mysqli_query($con, "SELECT tb_mapel.*,tb_kelas.idkelas,tb_kelas.kelas,tb_guru.id_guru,tb_guru.nama_guru,tb_guru.nip
-                    FROM tb_mapel 
+                    FROM tb_mapel
                     INNER JOIN tb_kelas ON tb_mapel.idkelas=tb_kelas.idkelas
                     INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru WHERE tb_mapel.id_mapel = '$idg'
 		 ");
@@ -25,7 +25,7 @@
 <!-- 	<center>
 		 <h3><p>
 	 	Agenda Mengajar Guru <br> SMKN 4 PAYAKUMBUH <br>
-	 	Tahun Ajaran 2017/2018 </h3>
+	 	Tahun Ajaran 2025/2026 </h3>
 	 </p>
 	</center> -->
 
@@ -33,10 +33,10 @@
 	<table width="100%" height="100%" style="border: 2px dashed;">
   <tr>
     <td><h2><p align="center">LAPORAN KEGIATAN HARIAN GURU</p>
-    <p align="center">TAHUN AJARAN 2018-2018  </p></h2>
+    <p align="center">TAHUN AJARAN 2025/2026  </p></h2>
     <hr style="border: 2px;">
     <br>
-  
+
     <p align="center" class="style1"><img src="../images/logo.jpg" width="155" height="149" /></p>
     <table width="200" align="center">
       <tr>
@@ -52,7 +52,7 @@
     </table>
        <br>
     <br>
-  
+
     <center><p><h2>SMK NEGERI 4 PAYAKUMBUH</h2></p></center>
     <p align="center" class="style1">Jl.Koto Kaciak, Padang Sikabu, Kec Lamposi Tigo Nagori</p>
     <p align="center" class="style1"> Email : smkn4pyk@com</p>
@@ -91,21 +91,21 @@
 	 			<td>:</td>
 	 			<td> <?php echo date('d F Y'); ?> </td>
 	 		</tr>
-	 
+
 	 </table>
 	 <hr>
 	<table border="2" width="100%" cellspacing="0" cellpadding="4" style="border-collapse: collapse;">
-   
+
                       <tr height="40">
                         <th>No.</th>
                         <th>Tanggal</th>
                        <!--  <th>Kelas</th> -->
                         <th>Materi</th>
                         <th>Absen</th>
-                        <th>Keterangan</th>                 
+                        <th>Keterangan</th>
                       </tr>
 
-                      <?php 
+                      <?php
                       $no=1;
                         $sql = mysqli_query($con,"SELECT tb_agenda.*,tb_mapel.nama_mapel,tb_mapel.jurusan,tb_mapel.tingkat,tb_kelas.idkelas,tb_kelas.kelas
                         FROM tb_agenda INNER JOIN tb_mapel ON tb_agenda.id_mapel=tb_mapel.id_mapel
@@ -125,14 +125,14 @@
                         <td><?=$data['absen'];?></td>
                         <td><?=$data['ket'];?></td>
                       </tr>
-                      <?php 
+                      <?php
                        }
 
                        ?>
-                     
-                
 
-    <?php 
+
+
+    <?php
     include '../koneksi.php';
 
   $sqlMapel= mysqli_query($con, "SELECT * FROM tb_kepsek ORDER BY id_kepsek DESC LIMIT 1

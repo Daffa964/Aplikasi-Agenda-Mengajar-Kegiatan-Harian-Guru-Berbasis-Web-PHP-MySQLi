@@ -25,7 +25,7 @@
 <!-- 	<center>
 		 <h3><p>
 	 	Agenda Mengajar Guru <br> SMKN 4 PAYAKUMBUH <br>
-	 	Tahun Ajaran 2017/2018 </h3>
+	 	Tahun Ajaran 2025/2026 </h3>
 	 </p>
 	</center> -->
 
@@ -33,7 +33,7 @@
 	<table width="100%" height="100%" style="border: 2px dashed;">
   <tr>
     <td><h2><p align="center">LAPORAN KEGIATAN HARIAN GURU</p>
-    <p align="center">TAHUN AJARAN 2018-2018  </p></h2>
+    <p align="center">TAHUN AJARAN 2025/2026  </p></h2>
     <hr style="border: 2px;">
     <br>
   

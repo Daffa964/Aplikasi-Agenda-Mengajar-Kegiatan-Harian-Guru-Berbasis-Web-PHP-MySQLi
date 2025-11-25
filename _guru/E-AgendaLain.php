@@ -37,7 +37,7 @@
                   </div>
                   <div class="form-group">
                   	<label for="nf-password" class=" form-control-label">Keterangan</label>
-                  	<textarea class="form-control" name="ket"><?php echo $data['keterangan']; ?></textarea>
+                  	<textarea class="form-control" name="ket" placeholder="Catatan resmi terkait kegiatan..."><?php echo $data['keterangan']; ?></textarea>
                   </div>
               
               </div>
@@ -69,9 +69,9 @@ mysqli_query($con, " UPDATE tb_agendalain SET tgl_kgt='$tgl',kegiatan='$judul',i
 // header('window.location=?page=add-agenda&idg='.$id_mapel);
 
 
-echo " 
+echo "
 <script>
-alert('Data Berhasil DiUbah !!');
+alert('Data Berhasil Diubah.');
 window.location='?page=aglain';
 
 

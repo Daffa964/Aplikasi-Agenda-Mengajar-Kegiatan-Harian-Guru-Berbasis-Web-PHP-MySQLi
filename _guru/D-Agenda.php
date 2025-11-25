@@ -9,7 +9,7 @@ $id_mapel = $data['id_mapel'];
 mysqli_query($con,"DELETE FROM tb_agenda WHERE id_agenda='$idg' ") or die(mysqli_error($con)) ;
 echo "
 <script>
-alert('Data Telah Terhapus !!');
+alert('Data Berhasil Dihapus.');
 window.location='?page=add-agenda&idg=$id_mapel';
 
 

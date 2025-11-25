@@ -44,17 +44,17 @@ CREATE TABLE `download` (
 --
 
 INSERT INTO `download` (`id_perangkat`, `id_guru`, `id_mapel`, `ket`, `tanggal_upload`, `nama_file`, `tipe_file`, `ukuran_file`, `file`) VALUES
-(1, 7, 18, 'Untuk Bukti Kalau Saya Sudah Wisuda', '2018-05-20', 'Transkip Nilai Terakhir Saya', 'pdf', '296066', '../file/Transkip Nilai Terakhir Saya.pdf'),
-(2, 1, 9, 'RPP', '2018-05-22', 'Perangkat Pengajaran 1', 'docx', '20791', '../file/Perangkat Pengajaran 1.docx'),
-(3, 1, 9, 'SILABUS', '2018-05-22', 'Perangkat Pengajaran 2', 'docx', '20791', '../file/Perangkat Pengajaran 2.docx'),
-(4, 1, 9, 'Program Tahunan', '2018-05-22', 'Perangkat Pengajaran 3', 'docx', '20791', '../file/Perangkat Pengajaran 3.docx'),
-(7, 7, 24, 'Hanya Test', '2018-06-11', 'Tes Upload', 'pdf', '296066', '../file/Tes Upload.pdf'),
-(6, 1, 21, 'pERANGKAT', '2018-05-24', 'RPP', 'pdf', '278892', '../file/RPP.pdf'),
-(8, 1, 19, 'Perangkat', '2018-07-08', 'RPP', 'pdf', '806020', '../file/RPP.pdf'),
-(9, 11, 29, 'PERANGKAT', '2018-07-19', 'SILABUS', 'pdf', '484705', '../file/SILABUS.pdf'),
-(10, 1, 19, 'Perangkat', '2018-08-02', 'Silabus', 'pdf', '296266', '../file/Silabus.pdf'),
-(11, 1, 22, 'Perangkat', '2018-08-02', 'Silabus', 'docx', '37170', '../file/Silabus.docx'),
-(12, 1, 34, 'Perangkat', '2018-08-19', 'Silabus', 'pdf', '1708967', '../file/Silabus.pdf');
+(1, 7, 18, 'Laporan Akhir Semester Gasal', '2025-05-20', 'Laporan Pembelajaran Teknik Pemrograman', 'pdf', '296066', '../file/Laporan-Pembelajaran-Teknik-Pemrograman.pdf'),
+(2, 1, 9, 'Rencana Pelaksanaan Pembelajaran (RPP)', '2025-05-22', 'RPP Pemrograman Berbasis Objek', 'docx', '20791', '../file/RPP-Pemrograman-Berbasis-Objek.docx'),
+(3, 1, 9, 'Silabus Mata Pelajaran', '2025-05-22', 'Silabus Sistem Operasi dan Jaringan', 'docx', '20791', '../file/Silabus-Sistem-Operasi-dan-Jaringan.docx'),
+(4, 1, 9, 'Program Tahunan', '2025-05-22', 'Program Tahunan Pengembangan Perangkat Lunak', 'docx', '20791', '../file/Program-Tahunan-Pengembangan-Perangkat-Lunak.docx'),
+(7, 7, 24, 'Evaluasi Pembelajaran', '2025-06-11', 'Evaluasi Tengah Semester', 'pdf', '296066', '../file/Evaluasi-Tengah-Semester.pdf'),
+(6, 1, 21, 'Perangkat Ajar', '2025-05-24', 'RPP Pengembangan Aplikasi Mobile', 'pdf', '278892', '../file/RPP-Pengembangan-Aplikasi-Mobile.pdf'),
+(8, 1, 19, 'Perangkat Pembelajaran', '2025-07-08', 'RPP Implementasi Database', 'pdf', '806020', '../file/RPP-Implementasi-Database.pdf'),
+(9, 11, 29, 'Perangkat Ajar', '2025-07-19', 'Silabus Keamanan Jaringan dan Sistem', 'pdf', '484705', '../file/Silabus-Keamanan-Jaringan-dan-Sistem.pdf'),
+(10, 1, 19, 'Perangkat Ajar', '2025-08-02', 'Silabus Pemrograman Web', 'pdf', '296266', '../file/Silabus-Pemrograman-Web.pdf'),
+(11, 1, 22, 'Perangkat Ajar', '2025-08-02', 'Silabus Proyek Akhir', 'docx', '37170', '../file/Silabus-Proyek-Akhir.docx'),
+(12, 1, 34, 'Perangkat Ajar', '2025-08-19', 'Silabus Pemrograman Python', 'pdf', '1708967', '../file/Silabus-Pemrograman-Python.pdf');
 
 -- --------------------------------------------------------
 
@@ -79,37 +79,37 @@ CREATE TABLE `tb_agenda` (
 --
 
 INSERT INTO `tb_agenda` (`id_agenda`, `id_guru`, `id_mapel`, `tgl`, `jam`, `materi`, `absen`, `ket`, `status`) VALUES
-(17, 7, 18, '2018-05-17', '19:14', '<p>Apa ini</p>\r\n', 'Cukup', 'Cukup melelahkan Logikanya', ''),
-(24, 7, 18, '2018-05-22', '19:00', '<p>Tes Hari</p>\r\n', 'pas', 'stop', ''),
-(26, 1, 20, '2018-05-23', '21:01', '<p>tes ajo woi</p>\r\n', 'pas bna ko', 'ketttttttt', ''),
-(28, 1, 19, '2018-05-25', '22:01', '<p>Admin tees</p>\r\n', 'Admin tees', 'Admin tees', ''),
-(29, 1, 19, '2018-05-25', '23:59', '<p>hgk</p>\r\n', 'jgj', 'jgh', ''),
-(31, 1, 20, '2016-11-30', '23:57', '<p>isiiiii nyo ko .............</p>\r\n', 'cukup', 'cukop', ''),
-(33, 9, 26, '2018-05-27', '14:58', '<p>B J VHJVHJVGHVGH</p>\r\n', 'VVGVG', 'VGVGV', ''),
-(34, 9, 27, '2018-05-27', '12:59', '<p>NJBJB</p>\r\n', 'BUUG', 'UUGUG', ''),
-(35, 7, 18, '2018-04-13', '01:30', '<p>Mengajra materi lanjutan dari materi kemaren ..</p>\r\n', '2', '2 Orang Siswa Tidak Hadir', ''),
-(36, 1, 22, '2018-07-08', '02:58', '<p>cfcfcfcfcfcfcfcf</p>\r\n', 'Cukup', 'Selesai', ''),
-(37, 1, 22, '2018-07-08', '03:04', '<p>bgvtftfkljnjknkjnjknjnj</p>\r\n', 'gygyf', 'ffgcfcf', ''),
-(38, 11, 29, '2018-07-19', '04:04', '<p>hjvhjg</p>\r\n', 'cukup', 'pas', ''),
-(39, 11, 29, '2018-07-20', '08:08', '<p>rf</p>\r\n', 'kurr', 'dsdddd', ''),
-(40, 11, 29, '2018-07-19', '06:06', '<p>gggggg</p>\r\n', 'ggg', 'gg', ''),
-(41, 11, 30, '2018-07-19', '23:01', '<p>GGF</p>\r\n', 'CCC', 'CC', ''),
-(42, 1, 19, '2018-08-02', '22:59', '<p>nhjfwebfkwenjkhwebg</p>\r\n', 'pass', 'Cukup', ''),
-(43, 10, 31, '2018-08-03', '23:59', '<p>Form Agenda [&nbsp;<strong>Instalasi SO Berbasis GUI</strong>&nbsp;]</p>\r\n', 'Cukup', 'Form Agenda [ Instalasi SO Berbasis GUI ]', ''),
-(44, 1, 33, '2018-08-03', '22:58', '<p>njnjnnknkn</p>\r\n', 'Cukup', 'mjnj', ''),
-(45, 1, 19, '2018-08-18', '09:01', '<p>Aku akan pergi ke mana</p>\r\n', 'Cukup', 'Pass', ''),
-(46, 8, 25, '2018-08-18', '10:10', '<p>Malakukan Instalasi SO</p>\r\n', 'Pass', 'Cukup', ''),
-(47, 9, 27, '2018-08-18', '07:50', '<p>Belajar Bersama</p>\r\n', 'Pass', 'Cukup', ''),
-(48, 1, 19, '2018-08-19', '07:30', '<p>mdndfj</p>\r\n', 'nnjn', 'jj', ''),
-(49, 8, 25, '2018-08-19', '08:30', '<p>nuhu</p>\r\n', 'uhuhuh', 'uhuhu', ''),
-(50, 11, 29, '2018-08-19', '10:30', '<p>FGD</p>\r\n', 'GDG', 'GSDG', ''),
-(51, 1, 20, '2018-08-19', '12:30', '<p>njjnj</p>\r\n', 'njnjn', 'njn', ''),
-(52, 1, 20, '2018-08-19', '08:00', '<p>FSG</p>\r\n', 'DG', 'GFD', ''),
-(53, 1, 33, '2018-08-19', '03:04', '<p>ggyg</p>\r\n', 'ygygy', 'gygy', ''),
-(54, 1, 33, '2018-08-19', '06:59', '<p>APA</p>\r\n', 'IYA', 'TIDAK', ''),
-(55, 1, 34, '2018-08-19', '05:00', '<p>DF</p>\r\n', 'FESG', 'GDH', ''),
-(56, 1, 19, '2018-08-19', '06:40', '<p>GX</p>\r\n', 'GDFG', 'GDG', ''),
-(57, 1, 19, '2018-08-19', '06:59', '<p>fgsg</p>\r\n', 'gdf', 'gdf', '');
+(17, 7, 18, '2025-05-17', '19:14', '<p>Pengenalan Konsep Dasar Pemrograman</p>\r\n', 'Cukup', 'Siswa aktif dalam diskusi kelas', ''),
+(24, 7, 18, '2025-05-22', '19:00', '<p>Praktikum Struktur Data</p>\r\n', 'Baik', 'Siswa antusias mengikuti praktikum', ''),
+(26, 1, 20, '2025-05-23', '21:01', '<p>Pembelajaran Sistem Operasi</p>\r\n', 'Baik', 'Materi berjalan dengan lancar', ''),
+(28, 1, 19, '2025-05-25', '22:01', '<p>Implementasi Basis Data Relasional</p>\r\n', 'Sangat Baik', 'Materi penting untuk proyek akhir', ''),
+(29, 1, 19, '2025-05-25', '23:59', '<p>Analisis Jaringan Komputer</p>\r\n', 'Cukup', 'Perlu pendalaman lebih lanjut', ''),
+(31, 1, 20, '2025-11-30', '23:57', '<p>Implementasi Web Dinamis dengan PHP</p>\r\n', 'Baik', 'Praktikum dengan database MySQL', ''),
+(33, 9, 26, '2025-05-27', '14:58', '<p>Pemrograman Berorientasi Objek</p>\r\n', 'Sangat Baik', 'Siswa memahami konsep inheritance', ''),
+(34, 9, 27, '2025-05-27', '12:59', '<p>Statistika dan Probabilitas</p>\r\n', 'Baik', 'Penerapan dalam analisis data', ''),
+(35, 7, 18, '2025-04-13', '01:30', '<p>Reviu Materi Ujian Tengah Semester</p>\r\n', '10 Hadir', '2 Siswa Tidak Hadir karena sakit', ''),
+(36, 1, 22, '2025-07-08', '02:58', '<p>Proyek Akhir Semester Genap</p>\r\n', 'Cukup', 'Evaluasi hasil presentasi', ''),
+(37, 1, 22, '2025-07-08', '03:04', '<p>Analisis Algoritma dan Struktur Data</p>\r\n', 'Baik', 'Implementasi dalam bahasa C++', ''),
+(38, 11, 29, '2025-07-19', '04:04', '<p>Keamanan Jaringan dan Sistem</p>\r\n', 'Cukup', 'Penting untuk sistem informasi', ''),
+(39, 11, 29, '2025-07-20', '08:08', '<p>Desain Antarmuka Pengguna</p>\r\n', 'Baik', 'Focus pada UX dan UI', ''),
+(40, 11, 29, '2025-07-19', '06:06', '<p>Pemrograman Mobile Android</p>\r\n', 'Sangat Baik', 'Siswa antusias belajar Kotlin', ''),
+(41, 11, 30, '2025-07-19', '23:01', '<p>Machine Learning Dasar</p>\r\n', 'Sangat Baik', 'Pengenalan AI di kalangan siswa', ''),
+(42, 1, 19, '2025-08-02', '22:59', '<p>Implementasi Sistem Informasi</p>\r\n', 'Baik', 'Menggunakan framework Laravel', ''),
+(43, 10, 31, '2025-08-03', '23:59', '<p>Instalasi dan Konfigurasi Sistem Operasi Linux</p>\r\n', 'Cukup', 'Praktikum Instalasi Sistem Operasi Berbasis Open Source', ''),
+(44, 1, 33, '2025-08-03', '22:58', '<p>Multimedia dan Animasi Digital</p>\r\n', 'Baik', 'Penggunaan software Adobe Creative Suite', ''),
+(45, 1, 19, '2025-08-18', '09:01', '<p>Pembelajaran Pemrograman Python</p>\r\n', 'Baik', 'Penerapan dalam bidang data science', ''),
+(46, 8, 25, '2025-08-18', '10:10', '<p>Implementasi Cloud Computing</p>\r\n', 'Baik', 'Simulasi penggunaan AWS dan Google Cloud', ''),
+(47, 9, 27, '2025-08-18', '07:50', '<p>Kolaborasi dan Presentasi Projek</p>\r\n', 'Baik', 'Penilaian soft skills siswa', ''),
+(48, 1, 19, '2025-08-19', '07:30', '<p>Proses Pemrograman Berbasis Agile</p>\r\n', 'Cukup', 'Pengenalan metodologi pengembangan perangkat lunak', ''),
+(49, 8, 25, '2025-08-19', '08:30', '<p>Simulasi Jaringan Komputer</p>\r\n', 'Baik', 'Praktikum menggunakan Cisco Packet Tracer', ''),
+(50, 11, 29, '2025-08-19', '10:30', '<p>Focus Group Discussion Sistem Jaringan</p>\r\n', 'Baik', 'Diskusi kelompok tentang implementasi jaringan', ''),
+(51, 1, 20, '2025-08-19', '12:30', '<p>Ulasan Tugas dan Evaluasi Mingguan</p>\r\n', 'Baik', 'Evaluasi tugas mingguan dan remedial', ''),
+(52, 1, 20, '2025-08-19', '08:00', '<p>Pembelajaran Berbasis Proyek</p>\r\n', 'Baik', 'Pembuatan aplikasi berbasis web', ''),
+(53, 1, 33, '2025-08-19', '03:04', '<p>Analisis Kebutuhan Sistem</p>\r\n', 'Baik', 'Studi kasus implementasi sistem informasi', ''),
+(54, 1, 33, '2025-08-19', '06:59', '<p>Manajemen Proyek Perangkat Lunak</p>\r\n', 'Baik', 'Pengenalan tools manajemen proyek', ''),
+(55, 1, 34, '2025-08-19', '05:00', '<p>Desain dan Implementasi Database</p>\r\n', 'Baik', 'Praktikum dengan MySQL dan PostgreSQL', ''),
+(56, 1, 19, '2025-08-19', '06:40', '<p>Testing dan Quality Assurance</p>\r\n', 'Baik', 'Pengujian sistem dan debugging', ''),
+(57, 1, 19, '2025-08-19', '06:59', '<p>Maintainance Sistem</p>\r\n', 'Baik', 'Perawatan dan optimalisasi sistem', '');
 
 -- --------------------------------------------------------
 
@@ -131,13 +131,13 @@ CREATE TABLE `tb_agendalain` (
 --
 
 INSERT INTO `tb_agendalain` (`id_lain`, `id_guru`, `tgl_kgt`, `kegiatan`, `isi`, `keterangan`) VALUES
-(9, 1, '2018-05-28', 'fsdg', '<p>fsdg</p>\r\n', 'sdg'),
-(10, 1, '2018-05-28', 'gfdh', '<p>gfdg</p>\r\n', 'gfdh'),
-(11, 7, '2018-06-08', 'tes awe', '<p>terjadi beberapa kesalahan dari banyaknya waktu itu untuk</p>\r\n', 'jnj'),
-(12, 7, '2018-06-11', 'Mencari Koncat', '<p><strong>Waktu itu kami berencana Untuk mencari koncat ke sawah</strong></p>\r\n\r\n<p>Tidak Menenmukan binatng lain, tapi kami menemukan beberapa binatang langka , seperti <em><strong>Komodo</strong></em></p>\r\n', 'Terdapat 3 ikur koncet di sawah'),
-(13, 11, '2018-07-19', 'TTTT', '<p>GGGG</p>\r\n', 'GGG'),
-(14, 1, '2018-08-19', 'Revisi Program', '<p>njjbnhjb</p>\r\n', 'gfdh'),
-(15, 1, '2018-08-19', 'Coba Dulu', '<p>fdgfd</p>\r\n', 'gg');
+(9, 1, '2025-05-28', 'Rapat Koordinasi Kurikulum', '<p>Pembahasan pelaksanaan kurikulum tahun ajaran baru</p>\r\n', 'Sudah terealisasi'),
+(10, 1, '2025-05-28', 'Evaluasi Semester', '<p>Evaluasi pembelajaran semester genap tahun ajaran 2024/2025</p>\r\n', 'Selesai'),
+(11, 7, '2025-06-08', 'Pelatihan Guru', '<p>Pelatihan penerapan teknologi dalam pembelajaran modern</p>\r\n', 'Berhasil diselenggarakan'),
+(12, 7, '2025-06-11', 'Persiapan Tahun Ajaran Baru', '<p>Menyusun program dan persiapan awal tahun ajaran 2025/2026</p>\r\n', 'Sudah terlaksana dengan baik'),
+(13, 11, '2025-07-19', 'Pelatihan Soft Skills', '<p>Pelatihan soft skills untuk siswa kelas XII</p>\r\n', 'Dilakukan di aula sekolah'),
+(14, 1, '2025-08-19', 'Revisi Kurikulum', '<p>Revisi kurikulum berbasis kompetensi keahlian</p>\r\n', 'Terkait dengan standar mutu pendidikan'),
+(15, 1, '2025-08-19', 'Pembukaan Tahun Ajaran', '<p>Pembukaan tahun ajaran baru 2025/2026</p>\r\n', 'Kegiatan pembelajaran dimulai');
 
 -- --------------------------------------------------------
 
@@ -167,12 +167,12 @@ CREATE TABLE `tb_guru` (
 --
 
 INSERT INTO `tb_guru` (`id_guru`, `nama_guru`, `nip`, `kelamin`, `alamat`, `telp`, `username`, `password`, `gelar`, `tempat`, `tgl`, `agama`, `email`, `photo`) VALUES
-(1, 'Muhammad Abduh', '197409301999', 'Laki-laki', '        Ladang Laweh', '082214609889', 'guru', 'guru', 'M.Ag', 'Padang', '2018-05-28', 'Islam', 'bitras90@gmail.com', 'admin.jpg'),
-(8, 'Asri Hidayat', '002897867', 'Laki-laki', 'Tabek Gadang', '7695', 'a', 'a', 'S.Pd', 'Kuansing', '2018-05-26', 'Islam', 'gdg@gmail.cpm', '10304432100006.png'),
-(7, 'Abdul Yamin', '001970769769', 'Laki-laki', 'Desa Sibak, Ipuh Muko-muko', '082214607669', 'yamin', 'yamin', 'S.Pd', 'Sibak', '2018-05-17', 'Islam', 'ocikyamin93@gmail.com', 'userk.png'),
-(9, 'Revi Sumardi', '000584635654', 'Laki-laki', 'Palambayan', '098089977', 'r', 'r', 'S.Pd', 'Padang', '2018-05-04', 'Kristen', 'revi@gmail.com', 'guruc.png'),
-(10, 'Randu Franstio', '900808098079', 'Laki-laki', 'Tabek Gadang', '089797', 'rdn', 'rdn', 'S.Pd', 'Sijunjung', '2018-05-01', 'Kristen', 'randu@gmail.com', '10304432100006.png'),
-(11, 'Andro Sudirno', '08808080', 'Laki-laki', 'dff', '6666', 'tes', 'tes', 'spd', 'sss', '2018-07-19', 'Islam', 'ee@gmail.com', 'userk.png');
+(1, 'Ahmad Fauzi', '19740930200501001', 'Laki-laki', '        Jl. Pendidikan No. 15, Padang', '082214609889', 'guru', 'guru', 'S.Kom., M.T.', 'Padang', '1974-09-30', 'Islam', 'ahmad.fauzi@smkn4pyk.sch.id', 'admin.jpg'),
+(8, 'Siti Rahmawati', '19851123201001002', 'Perempuan', 'Jl. Teknologi No. 8, Pekanbaru', '081234567890', 'a', 'a', 'S.Kom., M.Kom.', 'Pekanbaru', '1985-11-23', 'Islam', 'siti.rahmawati@smkn4pyk.sch.id', '10304432100006.png'),
+(7, 'Budi Santoso', '19800515200801003', 'Laki-laki', 'Jl. Informatika No. 23, Bengkulu', '082134567890', 'yamin', 'yamin', 'S.T., M.T.', 'Bengkulu', '1980-05-15', 'Islam', 'budi.santoso@smkn4pyk.sch.id', 'userk.png'),
+(9, 'Dewi Kusuma Wardhani', '19830812200701004', 'Perempuan', 'Jl. Multimedia No. 5, Padang', '081345678901', 'r', 'r', 'S.Pd., M.Kom.', 'Padang', '1983-08-12', 'Kristen', 'dewi.wardhani@smkn4pyk.sch.id', 'guruc.png'),
+(10, 'M. Joko Prasetyo', '19820308200601005', 'Laki-laki', 'Jl. Riset dan Teknologi No. 12, Solok', '085234567890', 'rdn', 'rdn', 'S.Kom., M.T.', 'Solok', '1982-03-08', 'Kristen', 'joko.prasetyo@smkn4pyk.sch.id', '10304432100006.png'),
+(11, 'Lintang Sari', '19880719201201006', 'Perempuan', 'Jl. Digital Inovasi No. 7, Jakarta', '081234567980', 'tes', 'tes', 'S.T., M.Kom.', 'Jakarta', '1988-07-19', 'Islam', 'lintang.sari@smkn4pyk.sch.id', 'userk.png');
 
 -- --------------------------------------------------------
 
@@ -400,9 +400,9 @@ CREATE TABLE `tb_tajaran` (
 --
 
 INSERT INTO `tb_tajaran` (`id_tajaran`, `tahun_ajaran`, `status`) VALUES
-(1, '2017 / 2018', 'T'),
-(2, '2018 -2019', 'Y'),
-(3, '2019 / 2020', 'T');
+(1, '2023 / 2024', 'T'),
+(2, '2024 -2025', 'Y'),
+(3, '2025 / 2026', 'T');
 
 -- --------------------------------------------------------
 

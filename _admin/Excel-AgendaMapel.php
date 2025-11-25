@@ -17,7 +17,7 @@ header("Content-Disposition: attachment; filename=Agenda Mengajar Guru.xls");?>
 	<center>
 		 <h3><p>
 	 	Agenda Mengajar Guru <br> SMKN 4 PAYAKUMBUH <br>
-	 	Tahun Ajaran 2017/2018 </h3>
+	 	Tahun Ajaran 2025/2026 </h3>
 	 </p>
 	</center>
 

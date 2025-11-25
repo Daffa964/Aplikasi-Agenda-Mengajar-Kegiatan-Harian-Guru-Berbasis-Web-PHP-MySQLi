@@ -41,7 +41,7 @@ if (!isset($_SESSION['guru'])) {
           </div>
           <div class="form-group">
             <label for="nf-password" class=" form-control-label">Keterangan</label>
-            <textarea class="form-control" name="ket"></textarea>
+            <textarea class="form-control" name="ket" placeholder="Catatan resmi terkait kegiatan..."></textarea>
           </div>
 
         </div>

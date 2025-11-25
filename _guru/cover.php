@@ -5,9 +5,6 @@
                                     <div class="corner-ribon blue-ribon">
                                         <i class="fa fa-book"></i>
                                     </div>
-                                    <!-- <P>
-                                        <b>Bagaimana kalau Agenda di isi setelah Guru/ admin menginputkan mapel.. lalu tampil ke hal Agenda guru .. Lalu guru menambahkan agenda berdasarkan mapel yg dia inginkan </b>
-                                    </P> -->
                                      <h2>APLIKASI AGENDA HARIAN GURU</h2>
                                      <h3>TAHUN AJARAN
                                      <!-- Manampilkan Tahun ajaran -->

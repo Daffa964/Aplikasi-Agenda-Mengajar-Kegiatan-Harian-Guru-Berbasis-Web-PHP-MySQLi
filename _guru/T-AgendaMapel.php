@@ -80,7 +80,7 @@ $dataGuru = mysqli_fetch_array($sqlGuru);
                   </div>
                   <div class="form-group">
                   	<label for="nf-password" class=" form-control-label">Keterangan</label>
-                  	<textarea class="form-control" name="ket"></textarea>
+                  	<textarea class="form-control" name="ket" placeholder="Catatan profesional mengenai pelaksanaan pembelajaran..."></textarea>
                   </div>
 
               </div>
@@ -118,14 +118,14 @@ VALUES('$id_guru','$id_mapel','$tgl','$jam','$materi','$absen','$ket','') ") or 
 if($result) {
     echo "
     <script>
-    alert('Data Berhasil Disimpan !!');
+    alert('Data Berhasil Disimpan.');
     window.location='?page=add-agenda&idg=" . $data['id_mapel'] . "';
     </script> ";
     exit();
 } else {
     echo "
     <script>
-    alert('Gagal menyimpan data !!');
+    alert('Gagal menyimpan data.');
     </script> ";
 }
 }

@@ -175,7 +175,7 @@ echo '<div class="error">ERROR: Ekstensi file tidak di izinkan!</div>';
 
                           <a href="<?=$data['file'];?>" target="_blank" title="Edit Agenda" class="btn btn-primary"> <span class="fa fa-download"></span></a>
 
-                           <a onclick="return confirm('Yakin !! Ingin Hapus Data Tanggal [ <?php echo $data['tgl']; ?> ]')" href="?page=del-file&idg= <?php echo $data['id_perangkat']; ?> " title="Hapus" class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                           <a onclick="return confirm('Yakin ingin hapus data tanggal [ <?php echo $data['tgl']; ?> ]?')" href="?page=del-file&idg= <?php echo $data['id_perangkat']; ?> " title="Hapus" class="btn btn-danger"> <span class="fa fa-trash"></span></a>
                         </td>
                       </tr>
                       <?php 

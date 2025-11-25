@@ -9,7 +9,7 @@ if (isset($_POST['euser'])) {
 
     mysqli_query($con, "UPDATE  tb_guru SET username='$user',password='$pass' WHERE id_guru='$id_guru' ") or die(mysqli_error($con));
     echo " <script>
-       alert('Data Berhasil Diubah !!');
+       alert('Profil berhasil diperbarui.');
        window.location='?page=profil';
 
        </script> ";
@@ -25,7 +25,7 @@ if (isset($_POST['euser'])) {
     // Validasi semua field penting (tambahkan kelas juga)
     if ($nama_mapel == '' || $jurusan == '' || $tingkat == '' || $kelas == '') {
         echo "<script>
-                alert('Form Isian Belum Lengkap !!');
+                alert('Form Isian Belum Lengkap.');
                 window.location='?page=add-mapel';
               </script>";
         exit();
@@ -41,8 +41,8 @@ if (isset($_POST['euser'])) {
             die("Error MySQL: " . mysqli_error($con));
         } else {
             echo "<script>
-                alert('Data Berhasil Disimpan !!');
-                window.location='index.php?page=mapel'; 
+                alert('Data Berhasil Disimpan.');
+                window.location='index.php?page=mapel';
                 </script>";
             exit();
         }
@@ -56,7 +56,7 @@ if (isset($_POST['euser'])) {
     mysqli_query($con, "UPDATE  tb_mapel SET nama_mapel='$nama_mapel',jurusan='$jurusan',tingkat='$tingkat' WHERE id_mapel='$id' ") or die(mysqli_error($con));
 
     echo " <script>
-       alert('Data Berhasil Diubah !!');
+       alert('Data Berhasil Diubah.');
        window.location='?page=mapel';
 
        </script> ";
@@ -81,13 +81,13 @@ if (isset($_POST['euser'])) {
 
     if ($result) {
         echo "<script>
-                 alert('Data Berhasil Disimpan !!');
+                 alert('Data Berhasil Disimpan.');
                  window.location='?page=add-agenda&idg=" . $id_mapel . "';
                </script>";
         exit();
     } else {
         echo "<script>
-                 alert('Gagal menyimpan data !!');
+                 alert('Gagal menyimpan data.');
                  window.location='?page=add-agenda&idg=" . $id_mapel . "';
                </script>";
         exit();
@@ -321,11 +321,11 @@ elseif (isset($_POST['s_izin_siswa'])) {
 
 // --- Proses Simpan Agenda Lain (Non-Mapel) ---
 elseif (isset($_POST['add-agendalain'])) {
-    
+
     $id_guru  = $_POST['id_guru'];
     $tgl      = $_POST['tgl'];
     $kegiatan = mysqli_real_escape_string($con, $_POST['kegiatan']);
-    $isi      = mysqli_real_escape_string($con, $_POST['isi']); 
+    $isi      = mysqli_real_escape_string($con, $_POST['isi']);
     $ket      = mysqli_real_escape_string($con, $_POST['ket']);
 
     // Validasi sederhana
@@ -340,9 +340,10 @@ elseif (isset($_POST['add-agendalain'])) {
     if ($insert) {
         echo "
             <script>
-                alert('Agenda Lain Berhasil Disimpan!'); 
+                alert('Agenda Lain Berhasil Disimpan!');
                 // Arahkan kembali ke index.php?page=aglain (Halaman Daftar Agenda Lain)
-                window.location='index.php?page=aglain'; 
+                window.location='index.php?page=aglain';
+
             </script>";
         exit();
     } else {

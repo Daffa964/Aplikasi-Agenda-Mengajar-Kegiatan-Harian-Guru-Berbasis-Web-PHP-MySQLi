@@ -350,7 +350,7 @@ $data = mysqli_fetch_array($sql);
 
                             // Default
                             default:
-                                echo "<center> <h3><b> Maaf Halaman Tidak Tersedia !!</b></h3> </center>";
+                                echo "<center> <h3><b> Maaf Halaman Tidak Tersedia.</b></h3> </center>";
                                 break;
                         }
                         ?>
