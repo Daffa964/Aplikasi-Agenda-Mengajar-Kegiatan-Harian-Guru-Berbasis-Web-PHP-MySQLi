@@ -1,82 +1,81 @@
-
-
-<div class="col-lg-6">
-                    <div class="card" style="border-radius:10px;">
-                        <div class="card-header">
-                            <strong class="card-title"><span class="fa fa-table"></span> Mata Pelajaran</strong>
-
-                        </div>
-                        <div class="card-body">
-                                         <table class="table table-condensed table-hover table-striped">
-                              <thead>
-                                <tr>
-                                  <th scope="col">No</th>
-                                  <th scope="col">Nama Mata Pelajaran</th>             
-                                  <th scope="col">Opsi</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <?php 
-                                $no=1;
-                                $sqlMapel = mysqli_query($con, "SELECT * FROM tb_mastermapel") or die(mysqli_error($con));
-
-                                while ($data = mysqli_fetch_array($sqlMapel)) {
-                                  # code...
-                                
-
-                                 ?>
-                                <tr>
-                                  <th scope="row"><?=$no++?>. </th>
-                                  <td><?=$data['mapel'];?></td>                                  
-                                  <td>
-                                    <a href="?page=e_mapel&idmap=<?=$data['id_mMapel'];?>" class="btn btn-warning"> <span class="fa fa-edit"></span></a>
-                                   
-                                    <a href="?page=d_mapel&id=<?=$data['id_mMapel'];?>" onclick="return confirm('Yakin !! Ingin Hapus Data !!')" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                  </td>
-                                </tr>
-                                <?php 
-                                }
-                                 ?>
-                                
-                              </tbody>
-                            </table> 
-                     
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card" style="border-radius:10px;">
-                        <div class="card-header">
-                            <strong class="card-title"><span class="fa fa-edit"></span> Edit Pelajaran</strong>
-
-                        </div>
-                        <div class="card-body">
 <?php
-$idmap = @$_GET['idmap'];
-$sql = mysqli_query($con,"select * from tb_mastermapel where id_mMapel = '$idmap'") or die(mysqli_error($con));
+$id = $_GET['id'];
+// Ambil data mapel yang mau diedit
+$sql = mysqli_query($con, "SELECT * FROM tb_mapel WHERE id_mapel='$id'") or die(mysqli_error($con));
 $data = mysqli_fetch_array($sql);
 ?>
-                            <form action="?page=act" method="post" accept-charset="utf-8">
-                                <div class="form-group">
-                                    <label>Kode Mata Pelajaran</label>
-                                    <input type="text" name="idmap" value="<?=$data['id_mMapel']?>" class="form-control">
-                                </div>
-                                  <div class="form-group">
-                                    <label>Nama Mata Pelajaran</label>
-                                    <input type="text" name="nama_mapel" class="form-control" value="<?=$data['mapel'];?>">
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <button class="btn btn-primary" type="submit" name="emapel"> <span class="fa fa-save"></span> Edit</button>
-                                    <a href="javascript:history.back()" class="btn btn-warning"> <span class="fa fa-chevron-left"></span> Kembali </a>                                   
-                                </div>
 
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title"> <span class="fa fa-edit"></span> Edit Mata Pelajaran</strong>
+        </div>
+        <div class="card-body">
+            
+            <form action="proses.php" method="post">
                 
+                <input type="hidden" name="id" value="<?=$data['id_mapel'];?>">
+                
+                <input type="hidden" name="jurusan" value="-">
 
+                <div class="form-group">
+                    <label>Guru Pengampu</label>
+                    <select name="id_guru" class="form-control" required>
+                        <option value="">- Pilih Guru -</option>
+                        <?php
+                        // Menampilkan nama guru, bukan ID saja
+                        $sqlGuru = mysqli_query($con, "SELECT * FROM tb_guru ORDER BY nama_guru ASC");
+                        while($g=mysqli_fetch_array($sqlGuru)){
+                            $selected = ($g['id_guru'] == $data['id_guru']) ? 'selected' : '';
+                            echo "<option value='$g[id_guru]' $selected>$g[nama_guru]</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
 
+                <div class="form-group">
+                    <label>Mata Pelajaran</label>
+                    <select name="nama_mapel" class="form-control" required>
+                        <option value="<?=$data['nama_mapel'];?>"><?=$data['nama_mapel'];?> (Saat Ini)</option>
+                        <?php
+                        $sqlMapel = mysqli_query($con, "SELECT * FROM tb_mastermapel");
+                        while($m=mysqli_fetch_array($sqlMapel)){
+                            echo "<option value='$m[mapel]'>$m[mapel]</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Kelas</label>
+                    <select name="idkelas" class="form-control" required>
+                        <option value="">- Pilih Kelas -</option>
+                        <?php
+                        // Menampilkan daftar kelas baru (VII, VIII, IX)
+                        $sqlKelas = mysqli_query($con, "SELECT * FROM tb_kelas ORDER BY idkelas ASC");
+                        while($k=mysqli_fetch_array($sqlKelas)){
+                            $selected = ($k['idkelas'] == $data['idkelas']) ? 'selected' : '';
+                            echo "<option value='$k[idkelas]' $selected>$k[kelas]</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tingkat</label>
+                    <select name="tingkat" class="form-control" required>
+                        <option value="<?=$data['tingkat'];?>">Kelas <?=$data['tingkat'];?> (Saat Ini)</option>
+                        <option value="VII">Kelas VII</option>
+                        <option value="VIII">Kelas VIII</option>
+                        <option value="IX">Kelas IX</option>
+                    </select>
+                </div>
+
+                <hr>
+                <button type="submit" name="Emapel" class="btn btn-warning"> <i class="fa fa-save"></i> Simpan Perubahan</button>
+                <a href="?page=mapel" class="btn btn-secondary"> <i class="fa fa-chevron-left"></i> Batal</a>
+            </form>
+
+        </div>
+    </div>
+</div>

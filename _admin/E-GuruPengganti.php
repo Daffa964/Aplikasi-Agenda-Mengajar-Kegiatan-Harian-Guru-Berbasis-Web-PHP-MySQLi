@@ -48,7 +48,7 @@ $sqlGuru = mysqli_query($con, "SELECT id_guru, nama_guru FROM tb_guru ORDER BY n
             </strong>
         </div>
         <div class="card-body card-block">
-            <form action="?page=proses" method="POST">
+            <form action="?page=act" method="POST">
 
                 <input type="hidden" name="id_jadwal" value="<?php echo htmlspecialchars($data['id_jadwal']); ?>">
 

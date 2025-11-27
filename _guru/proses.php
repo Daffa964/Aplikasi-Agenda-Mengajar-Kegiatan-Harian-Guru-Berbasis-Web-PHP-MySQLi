@@ -48,21 +48,34 @@ if (isset($_POST['euser'])) {
         }
     }
 } elseif (isset($_POST['Emapel'])) {
-    $id = $_POST['id'];
-    $nama_mapel = trim(mysqli_real_escape_string($con, $_POST['nama_mapel']));
-    $jurusan = trim(mysqli_real_escape_string($con, $_POST['jurusan']));
-    $tingkat = trim(mysqli_real_escape_string($con, $_POST['tingkat']));
+    $id         = $_POST['id'];
+    $nama_mapel = mysqli_real_escape_string($con, $_POST['nama_mapel']);
+    $idkelas    = $_POST['idkelas']; // Tangkap data ID Kelas
+    $tingkat    = $_POST['tingkat'];
+    $jurusan    = "-"; // Default strip (karena SMP)
 
-    mysqli_query($con, "UPDATE  tb_mapel SET nama_mapel='$nama_mapel',jurusan='$jurusan',tingkat='$tingkat' WHERE id_mapel='$id' ") or die(mysqli_error($con));
+    // Query Update
+    $update = mysqli_query($con, "UPDATE tb_mapel SET 
+        nama_mapel = '$nama_mapel',
+        idkelas    = '$idkelas',
+        jurusan    = '$jurusan',
+        tingkat    = '$tingkat'
+        WHERE id_mapel = '$id' 
+    ");
 
-    echo " <script>
-       alert('Data Berhasil Diubah.');
-       window.location='?page=mapel';
+    if ($update) {
+        echo "<script>
+                alert('Data Berhasil Diubah !!');
+                // PERBAIKAN: Tambahkan 'index.php' agar kembali ke menu utama
+                window.location='index.php?page=mapel'; 
+              </script>";
+    } else {
+        echo "<script>
+                alert('Gagal Mengubah Data: " . mysqli_error($con) . "');
+                window.location='index.php?page=mapel';
+              </script>";
+    }
 
-       </script> ";
-    exit();
-
-    // Query Simapan ke tb_agenda
 } elseif (isset($_POST['save-agenda'])) {
 
     $id_guru = $_POST['id_guru'];
@@ -349,5 +362,23 @@ elseif (isset($_POST['add-agendalain'])) {
     } else {
         echo "<script>alert('Gagal menyimpan: " . mysqli_error($con) . "'); window.location='index.php?page=taglain';</script>";
         exit();
+    }
+} elseif (isset($_POST['simpan_jadwal_guru'])) {
+    
+    $id_guru       = $_SESSION['guru']; // Ambil ID dari sesi login
+    $id_tajaran    = $_POST['id_tajaran'];
+    $tanggal_piket = $_POST['tanggal_piket'];
+    $hari_piket    = $_POST['hari_piket'];
+    $keterangan    = mysqli_real_escape_string($con, $_POST['keterangan']);
+
+    $insert = mysqli_query($con, "INSERT INTO tb_jadwal_piket 
+        (id_tajaran, id_guru, tanggal_piket, hari_piket, keterangan)
+        VALUES ('$id_tajaran', '$id_guru', '$tanggal_piket', '$hari_piket', '$keterangan')
+    ");
+
+    if ($insert) {
+        echo "<script>alert('Jadwal Piket Berhasil Disimpan!'); window.location='index.php?page=v_jadwal_piket';</script>";
+    } else {
+        echo "<script>alert('Gagal Menyimpan!'); window.location='index.php?page=add-jadwal';</script>";
     }
 }

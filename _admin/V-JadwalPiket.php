@@ -1,149 +1,124 @@
-<?php
-// Pastikan variabel koneksi database ($con) sudah tersedia
-
-// --- 1. Ambil Tahun Ajaran Aktif ---
-$id_tajaran_aktif = 0;
-$tahun_ajaran_aktif = '';
-
-// Query mengambil ID dan Nama Tahun Ajaran Aktif (asumsi kolom status='Aktif' atau status='Y')
-$sqlTa = mysqli_query($con, "SELECT id_tajaran, tahun_ajaran FROM tb_tajaran WHERE status='Aktif' OR status='Y' LIMIT 1");
-if ($sqlTa && mysqli_num_rows($sqlTa) > 0) {
-    $dataTa = mysqli_fetch_array($sqlTa);
-    $id_tajaran_aktif = $dataTa['id_tajaran'];
-    $tahun_ajaran_aktif = $dataTa['tahun_ajaran'];
-}
-
-// Query untuk mengambil daftar Guru (untuk dropdown di form)
-$sqlGuru = mysqli_query($con, "SELECT id_guru, nama_guru FROM tb_guru ORDER BY nama_guru ASC");
-?>
-
-<div class="row">
-    
-    <div class="col-lg-6">
-        <div class="card" style="border-radius:10px;">
-            <div class="card-header">
-                <strong class="card-title"><span class="fa fa-calendar-alt"></span> Daftar Jadwal Piket</strong>
-            </div>
-            <div class="card-body">
-                <small class="text-danger">T.A. Aktif: **<?php echo $tahun_ajaran_aktif ? $tahun_ajaran_aktif : 'Tidak Ditemukan'; ?>**</small>
-                
-                <table class="table table-dark table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Tanggal & Hari</th> 
-                            <th scope="col">Guru Piket</th>       
-                            <th scope="col">Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        $no=1;
-                        // Query Jadwal Piket: JOIN tb_guru menggunakan id_guru
-                        $sqlJadwal = mysqli_query($con, "
-                            SELECT 
-                                jp.id_jadwal,
-                                jp.tanggal_piket,
-                                jp.hari_piket,
-                                g.nama_guru
-                            FROM tb_jadwal_piket jp
-                            INNER JOIN tb_guru g ON jp.id_guru = g.id_guru  
-                            -- Filter berdasarkan tahun ajaran aktif
-                            " . ($id_tajaran_aktif ? "WHERE jp.id_tajaran = '$id_tajaran_aktif'" : "") . "
-                            ORDER BY jp.tanggal_piket DESC
-                        ") or die(mysqli_error($con));
-
-                        while ($data = mysqli_fetch_array($sqlJadwal)) {
-                        ?>
-                        <tr>
-                            <th scope="row"><?=$no++?>. </th>
-                            <td>
-                                <strong><?= date('d M Y', strtotime($data['tanggal_piket'])); ?></strong><br>
-                                <small>(<?= $data['hari_piket'];?>)</small>
-                            </td> 
-                            <td><?=$data['nama_guru'];?></td>        
-                            <td>
-                                <a href="?page=e_jadwal&idj=<?=$data['id_jadwal'];?>" class="btn btn-warning btn-sm" title="Edit Jadwal"> 
-                                    <span class="fa fa-edit"></span>
-                                </a>
-                                <a href="?page=d_jadwal&id=<?=$data['id_jadwal'];?>" onclick="return confirm('Yakin !! Hapus Jadwal Tanggal [<?= date('d/m/Y', strtotime($data['tanggal_piket'])); ?>] ?')" class="btn btn-danger btn-sm" title="Hapus Jadwal">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php 
-                        }
-                        ?>
-                    </tbody>
-                </table> 
-            </div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title"> <span class="fa fa-calendar-check-o"></span> Jadwal & Agenda Guru Piket</strong>
+            <a href="?page=add-jadwal" class="btn btn-primary float-right btn-sm">
+                <i class="fa fa-plus"></i> Tambah Jadwal
+            </a>
         </div>
-    </div>
+        <div class="card-body">
+            
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="hari-ini-tab" data-toggle="tab" href="#hari-ini" role="tab" aria-controls="hari-ini" aria-selected="true">
+                        <i class="fa fa-calendar"></i> Piket Hari Ini
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="semua" aria-selected="false">
+                        <i class="fa fa-list"></i> Semua Jadwal
+                    </a>
+                </li>
+            </ul>
 
-    <div class="col-lg-6">
-        <div class="card" style="border-radius:10px;">
-            <div class="card-header">
-                <strong class="card-title"><span class="fa fa-plus"></span> Tambah Jadwal Piket</strong>
-            </div>
-            <div class="card-body">
-                <form action="?page=act" method="post" accept-charset="utf-8"> 
-                    
-                    <input type="hidden" name="id_tajaran" value="<?php echo $id_tajaran_aktif; ?>">
-
-                    <div class="form-group">
-                        <label>ID Jadwal</label>
-                        <input type="text" name="" placeholder="Tidak Perlu Diisi (Auto)" class="form-control" disabled="">
+            <div class="tab-content pl-3 p-1" id="myTabContent">
+                
+                <div class="tab-pane fade show active" id="hari-ini" role="tabpanel" aria-labelledby="hari-ini-tab">
+                    <br>
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle"></i> Menampilkan jadwal untuk tanggal: <strong><?= date('d F Y'); ?></strong>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Tanggal Piket</label>
-                        <input type="date" name="tanggal_piket" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Hari Piket</label>
-                        <select name="hari_piket" class="form-control" required>
-                            <option value="">Pilih Hari</option>
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis">Kamis</option>
-                            <option value="Jumat">Jumat</option>
-                            <option value="Sabtu">Sabtu</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Guru Piket</label>
-                        <select name="id_guru" class="form-control" required>
-                            <option value="">-- Pilih Guru --</option>
-                            <?php 
-                            mysqli_data_seek($sqlGuru, 0); 
-                            while ($g = mysqli_fetch_array($sqlGuru)) {
-                                echo "<option value='".$g['id_guru']."'>".$g['nama_guru']."</option>";
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Guru Piket</th>
+                                <th>Hari</th>
+                                <th>Agenda/Keterangan</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            $today = date('Y-m-d');
+                            
+                            // PERBAIKAN QUERY: Menggunakan LEFT JOIN agar data tetap muncul meski ID Guru bermasalah
+                            $sqlToday = mysqli_query($con, "
+                                SELECT jp.*, g.nama_guru 
+                                FROM tb_jadwal_piket jp
+                                LEFT JOIN tb_guru g ON jp.id_guru = g.id_guru
+                                WHERE jp.tanggal_piket = '$today'
+                                ORDER BY jp.id_jadwal DESC
+                            ");
+                            
+                            // Cek apakah ada data
+                            if(mysqli_num_rows($sqlToday) == 0){
+                                echo "<tr><td colspan='5' class='text-center text-danger'><strong>Tidak ada jadwal piket untuk HARI INI.</strong><br>Silakan cek tab 'Semua Jadwal' jika Anda baru saja menambahkan jadwal untuk tanggal lain.</td></tr>";
                             }
-                            ?>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Keterangan</label>
-                        <textarea name="keterangan" class="form-control" required></textarea>
-                    </div>
 
-                    <hr>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit" name="simpan_jadwal"> 
-                            <span class="fa fa-save"></span> Simpan
-                        </button>  
-                        <button class="btn btn-danger" type="reset"> 
-                            <span class="fa fa-close"></span> Reset
-                        </button> 
-                        <a href="javascript:history.back()" class="btn btn-warning"> 
-                            <span class="fa fa-chevron-left"></span> Kembali 
-                        </a> 
-                    </div>
-                </form>
+                            while ($row = mysqli_fetch_array($sqlToday)) {
+                                // Handle jika nama guru kosong (karena guru dihapus/invalid)
+                                $nama_guru = $row['nama_guru'] ? $row['nama_guru'] : "<span class='text-danger'>Guru Tidak Dikenal (ID: $row[id_guru])</span>";
+                            ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $nama_guru; ?></td>
+                                <td><?= $row['hari_piket']; ?></td>
+                                <td><?= $row['keterangan']; ?></td>
+                                <td>
+                                    <a href="?page=e_jadwal&id=<?=$row['id_jadwal'];?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a href="?page=d_jadwal&id=<?=$row['id_jadwal'];?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus jadwal ini?')"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="semua" role="tabpanel" aria-labelledby="semua-tab">
+                    <br>
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Hari</th>
+                                <th>Guru Piket</th>
+                                <th>Agenda/Keterangan</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            // PERBAIKAN QUERY: Menggunakan LEFT JOIN
+                            $sqlAll = mysqli_query($con, "
+                                SELECT jp.*, g.nama_guru 
+                                FROM tb_jadwal_piket jp
+                                LEFT JOIN tb_guru g ON jp.id_guru = g.id_guru
+                                ORDER BY jp.tanggal_piket DESC
+                            ");
+                            
+                            while ($row = mysqli_fetch_array($sqlAll)) {
+                                $nama_guru = $row['nama_guru'] ? $row['nama_guru'] : "<span class='text-danger'>-</span>";
+                            ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= date('d-m-Y', strtotime($row['tanggal_piket'])); ?></td>
+                                <td><?= $row['hari_piket']; ?></td>
+                                <td><?= $nama_guru; ?></td>
+                                <td><?= $row['keterangan']; ?></td>
+                                <td>
+                                    <a href="?page=e_jadwal&id=<?=$row['id_jadwal'];?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a href="?page=d_jadwal&id=<?=$row['id_jadwal'];?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus jadwal ini?')"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

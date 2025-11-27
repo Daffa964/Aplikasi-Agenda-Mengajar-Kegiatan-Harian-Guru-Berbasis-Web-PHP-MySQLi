@@ -15,6 +15,7 @@ $data = mysqli_fetch_array($sql);
 
 <!doctype html>
 <html class="no-js" lang="">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,6 +39,7 @@ $data = mysqli_fetch_array($sql);
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
 
     <aside id="left-panel" class="left-panel" style="font-family: sans-serif;">
@@ -52,25 +54,25 @@ $data = mysqli_fetch_array($sql);
 
             <div id="main-menu" class="main-menu collapse navbar-collapse" style="font-family: sans-serif;">
                 <ul class="nav navbar-nav">
-                    <li> 
+                    <li>
                         <br>
                         <center>
                             <img src="../images/<?php echo $data['foto']; ?>" class="img-responsive" style=" border:2px dashed silver; border-radius:100%; height: 80px;width: 80px;">
                             <p> <code><b><?php echo $data['nama']; ?></b> </code> </p>
                         </center>
-                    </li> 
+                    </li>
                     <hr style="border:1px solid white; width: 100%;">
-                    
+
                     <h3 class="menu-title">Menu Utama</h3>
-                    
+
                     <li class="<?php echo (@$_GET['page'] == '') ? 'active' : ''; ?>">
-                        <a href="?page=" > 
-                            <i class="menu-icon fa fa-home" style="font-size: 23px;color: #40c4ff;"></i>Dashboard 
+                        <a href="?page=">
+                            <i class="menu-icon fa fa-home" style="font-size: 23px;color: #40c4ff;"></i>Dashboard
                         </a>
-                    </li> 
+                    </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-gears" style="font-size: 23px;color: #40c4ff;"></i> Data Master
                         </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -98,7 +100,7 @@ $data = mysqli_fetch_array($sql);
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-calendar-check-o" style="font-size: 23px;color: #40c4ff;"></i> Piket & Kehadiran
                         </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -122,7 +124,7 @@ $data = mysqli_fetch_array($sql);
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-tasks" style="font-size: 23px;color: #40c4ff;"></i> Agenda & Kegiatan
                         </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -142,13 +144,13 @@ $data = mysqli_fetch_array($sql);
                     </li>
 
                     <li>
-                        <a href="?page=v_file"> 
-                            <i class="menu-icon fa fa-file-text-o" style="font-size: 23px;color:#40c4ff;"></i> File Perangkat 
+                        <a href="?page=v_file">
+                            <i class="menu-icon fa fa-file-text-o" style="font-size: 23px;color:#40c4ff;"></i> File Perangkat
                         </a>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-line-chart" style="font-size: 23px;color: #40c4ff;"></i> Laporan
                         </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -168,8 +170,8 @@ $data = mysqli_fetch_array($sql);
                     </li>
 
                     <li>
-                        <a href="?page=v_user"> 
-                            <i class="menu-icon fa fa-user-md" style="font-size: 23px;color:#40c4ff ;"></i> Manage User 
+                        <a href="?page=v_user">
+                            <i class="menu-icon fa fa-user-md" style="font-size: 23px;color:#40c4ff ;"></i> Manage User
                         </a>
                     </li>  
 
@@ -228,11 +230,11 @@ $data = mysqli_fetch_array($sql);
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-md-12"> 
+                    <div class="col-md-12">
                         <?php
                         error_reporting(0);
                         $page = @$_GET['page'];
-                        
+
                         // DASHBOARD
                         if ($page == '') {
                             include 'dashboard.php';
@@ -240,40 +242,41 @@ $data = mysqli_fetch_array($sql);
                         // DATA MASTER
                         elseif ($page == 'v_mapel') {
                             include 'V-Mapel.php';
-                        }
-                        elseif ($page == 'v_tajaran') {
+                        } elseif ($page == 'add-mapel') {
+                            include 'T-Mapel.php';
+                        } elseif ($page == 'edit-mapel') {
+                            include 'E-Mapel.php';
+                        } elseif ($page == 'del-mapel') {
+                            include 'D-Mapel.php';
+                        } elseif ($page == 'v_tajaran') {
                             include 'V-TAjaran.php';
-                        }
-                        elseif ($page == 'v_kejur') {
+                        } elseif ($page == 'v_kejur') {
                             include 'V-Kejur.php';
-                        }
-                        elseif ($page == 'v_guru') {
+                        } elseif ($page == 'v_guru') {
                             include 'V-Guru.php';
                         }
                         // MANAJEMEN PIKET - FILE BARU
                         elseif ($page == 'v_jadwal_piket') {
                             include 'V-JadwalPiket.php';
-                        }
-                        elseif ($page == 'v_guru_pengganti') {
+                        } elseif ($page == 'add-jadwal') {
+                            include 'T-JadwalPiket.php';
+                        } elseif ($page == 'e_jadwal') {
+                            include 'E-JadwalPiket.php';
+                        } elseif ($page == 'v_guru_pengganti') {
                             include 'V-GuruPengganti.php';
-                        }
-                        elseif ($page == 'v_kehadiran_guru') {
+                        } elseif ($page == 'v_kehadiran_guru') {
                             include 'V-KehadiranGuru.php';
-                        }
-                        elseif ($page == 'v_keterlambatan_siswa') {
+                        } elseif ($page == 'v_keterlambatan_siswa') {
                             include 'V-Keterlambatan.php';
-                        }
-                        elseif ($page == 'v_izin_siswa') {
+                        } elseif ($page == 'v_izin_siswa') {
                             include 'V-IzinSiswa.php';
                         }
                         // AGENDA & KEGIATAN
                         elseif ($page == 'v_agenda') {
                             include 'V-Agenda.php';
-                        }
-                        elseif ($page == 'v_lapid') {
+                        } elseif ($page == 'v_lapid') {
                             include 'V-LaporanID.php';
-                        }
-                        elseif ($page == 'v_aglain') {
+                        } elseif ($page == 'v_aglain') {
                             include 'V-AgendaLain.php';
                         }
                         // FILE & DOKUMEN
@@ -283,11 +286,9 @@ $data = mysqli_fetch_array($sql);
                         // LAPORAN - FILE BARU
                         elseif ($page == 'v_laporan_harian') {
                             include 'V-LaporanHarian.php';
-                        }
-                        elseif ($page == 'v_laporan_bulanan') {
+                        } elseif ($page == 'v_laporan_bulanan') {
                             include 'V-LaporanBulanan.php';
-                        }
-                        elseif ($page == 'v_export_data') {
+                        } elseif ($page == 'v_export_data') {
                             include 'V-ExportData.php';
                         }
                         // MANAJEMEN USER
@@ -302,129 +303,95 @@ $data = mysqli_fetch_array($sql);
                         elseif ($page == 'act') {
                             include 'proses.php';
                         }
-                        
+
                         // ===================================
                         // EDIT & DELETE PAGES (JADWAL PIKET)
                         // ===================================
                         elseif ($page == 'e_jadwal') {
                             // Asumsikan nama file Edit Jadwal adalah E-JadwalPiket.php
-                            include 'E-JadwalPiket.php'; 
-                        }
-                        elseif ($page == 'd_jadwal') {
+                            include 'E-JadwalPiket.php';
+                        } elseif ($page == 'd_jadwal') {
                             // Asumsikan nama file Delete Jadwal adalah D-JadwalPiket.php
-                            include 'D-JadwalPiket.php'; 
-                        }
-                        elseif ($page == 'e_kehadiran_guru') {
-                        include 'E-KehadiranGuru.php'; 
-                        }
-                        elseif ($page == 'd_kehadiran_guru') {
-                        include 'D-KehadiranGuru.php'; 
-                        }
-                        elseif ($page == 'd_keterlambatan_siswa') {
-                        include 'D-KeterlambatanSiswa.php'; 
+                            include 'D-JadwalPiket.php';
+                        } elseif ($page == 'e_kehadiran_guru') {
+                            include 'E-KehadiranGuru.php';
+                        } elseif ($page == 'd_kehadiran_guru') {
+                            include 'D-KehadiranGuru.php';
+                        } elseif ($page == 'd_keterlambatan_siswa') {
+                            include 'D-KeterlambatanSiswa.php';
                         }
                         // ===================================
 
                         elseif ($page == 'e_gurupengganti') {
-                        include 'E-GuruPengganti.php'; 
+                            include 'E-GuruPengganti.php';
                         }
                         // END: TAMBAHAN KODE INI
                         elseif ($page == 'e_jadwal') {
-                        include 'E-JadwalPiket.php'; 
+                            include 'E-JadwalPiket.php';
                         }
-                        
+
                         // EDIT & DELETE PAGES (existing)
                         elseif ($page == 'e_mapel') {
                             include 'E-Mapel.php';
-                        }
-                        elseif ($page == 'e_tajaran') {
+                        } elseif ($page == 'e_tajaran') {
                             include 'E-TAjaran.php';
-                        }
-                        elseif ($page == 'e_kejur') {
+                        } elseif ($page == 'e_kejur') {
                             include 'E-Kejur.php';
-                        }
-                        elseif ($page == 'e_guru') {
+                        } elseif ($page == 'e_guru') {
                             include 'E-Guru.php';
-                        }
-                        elseif ($page == 'e_izin_siswa') {
+                        } elseif ($page == 'e_izin_siswa') {
                             include 'E-IzinSiswa.php';
-                        }
-                        elseif ($page == 'd_izin_siswa') {
+                        } elseif ($page == 'd_izin_siswa') {
                             include 'D-IzinSiswa.php';
-                        }
-                        elseif ($page == 'edit-agenda') {
+                        } elseif ($page == 'edit-agenda') {
                             include 'E-Agenda.php';
-                        }
-                        elseif ($page == 'eaglain') {
+                        } elseif ($page == 'eaglain') {
                             include 'E-AgendaLain.php';
-                        }
-                        elseif ($page == 'd_mapel') {
+                        } elseif ($page == 'd_mapel') {
                             include 'D-Mapel.php';
-                        }
-                        elseif ($page == 'd_tajaran') {
+                        } elseif ($page == 'd_tajaran') {
                             include 'D-TAjaran.php';
-                        }
-                        elseif ($page == 'd_kejur') {
+                        } elseif ($page == 'd_kejur') {
                             include 'D-Kejur.php';
-                        }
-                        elseif ($page == 'd_guru') {
+                        } elseif ($page == 'd_guru') {
                             include 'D-Guru.php';
-                        }
-                        elseif ($page == 'del-agenda') {
+                        } elseif ($page == 'del-agenda') {
                             include 'D-Agenda.php';
-                        }
-                        elseif ($page == 'daglain') {
+                        } elseif ($page == 'daglain') {
                             include 'D-AgendaLain.php';
-                        }
-                        elseif ($page == 'd_admin') {
+                        } elseif ($page == 'd_admin') {
                             include 'D-UserA.php';
-                        }
-                        elseif ($page == 'd_kepsek') {
+                        } elseif ($page == 'd_kepsek') {
                             include 'D-Kepsek.php';
-                        }
-                        elseif ($page == 't_guru') {
+                        } elseif ($page == 't_guru') {
                             include 'T-Guru.php';
-                        }
-                        elseif ($page == 't_kehadiran_guru') {
+                        } elseif ($page == 't_kehadiran_guru') {
                             include 'T-KehadiranGuru.php';
-                        }
-                        elseif ($page == 't_keterlambatansiswa') {
+                        } elseif ($page == 't_keterlambatansiswa') {
                             include 'T-KeterlambatanSiswa.php';
-                        }
-                        elseif ($page == 't_izin_siswa') {
+                        } elseif ($page == 't_izin_siswa') {
                             include 'T-IzinSiswa.php';
-                        }
-                        elseif ($page == 'l_guru') {
+                        } elseif ($page == 'l_guru') {
                             include 'L-Guru.php';
-                        }
-                        elseif ($page == 'h_guru') {
+                        } elseif ($page == 'h_guru') {
                             include 'D-Guru.php';
-                        }
-                        elseif ($page == 'v_mapeld') {
+                        } elseif ($page == 'v_mapeld') {
                             include 'V-MapelID.php';
-                        }
-                        elseif ($page == 'v_mapelagenda') {
+                        } elseif ($page == 'v_mapelagenda') {
                             include 'V-MapelAgenda.php';
-                        }
-                        elseif ($page == 'v_filemapel') {
+                        } elseif ($page == 'v_filemapel') {
                             include 'T-FilePerangkat.php';
-                        }
-                        elseif ($page == 'add-file') {
+                        } elseif ($page == 'add-file') {
                             include 'T-FilePerangkat.php';
-                        }
-                        elseif ($page == 'view-file') {
+                        } elseif ($page == 'view-file') {
                             include 'Detail-File.php';
-                        }
-                        elseif ($page == 't_admin') {
+                        } elseif ($page == 't_admin') {
                             include 'T-UserA.php';
-                        }
-                        elseif ($page == 't_kepsek') {
+                        } elseif ($page == 't_kepsek') {
                             include 'T-Kepsek.php';
-                        }
-                        elseif ($page == 'e_user') {
+                        } elseif ($page == 'e_user') {
                             include 'E-UserG.php';
-                        }
-                        elseif ($page == 'e_admin') {
+                        } elseif ($page == 'e_admin') {
                             include 'E-UserA.php';
                         }
                         // DEFAULT - HALAMAN TIDAK DITEMUKAN
@@ -463,7 +430,7 @@ $data = mysqli_fetch_array($sql);
                 width: "100%"
             });
         });
-        
+
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
             $('#bootstrap-data-table-export1').DataTable();
@@ -471,4 +438,5 @@ $data = mysqli_fetch_array($sql);
     </script>
 
 </body>
+
 </html>

@@ -81,7 +81,7 @@ $data = mysqli_fetch_array($sql);
                         <ul class="sub-menu children dropdown-menu">
                             <li>
                                 <i class="menu-icon fa fa-calendar" style="font-size: 20px;color:#f50057 ;"></i>
-                                <a href="?page=v_jadwal_saya"> Jadwal Piket Saya</a>
+                                <a href="?page=v_jadwal_piket"> Jadwal Piket Saya</a>
                             </li>
                             <li>
                                 <i class="menu-icon fa fa-user-plus" style="font-size: 20px;color:#f50057 ;"></i>
@@ -276,6 +276,13 @@ $data = mysqli_fetch_array($sql);
                                 break;
                             case 'v_ajukan_pengganti':
                                 include 'V-AjukanPengganti.php';
+                                break;
+                            case 'v_jadwal_piket':
+                                include 'V-JadwalPiket.php'; // Halaman Daftar Jadwal
+                                break;
+
+                            case 'add-jadwal':
+                                include 'T-JadwalPiket.php'; // Halaman Form Tambah
                                 break;
 
 
