@@ -33,7 +33,9 @@ $tanggal_cari = $_GET['tanggal'] ?? date('Y-m-d');
 <center>
 	<img src="../images/logo.jpg" width="60">
 	<h3 class="tex">LAPORAN KEGIATAN HARIAN SEKOLAH <br>
-SMK NEGERI 4 PAYAKUMBUH</h3>
+SMP N 1 Kaliwungu</h3>
+        <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
+            Telepon: (0291) 438068</p>
 </center>
 <hr>
 
@@ -112,16 +114,16 @@ SMK NEGERI 4 PAYAKUMBUH</h3>
 
 	$no=1;
 
-	$sql_Bayar = mysqli_query($con, "SELECT * FROM tb_agendalain
-	INNER JOIN tb_guru ON tb_agendalain.id_guru = tb_guru.id_guru
-	WHERE tgl_kgt = '$tanggal_cari' ORDER BY tgl_kgt ASC") or die(mysqli_error($con)) ;
+	$sql_Bayar = mysqli_query($con, "SELECT * FROM tb_agenda_lain
+	INNER JOIN tb_guru ON tb_agenda_lain.id_guru = tb_guru.id_guru
+	WHERE tanggal = '$tanggal_cari' ORDER BY tanggal ASC") or die(mysqli_error($con)) ;
 	while ($d = mysqli_fetch_array($sql_Bayar)) {
 	?>
 	<tr>
 	<td><?php echo $no++; ?>.</td>
-	<td><?php echo $d['tgl_kgt']; ?> </td>
-	<td><?php echo $d['kegiatan']; ?> (<?php echo $d['nama_guru']; ?>)</td>
-	<td><?php echo $d['isi']; ?> </td>
+	<td><?php echo $d['tanggal']; ?> </td>
+	<td><?php echo $d['nama_kegiatan']; ?> (<?php echo $d['nama_guru']; ?>)</td>
+	<td><?php echo $d['jam_mulai']; ?> - <?php echo $d['jam_selesai']; ?></td>
 	<td><?php echo $d['keterangan']; ?> </td>
 
 	</tr>

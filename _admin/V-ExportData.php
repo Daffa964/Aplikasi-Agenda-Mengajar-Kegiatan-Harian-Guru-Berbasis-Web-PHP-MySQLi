@@ -60,7 +60,7 @@ include '../koneksi.php';
                     <div class="card-body">
                         <h5 class="card-title">Export Data Agenda Lain</h5>
                         <p class="card-text">Ekspor data agenda lain ke format Excel</p>
-                        <a href="export_excel.php?tabel=tb_agendalain" class="btn btn-light">Export Excel</a>
+                        <a href="export_excel.php?tabel=tb_agenda_lain" class="btn btn-light">Export Excel</a>
                     </div>
                 </div>
             </div>

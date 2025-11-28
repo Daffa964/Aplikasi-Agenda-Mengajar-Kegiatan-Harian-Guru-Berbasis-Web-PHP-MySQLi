@@ -49,7 +49,9 @@ if (@$_SESSION['guru']) {
     <center>
         <img src="../images/logo.jpg" width="60">
         <h3 class="tex">LAPORAN KEGIATAN HARIAN GURU <br>
-            SMK NEGERI 4 PAYAKUMBUH</h3>
+            SMP N 1 Kaliwungu</h3>
+        <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
+            Telepon: (0291) 438068</p>
     </center>
     <hr>
 
@@ -99,7 +101,7 @@ if (@$_SESSION['guru']) {
             WHERE tb_agenda.tgl BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' 
             AND tb_agenda.id_guru='$sesi' 
             ORDER BY tb_agenda.tgl, tb_agenda.jam") or die(mysqli_error($con));
-            
+
             while ($d = mysqli_fetch_array($sql_Bayar)) {
             ?>
                 <tr>
@@ -128,38 +130,35 @@ if (@$_SESSION['guru']) {
             <tr style="height: 40px;background-color:rgb(203,215,224);">
                 <th width="30">No.</th>
                 <th>Tanggal</th>
-                <th>Kegiatan</th>
-                <th>Isi Kegiatan</th>
+                <th>Nama Kegiatan</th>
+                <th>Waktu</th>
                 <th>Keterangan</th>
-
             </tr>
         </thead>
         <tbody>
             <?php
-
             $no = 1;
 
-            $sql_Bayar = mysqli_query($con, "SELECT * FROM tb_agendalain
-    WHERE tgl_kgt BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]'AND id_guru='$sesi' ORDER BY tgl_kgt, kegiatan") or die(mysqli_error($con));
-            while ($d = mysqli_fetch_array($sql_Bayar)) {
+            $sql_non = mysqli_query($con, "
+            SELECT * FROM tb_agenda_lain
+            WHERE tanggal BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]'
+            AND id_guru='$sesi'
+            ORDER BY tanggal, nama_kegiatan
+        ") or die(mysqli_error($con));
+
+            while ($d = mysqli_fetch_array($sql_non)) {
             ?>
                 <tr>
                     <td><?php echo $no++; ?>.</td>
-                    <td><?php echo $d['tgl_kgt']; ?> </td>
-                    <td><?php echo $d['kegiatan']; ?> </td>
-                    <td><?php echo $d['isi']; ?> </td>
-                    <td><?php echo $d['keterangan']; ?> </td>
-
+                    <td><?php echo $d['tanggal']; ?></td>
+                    <td><?php echo $d['nama_kegiatan']; ?></td>
+                    <td><?php echo $d['jam_mulai'] . " - " . $d['jam_selesai']; ?></td>
+                    <td><?php echo $d['keterangan']; ?></td>
                 </tr>
-            <?php
-
-
-            }
-
-            ?>
-
+            <?php } ?>
         </tbody>
     </table>
+
 
     <h3 class="tex"><b>Data Siswa Izin</b></h3>
 
@@ -256,7 +255,7 @@ if (@$_SESSION['guru']) {
     <table width="100%" class="tex">
         <tr>
             <td align="right" colspan="6" rowspan="" headers="">
-                <p>Payakumbuh, <?php echo date(" d F Y") ?> <br> <br>
+                <p>Kudus, <?php echo date(" d F Y") ?> <br> <br>
                     Kepala Sekolah </p> <br> <br>
                 <p> <?php echo $data['nama'] ?> <br>______________________</p>
             </td>

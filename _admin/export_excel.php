@@ -10,11 +10,12 @@ $tabel = $_GET['tabel'];
 
 // Definisikan nama tabel yang diizinkan untuk mencegah SQL injection
 $allowed_tables = [
-    'tb_guru', 
-    'tb_siswa', 
-    'tb_izin_siswa', 
-    'tb_keterlambatan', 
-    'tb_agenda', 
+    'tb_guru',
+    'tb_siswa',
+    'tb_izin_siswa',
+    'tb_keterlambatan',
+    'tb_agenda',
+    'tb_agenda_lain',
     'tb_agendalain',
     'tb_kelas',
     'tb_mapel',

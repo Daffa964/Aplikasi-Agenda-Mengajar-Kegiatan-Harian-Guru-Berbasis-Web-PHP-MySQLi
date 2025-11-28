@@ -31,7 +31,9 @@ $data = mysqli_fetch_array($sql);
 <center>
 	<img src="../images/logo.jpg" width="60">
 	<h3 class="tex">LAPORAN KEGIATAN HARIAN SEKOLAH <br>
-SMK NEGERI 4 PAYAKUMBUH</h3>
+SMP N 1 Kaliwungu</h3>
+        <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
+            Telepon: (0291) 438068</p>
 </center>
 <hr>
 

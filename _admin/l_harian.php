@@ -112,9 +112,9 @@ $data = mysqli_fetch_array($sql);
       <?php 
     $no=1;
     $now= date('Y-m-d');
-    $sql = mysqli_query($con," SELECT * FROM tb_agendalain WHERE tgl_kgt='$now' AND id_guru = '$sesi'") or die(mysqli_error($con));
+    $sql = mysqli_query($con," SELECT * FROM tb_agenda_lain WHERE tanggal='$now' AND id_guru = '$sesi'") or die(mysqli_error($con));
     while ( $data1=mysqli_fetch_array($sql)) { ?>
-      <li class="list-group-item"><?php echo $data1['kegiatan'] ?></li> 
+      <li class="list-group-item"><?php echo $data1['nama_kegiatan'] ?></li>
 
     <?php } ?>
      </ul>
@@ -151,9 +151,9 @@ $data = mysqli_fetch_array($sql);
       <?php 
     $no=1;
     $now= date('Y-m-d');
-    $sql = mysqli_query($con," SELECT * FROM tb_agendalain WHERE tgl_kgt='$now' AND id_guru = '$sesi'") or die(mysqli_error($con));
+    $sql = mysqli_query($con," SELECT * FROM tb_agenda_lain WHERE tanggal='$now' AND id_guru = '$sesi'") or die(mysqli_error($con));
     while ( $data1=mysqli_fetch_array($sql)) { ?>
-      <li class="list-group-item"><?php echo $data1['keterangan'] ?></li> 
+      <li class="list-group-item"><?php echo $data1['keterangan'] ?></li>
 
     <?php } ?>
      </ul>      

@@ -42,9 +42,10 @@ $teaching_activities = $stmt_teaching->get_result();
 
 // Fetch non-teaching activities
 $stmt_non_teaching = $con->prepare("
-    SELECT * FROM tb_agendalain
-    WHERE id_guru = ? AND tgl_kgt BETWEEN ? AND ?
-    ORDER BY tgl_kgt, kegiatan
+    SELECT id_lain, tanggal, nama_kegiatan, keterangan, jam_mulai, jam_selesai
+    FROM tb_agenda_lain
+    WHERE id_guru = ? AND tanggal BETWEEN ? AND ?
+    ORDER BY tanggal, jam_mulai
 ");
 $stmt_non_teaching->bind_param("iss", $sesi, $tgl1, $tgl2);
 $stmt_non_teaching->execute();
@@ -90,7 +91,7 @@ $kepsek_data = $kepsek_result->fetch_assoc();
             <span class="fa fa-file-o"></span> Laporan Kegiatan Harian
         </h3>
     </div>
-    
+
     <div class="card-body">
         <!-- Form for date range selection -->
         <form class="form-inline mb-4" method="GET" target="_blank" action="laporan_harian.php">
@@ -165,17 +166,17 @@ $kepsek_data = $kepsek_result->fetch_assoc();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                         $non_teaching_activities->data_seek(0); // Reset pointer
-                        $no = 1; 
+                        $no = 1;
                         ?>
                         <?php while ($row = $non_teaching_activities->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td><?php echo date('d-m-Y', strtotime($row['tgl_kgt'])); ?></td>
-                                <td><?php echo htmlspecialchars($row['kegiatan']); ?></td>
-                                <td><?php echo htmlspecialchars(strip_tags($row['isi'])); ?></td>
+                                <td><?php echo date('d-m-Y', strtotime($row['tanggal'])); ?></td>
+                                <td><?php echo htmlspecialchars($row['nama_kegiatan']); ?></td>
                                 <td><?php echo htmlspecialchars($row['keterangan']); ?></td>
+                                <td><?php echo $row['jam_mulai'] . ' - ' . $row['jam_selesai']; ?></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

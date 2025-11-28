@@ -114,6 +114,45 @@ INSERT INTO `tb_agenda` (`id_agenda`, `id_guru`, `id_mapel`, `tgl`, `jam`, `mate
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_agenda_lain`
+--
+
+CREATE TABLE `tb_agenda_lain` (
+  `id_lain` int NOT NULL,
+  `id_guru` int NOT NULL,
+  `tanggal` date NOT NULL,
+  `nama_kegiatan` varchar(255) NOT NULL,
+  `jam_mulai` time NOT NULL,
+  `jam_selesai` time NOT NULL,
+  `keterangan` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for table `tb_agenda_lain`
+--
+ALTER TABLE `tb_agenda_lain`
+  ADD PRIMARY KEY (`id_lain`);
+
+--
+-- AUTO_INCREMENT for table `tb_agenda_lain`
+--
+ALTER TABLE `tb_agenda_lain`
+  MODIFY `id_lain` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Dumping data for table `tb_agenda_lain`
+--
+
+INSERT INTO `tb_agenda_lain` (`id_lain`, `id_guru`, `tanggal`, `nama_kegiatan`, `jam_mulai`, `jam_selesai`, `keterangan`) VALUES
+(1, 1, '2025-05-28', 'Rapat Koordinasi Kurikulum', '09:00', '11:00', 'Pembahasan pelaksanaan kurikulum tahun ajaran baru'),
+(2, 1, '2025-05-28', 'Evaluasi Semester', '13:00', '15:00', 'Evaluasi pembelajaran semester genap tahun ajaran 2024/2025'),
+(3, 7, '2025-06-08', 'Pelatihan Guru', '08:00', '16:00', 'Pelatihan penerapan teknologi dalam pembelajaran modern'),
+(4, 7, '2025-06-11', 'Persiapan Tahun Ajaran Baru', '09:00', '12:00', 'Menyusun program dan persiapan awal tahun ajaran 2025/2026'),
+(5, 11, '2025-07-19', 'Pelatihan Soft Skills', '08:00', '14:00', 'Pelatihan soft skills untuk siswa kelas XII'),
+(6, 1, '2025-08-19', 'Revisi Kurikulum', '10:00', '12:00', 'Revisi kurikulum berbasis kompetensi keahlian'),
+(7, 1, '2025-08-19', 'Pembukaan Tahun Ajaran', '07:00', '10:00', 'Kegiatan pembelajaran dimulai');
+
+--
 -- Table structure for table `tb_agendalain`
 --
 
@@ -138,6 +177,7 @@ INSERT INTO `tb_agendalain` (`id_lain`, `id_guru`, `tgl_kgt`, `kegiatan`, `isi`,
 (13, 11, '2025-07-19', 'Pelatihan Soft Skills', '<p>Pelatihan soft skills untuk siswa kelas XII</p>\r\n', 'Dilakukan di aula sekolah'),
 (14, 1, '2025-08-19', 'Revisi Kurikulum', '<p>Revisi kurikulum berbasis kompetensi keahlian</p>\r\n', 'Terkait dengan standar mutu pendidikan'),
 (15, 1, '2025-08-19', 'Pembukaan Tahun Ajaran', '<p>Pembukaan tahun ajaran baru 2025/2026</p>\r\n', 'Kegiatan pembelajaran dimulai');
+
 
 -- --------------------------------------------------------
 
@@ -431,6 +471,12 @@ INSERT INTO `tb_user` (`id_admin`, `nama`, `username`, `password`, `foto`) VALUE
 --
 
 --
+-- Indexes for table `tb_agenda_lain`
+--
+ALTER TABLE `tb_agenda_lain`
+  ADD PRIMARY KEY (`id_lain`);
+
+--
 -- Indexes for table `tb_izin_siswa`
 --
 ALTER TABLE `tb_izin_siswa`
@@ -470,6 +516,12 @@ ALTER TABLE `tb_siswa`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tb_agenda_lain`
+--
+ALTER TABLE `tb_agenda_lain`
+  MODIFY `id_lain` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_izin_siswa`

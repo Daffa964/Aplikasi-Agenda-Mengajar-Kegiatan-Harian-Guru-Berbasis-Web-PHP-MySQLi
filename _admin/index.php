@@ -254,6 +254,8 @@ $data = mysqli_fetch_array($sql);
                             include 'V-Kejur.php';
                         } elseif ($page == 'v_guru') {
                             include 'V-Guru.php';
+                        } elseif ($page == 'import_guru') {
+                            include 'T-ImportGuru.php';
                         }
                         // MANAJEMEN PIKET - FILE BARU
                         elseif ($page == 'v_jadwal_piket') {
@@ -278,6 +280,12 @@ $data = mysqli_fetch_array($sql);
                             include 'V-LaporanID.php';
                         } elseif ($page == 'v_aglain') {
                             include 'V-AgendaLain.php';
+                        } elseif ($page == 'add-agenda-lain') {
+                            include 'T-AgendaLain.php';
+                        } elseif ($page == 'e_agenda_lain') {
+                            include 'E-AgendaLain.php';
+                        } elseif ($page == 'd_agenda_lain') {
+                            include 'D-AgendaLain.php';
                         }
                         // FILE & DOKUMEN
                         elseif ($page == 'v_file') {

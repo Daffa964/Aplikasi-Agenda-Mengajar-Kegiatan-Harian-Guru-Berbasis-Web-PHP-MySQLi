@@ -21,8 +21,8 @@ if (!isset($_SESSION['admin'])) {
 
 // 1. Ambil Tanggal yang Dicari atau Gunakan Tanggal Hari Ini
 $tanggal_cari = isset($_GET['tanggal_laporan']) && !empty($_GET['tanggal_laporan'])
-             ? mysqli_real_escape_string($con, $_GET['tanggal_laporan'])
-             : date('Y-m-d');
+    ? mysqli_real_escape_string($con, $_GET['tanggal_laporan'])
+    : date('Y-m-d');
 
 // Validasi format tanggal
 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $tanggal_cari)) {
@@ -35,7 +35,7 @@ $tahun_ajaran_aktif = 'T.A Tidak Aktif';
 $sqlTa = mysqli_query($con, "SELECT tahun_ajaran FROM tb_tajaran WHERE status='Aktif'") or die("Query Tahun Ajaran Gagal: " . mysqli_error($con));
 if (mysqli_num_rows($sqlTa) > 0) {
     $dataTa = mysqli_fetch_array($sqlTa);
-    $tahun_ajaran_aktif = $dataTa['tahun_ajaran']; 
+    $tahun_ajaran_aktif = $dataTa['tahun_ajaran'];
 }
 
 // ----------------------------------------------------------------------
@@ -73,16 +73,22 @@ $queryIzin = mysqli_query($con, "
 ") or die("Query Perizinan Gagal: " . mysqli_error($con));
 
 
-// C. Query Agenda LAIN-LAIN Guru Piket (tb_agendalain) - Disesuaikan dengan tgl_kgt
+// C. Query Agenda LAIN-LAIN Guru Piket (tb_agenda_lain)
 $queryAgendaLain = mysqli_query($con, "
-    SELECT
-        a.kegiatan, a.isi, a.keterangan,
-        b.nama_guru AS guru_pencatat
-    FROM tb_agendalain a
-    LEFT JOIN tb_guru b ON a.id_guru = b.id_guru
-    WHERE a.tgl_kgt = '$tanggal_cari' -- Menggunakan tgl_kgt sesuai skema
+    SELECT 
+        a.tanggal,
+        a.nama_kegiatan,
+        a.jam_mulai,
+        a.jam_selesai,
+        a.keterangan,
+        g.nama_guru AS guru_pencatat
+    FROM tb_agenda_lain a
+    LEFT JOIN tb_guru g ON a.id_guru = g.id_guru
+    WHERE a.tanggal = '$tanggal_cari'
     ORDER BY a.id_lain ASC
 ") or die("Query Agenda Lain Gagal: " . mysqli_error($con));
+
+
 
 
 // D. Query Agenda Mengajar (tb_agenda)
@@ -110,25 +116,25 @@ $total_agenda = mysqli_num_rows($queryAgendaLain) + mysqli_num_rows($queryAgenda
 
 <div class="card">
     <div class="card-header bg-info text-white">
-        <strong class="card-title"> 
+        <strong class="card-title">
             <span class="fa fa-book"></span> Laporan Agenda Harian Sekolah
         </strong>
     </div>
     <div class="card-body">
-        
+
         <form action="" method="GET" class="form-inline mb-4">
             <input type="hidden" name="page" value="v_laporan_harian">
             <label for="tanggal_laporan" class="mr-2">Pilih Tanggal Laporan:</label>
             <input type="date" name="tanggal_laporan" id="tanggal_laporan" class="form-control mr-2"
-                    value="<?php echo $tanggal_cari; ?>">
+                value="<?php echo $tanggal_cari; ?>">
             <button type="submit" class="btn btn-primary">
                 <span class="fa fa-search"></span> Cari
             </button>
 
             <?php if (mysqli_num_rows($queryKeterlambatan) > 0 || mysqli_num_rows($queryIzin) > 0 || $total_agenda > 0): ?>
-            <a href="cetak_laporan_harian.php?tanggal=<?php echo $tanggal_cari; ?>" target="_blank" class="btn btn-success ml-2">
-                <span class="fa fa-print"></span> Cetak Laporan
-            </a>
+                <a href="cetak_laporan_harian.php?tanggal=<?php echo $tanggal_cari; ?>" target="_blank" class="btn btn-success ml-2">
+                    <span class="fa fa-print"></span> Cetak Laporan
+                </a>
             <?php endif; ?>
         </form>
 
@@ -160,23 +166,25 @@ $total_agenda = mysqli_num_rows($queryAgendaLain) + mysqli_num_rows($queryAgenda
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     if (mysqli_num_rows($queryKeterlambatan) > 0):
                         $no = 1;
                         while ($dataKet = mysqli_fetch_array($queryKeterlambatan)):
                     ?>
-                        <tr>
-                            <td><?= $no++; ?>.</td>
-                            <td><?= $dataKet['nama_siswa'] ? $dataKet['nama_siswa'] . ' (' . $dataKet['kelas'] . ')' : 'Data Tidak Lengkap'; ?></td>
-                            <td>**<?= $dataKet['waktu_terlambat'] ? $dataKet['waktu_terlambat'] . ' Menit' : '0'; ?>**</td>
-                            <td><?= $dataKet['keterangan'] ? $dataKet['keterangan'] : '-'; ?></td>
-                            <td><?= $dataKet['guru_pencatat'] ? $dataKet['guru_pencatat'] : 'N/A'; ?></td>
-                        </tr>
-                    <?php 
-                        endwhile; 
+                            <tr>
+                                <td><?= $no++; ?>.</td>
+                                <td><?= $dataKet['nama_siswa'] ? $dataKet['nama_siswa'] . ' (' . $dataKet['kelas'] . ')' : 'Data Tidak Lengkap'; ?></td>
+                                <td>**<?= $dataKet['waktu_terlambat'] ? $dataKet['waktu_terlambat'] . ' Menit' : '0'; ?>**</td>
+                                <td><?= $dataKet['keterangan'] ? $dataKet['keterangan'] : '-'; ?></td>
+                                <td><?= $dataKet['guru_pencatat'] ? $dataKet['guru_pencatat'] : 'N/A'; ?></td>
+                            </tr>
+                        <?php
+                        endwhile;
                     else:
-                    ?>
-                        <tr><td colspan="5" class="text-center text-muted">Tidak ada data keterlambatan pada tanggal ini.</td></tr>
+                        ?>
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">Tidak ada data keterlambatan pada tanggal ini.</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -198,32 +206,34 @@ $total_agenda = mysqli_num_rows($queryAgendaLain) + mysqli_num_rows($queryAgenda
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     if (mysqli_num_rows($queryIzin) > 0):
                         $no = 1;
                         while ($dataIzin = mysqli_fetch_array($queryIzin)):
                             $badge = ($dataIzin['status_izin'] == 'Disetujui') ? 'badge-success' : (($dataIzin['status_izin'] == 'Ditolak') ? 'badge-danger' : 'badge-warning');
                     ?>
-                        <tr>
-                            <td><?= $no++; ?>.</td>
-                            <td><?= $dataIzin['nama_siswa'] ? $dataIzin['nama_siswa'] . ' (' . $dataIzin['kelas'] . ')' : 'Data Tidak Lengkap'; ?></td>
-                            <td><?= $dataIzin['jenis_izin'] ? $dataIzin['jenis_izin'] : '-'; ?></td>
-                            <td><?= $dataIzin['keterangan'] ? substr($dataIzin['keterangan'], 0, 100) . '...' : '-'; ?></td>
-                            <td><span class="badge <?= $badge; ?>"><?= $dataIzin['status_izin'] ? $dataIzin['status_izin'] : '-'; ?></span></td>
-                            <td><?= $dataIzin['guru_pemroses'] ? $dataIzin['guru_pemroses'] : 'N/A'; ?></td>
-                        </tr>
-                    <?php 
-                        endwhile; 
+                            <tr>
+                                <td><?= $no++; ?>.</td>
+                                <td><?= $dataIzin['nama_siswa'] ? $dataIzin['nama_siswa'] . ' (' . $dataIzin['kelas'] . ')' : 'Data Tidak Lengkap'; ?></td>
+                                <td><?= $dataIzin['jenis_izin'] ? $dataIzin['jenis_izin'] : '-'; ?></td>
+                                <td><?= $dataIzin['keterangan'] ? substr($dataIzin['keterangan'], 0, 100) . '...' : '-'; ?></td>
+                                <td><span class="badge <?= $badge; ?>"><?= $dataIzin['status_izin'] ? $dataIzin['status_izin'] : '-'; ?></span></td>
+                                <td><?= $dataIzin['guru_pemroses'] ? $dataIzin['guru_pemroses'] : 'N/A'; ?></td>
+                            </tr>
+                        <?php
+                        endwhile;
                     else:
-                    ?>
-                        <tr><td colspan="6" class="text-center text-muted">Tidak ada data perizinan siswa pada tanggal ini.</td></tr>
+                        ?>
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">Tidak ada data perizinan siswa pada tanggal ini.</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
 
         ---
-        
+
         <h5 class="mt-4"><span class="fa fa-tasks"></span> Catatan Kegiatan/Kejadian Penting (Total: <?= mysqli_num_rows($queryAgendaLain); ?> Catatan)</h5>
         <div class="table-responsive">
             <table class="table table-bordered table-sm table-striped">
@@ -237,23 +247,35 @@ $total_agenda = mysqli_num_rows($queryAgendaLain) + mysqli_num_rows($queryAgenda
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     if (mysqli_num_rows($queryAgendaLain) > 0):
                         $no = 1;
                         while ($dataLain = mysqli_fetch_array($queryAgendaLain)):
                     ?>
-                        <tr>
-                            <td><?= $no++; ?>.</td>
-                            <td>**<?= $dataLain['kegiatan'] ? $dataLain['kegiatan'] : '-'; ?>**</td>
-                            <td><?= $dataLain['isi'] ? $dataLain['isi'] : '-'; ?></td>
-                            <td><?= $dataLain['keterangan'] ? $dataLain['keterangan'] : '-'; ?></td>
-                            <td><?= $dataLain['guru_pencatat'] ? $dataLain['guru_pencatat'] : 'N/A'; ?></td>
-                        </tr>
-                    <?php 
-                        endwhile; 
+                            <tr>
+                                <td><?= $no++; ?>.</td>
+                                <td><strong><?= $dataLain['nama_kegiatan'] ?? '-'; ?></strong></td>
+
+                                <td>
+                                    <?=
+                                    (!empty($dataLain['jam_mulai']) && !empty($dataLain['jam_selesai']))
+                                        ? $dataLain['jam_mulai'] . " - " . $dataLain['jam_selesai']
+                                        : '-';
+                                    ?>
+                                </td>
+
+                                <td><?= $dataLain['keterangan'] ?? '-'; ?></td>
+
+                                <td><?= $dataLain['guru_pencatat'] ?? 'N/A'; ?></td>
+
+                            </tr>
+                        <?php
+                        endwhile;
                     else:
-                    ?>
-                        <tr><td colspan="5" class="text-center text-muted">Tidak ada catatan kegiatan penting (agenda lain) pada tanggal ini.</td></tr>
+                        ?>
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">Tidak ada catatan kegiatan penting (agenda lain) pada tanggal ini.</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -275,27 +297,29 @@ $total_agenda = mysqli_num_rows($queryAgendaLain) + mysqli_num_rows($queryAgenda
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     if (mysqli_num_rows($queryAgendaMengajar) > 0):
                         $no = 1;
                         while ($dataAjar = mysqli_fetch_array($queryAgendaMengajar)):
                     ?>
-                        <tr>
-                            <td><?= $no++; ?>.</td>
-                            <td><?= $dataAjar['jam'] ? $dataAjar['jam'] : '-'; ?></td>
-                            <td>
-                                <strong><?= $dataAjar['nama_guru'] ? $dataAjar['nama_guru'] : 'Data Tidak Lengkap'; ?></strong> <br>
-                                <small class="text-muted"><?= $dataAjar['kelas'] ? $dataAjar['kelas'] : 'N/A'; ?></small>
-                            </td>
-                            <td><?= $dataAjar['materi'] ? $dataAjar['materi'] : '-'; ?></td>
-                            <td><?= $dataAjar['absen'] ? $dataAjar['absen'] : '-'; ?></td>
-                            <td><?= $dataAjar['ket'] ? $dataAjar['ket'] : '-'; ?></td>
-                        </tr>
-                    <?php 
-                        endwhile; 
+                            <tr>
+                                <td><?= $no++; ?>.</td>
+                                <td><?= $dataAjar['jam'] ? $dataAjar['jam'] : '-'; ?></td>
+                                <td>
+                                    <strong><?= $dataAjar['nama_guru'] ? $dataAjar['nama_guru'] : 'Data Tidak Lengkap'; ?></strong> <br>
+                                    <small class="text-muted"><?= $dataAjar['kelas'] ? $dataAjar['kelas'] : 'N/A'; ?></small>
+                                </td>
+                                <td><?= $dataAjar['materi'] ? $dataAjar['materi'] : '-'; ?></td>
+                                <td><?= $dataAjar['absen'] ? $dataAjar['absen'] : '-'; ?></td>
+                                <td><?= $dataAjar['ket'] ? $dataAjar['ket'] : '-'; ?></td>
+                            </tr>
+                        <?php
+                        endwhile;
                     else:
-                    ?>
-                        <tr><td colspan="6" class="text-center text-muted">Tidak ada data agenda mengajar pada tanggal ini.</td></tr>
+                        ?>
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">Tidak ada data agenda mengajar pada tanggal ini.</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>

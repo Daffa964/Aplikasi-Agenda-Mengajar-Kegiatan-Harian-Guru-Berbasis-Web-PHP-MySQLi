@@ -409,13 +409,182 @@ elseif (isset($_POST['approve_pengganti'])) {
     if ($update) {
         // PERHATIKAN: window.location harus ke 'index.php?page=v_guru_pengganti'
         echo "<script>
-                alert('Pengajuan Disetujui!'); 
-                window.location='index.php?page=v_guru_pengganti'; 
+                alert('Pengajuan Disetujui!');
+                window.location='index.php?page=v_guru_pengganti';
               </script>";
     } else {
         echo "<script>
-                alert('Gagal Mengupdate: " . mysqli_error($con) . "'); 
+                alert('Gagal Mengupdate: " . mysqli_error($con) . "');
                 window.location='index.php?page=v_guru_pengganti';
               </script>";
     }
 }
+if (isset($_POST['simpan_agenda_lain'])) {
+    $tanggal       = mysqli_real_escape_string($con, $_POST['tanggal']);
+    $nama_kegiatan = mysqli_real_escape_string($con, $_POST['nama_kegiatan']);
+    $id_guru       = mysqli_real_escape_string($con, $_POST['id_guru']);
+    $jam_mulai     = mysqli_real_escape_string($con, $_POST['jam_mulai']);
+    $jam_selesai   = mysqli_real_escape_string($con, $_POST['jam_selesai']);
+    $keterangan    = mysqli_real_escape_string($con, $_POST['keterangan']);
+
+    // Jika id_guru adalah 0 (kegiatan umum), kita tetap simpan
+    if($id_guru == '0') {
+        $id_guru = 0; // Tidak ada guru khusus
+    }
+
+    $save = mysqli_query($con, "INSERT INTO tb_agenda_lain
+        (id_guru, nama_kegiatan, tanggal, jam_mulai, jam_selesai, keterangan)
+        VALUES ('$id_guru', '$nama_kegiatan', '$tanggal', '$jam_mulai', '$jam_selesai', '$keterangan')");
+
+    if ($save) {
+        echo "<script>
+            alert('Data Kegiatan Berhasil Disimpan');
+            window.location='index.php?page=v_aglain';
+        </script>";
+    } else {
+        echo "<script>
+            alert('Gagal Menyimpan Data: " . mysqli_error($con) . "');
+            window.location='?page=add-agenda-lain';
+        </script>";
+    }
+}
+
+elseif (isset($_POST['upload_guru_csv'])) {
+    if ($_FILES['csv_file']['error'] !== UPLOAD_ERR_OK) {
+        echo "<script>alert('Error saat upload file. Pastikan file terupload dengan benar.'); window.history.back();</script>";
+        exit();
+    }
+
+    $file_path = $_FILES['csv_file']['tmp_name'];
+    $file_handle = fopen($file_path, "r");
+    $delimiter = ';'; // Sesuai dengan format CSV Anda
+    
+    // Lewati baris header (jika baris pertama adalah header)
+    fgetcsv($file_handle, 1000, $delimiter);
+
+    $success_count = 0;
+    $update_count = 0;
+    $insert_count = 0;
+    $error_count = 0;
+    $error_messages = [];
+
+    // Looping membaca data baris per baris
+    while (($data = fgetcsv($file_handle, 1000, $delimiter)) !== FALSE) {
+        // Cek apakah jumlah kolom minimal 9
+        if (count($data) < 9) {
+            $error_count++;
+            $error_messages[] = "Baris data dilewati karena kolom tidak lengkap. Data: " . implode(', ', $data);
+            continue;
+        }
+
+        // Mapping kolom CSV ke variabel
+        $id_guru       = mysqli_real_escape_string($con, $data[0]);
+        $kode_sekolah  = mysqli_real_escape_string($con, $data[1]);
+        $kode_guru     = mysqli_real_escape_string($con, $data[2]);
+        $nama_guru     = mysqli_real_escape_string($con, $data[3]);
+        $nip           = mysqli_real_escape_string($con, $data[4]);
+        $username      = mysqli_real_escape_string($con, $data[5]);
+        $pass_raw      = mysqli_real_escape_string($con, $data[6]); 
+        $password      = mysqli_real_escape_string($con, $data[7]); // Kolom password (diduga hashed)
+        $penugasan     = mysqli_real_escape_string($con, $data[8]);
+        
+        // Pastikan id_guru tidak kosong
+        if (empty($id_guru)) {
+            $error_count++;
+            $error_messages[] = "Baris dilewati karena ID Guru kosong. Data: " . implode(', ', $data);
+            continue;
+        }
+
+        // Cek apakah id_guru sudah ada di database
+        $check = mysqli_query($con, "SELECT id_guru FROM tb_guru WHERE id_guru='$id_guru'");
+        
+        if (mysqli_num_rows($check) > 0) {
+            // Data sudah ada, lakukan UPDATE
+            $query = "UPDATE tb_guru SET 
+                kode_sekolah='$kode_sekolah',
+                kode_guru='$kode_guru',
+                nama_guru='$nama_guru',
+                nip='$nip',
+                username='$username',
+                pass='$pass_raw',
+                password='$password',
+                penugasan='$penugasan'
+                WHERE id_guru='$id_guru'";
+            $update_count++;
+        } else {
+            // Data belum ada, lakukan INSERT
+            $query = "INSERT INTO tb_guru 
+                (id_guru, kode_sekolah, kode_guru, nama_guru, nip, username, pass, password, penugasan) 
+                VALUES 
+                ('$id_guru', '$kode_sekolah', '$kode_guru', '$nama_guru', '$nip', '$username', '$pass_raw', '$password', '$penugasan')";
+            $insert_count++;
+        }
+
+        $result = mysqli_query($con, $query);
+        
+        if ($result) {
+            $success_count++;
+        } else {
+            $error_count++;
+            // Catat error database spesifik
+            $error_messages[] = "Gagal memproses ID: $id_guru. Error Database: " . mysqli_error($con);
+        }
+    }
+
+    fclose($file_handle);
+
+    // Tampilkan hasil dan redirect
+    $message = "Proses Import Selesai. Total Data Diproses: $success_count.";
+    $message .= "\nData Baru Ditambahkan: " . ($insert_count) . ".";
+    $message .= "\nData Diperbarui: " . ($update_count) . ".";
+    $message .= "\nData Gagal Diproses: $error_count.";
+
+    if ($error_count > 0) {
+        $message .= "\n\nCatatan: Beberapa data gagal. Silakan periksa log server untuk detail atau pastikan data CSV tidak ada duplikasi ID/NIP atau kesalahan format baris.";
+    }
+    
+    echo "<script>
+        alert('$message');
+        window.location='index.php?page=v_guru'; // Redirect ke halaman daftar guru
+    </script>";
+}
+
+// 2. Ubah/Edit Kegiatan
+elseif (isset($_POST['ubah_agenda_lain'])) {
+    $id_lain       = $_POST['id_lain'];
+    $tanggal       = mysqli_real_escape_string($con, $_POST['tanggal']);
+    $nama_kegiatan = mysqli_real_escape_string($con, $_POST['nama_kegiatan']);
+    $id_guru       = mysqli_real_escape_string($con, $_POST['id_guru']);
+    $jam_mulai     = mysqli_real_escape_string($con, $_POST['jam_mulai']);
+    $jam_selesai   = mysqli_real_escape_string($con, $_POST['jam_selesai']);
+    $keterangan    = mysqli_real_escape_string($con, $_POST['keterangan']);
+
+    $update = mysqli_query($con, "UPDATE tb_agenda_lain SET
+        id_guru       = '$id_guru',
+        nama_kegiatan = '$nama_kegiatan',
+        tanggal       = '$tanggal',
+        jam_mulai     = '$jam_mulai',
+        jam_selesai   = '$jam_selesai',
+        keterangan    = '$keterangan'
+        WHERE id_lain = '$id_lain' ");
+
+    if ($update) {
+        echo "<script>
+            alert('Data Kegiatan Berhasil Diperbarui');
+            window.location='index.php?page=v_aglain';
+        </script>";
+    } else {
+        echo "<script>
+            alert('Gagal Mengubah Data: " . mysqli_error($con) . "');
+            window.history.back();
+        </script>";
+    }
+} else {
+    // Tambahkan ini untuk menangani kasus di mana tidak ada kondisi yang cocok
+    // Jika tidak ada POST action yang dikenali, kembali ke halaman utama atau tampilkan error
+    // Tapi karena ini akan menyebabkan header setelah output, kita harus menggunakan javascript redirect
+    echo "<script>
+        alert('Tidak ada aksi yang dikenali atau data tidak lengkap');
+        window.history.back();
+    </script>";
+} 

@@ -53,9 +53,9 @@
        <br>
     <br>
 
-    <center><p><h2>SMK NEGERI 4 PAYAKUMBUH</h2></p></center>
-    <p align="center" class="style1">Jl.Koto Kaciak, Padang Sikabu, Kec Lamposi Tigo Nagori</p>
-    <p align="center" class="style1"> Email : smkn4pyk@com</p>
+    <center><p><h2>SMP N 1 Kaliwungu</h2></p></center>
+    <p align="center" class="style1">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361</p>
+    <p align="center" class="style1">Telepon: (0291) 438068</p>
     <p align="center" class="style1">&nbsp; </p>
     <p align="center" class="style1">&nbsp;</p></td>
   </tr>

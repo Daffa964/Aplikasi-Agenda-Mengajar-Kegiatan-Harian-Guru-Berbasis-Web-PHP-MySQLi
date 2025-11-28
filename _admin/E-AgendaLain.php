@@ -1,91 +1,83 @@
-<div class="col-md-12">
-	<div class="card">
-	<div class="card-header bg-dark">
-	<strong class="card-title text-light"> <span class="fa fa-plus"></span> Edit Agenda Lain </strong>
-	</div>
-	<?php 
-	$idg = $_GET['idg'];
-	$sqlMapel= mysqli_query($con, "SELECT * FROM tb_agendalain WHERE id_lain = '$idg'");
-	     $data= mysqli_fetch_array($sqlMapel);
-
-	 ?>
-
-     <form action="" method="post">
-			<div class="card">
-              <div class="card-header">
-                <h3> <span class="fa fa-edit"></span>  Form Edit Agenda </h3> 
-              </div>
-              <div class="card-body card-block">
-              
-                  <div class="form-group">
-                  	<label for="nf-email" name="" class=" form-control-label">Hari / Tanggal Kegiatan  </label>
-                  	<input type="hidden" name="id_guru" value="<?php echo $data['id_guru']; ?>">
-                  		<input type="hidden" name="idg" value="<?php echo $data['id_lain']; ?>">
-                  	<input type="date" id="nf-email" name="tgl" class="form-control" value="<?php echo $data['tgl_kgt']; ?>">
-
-                  </div>
-                   <div class="form-group">
-                  	<label for="nf-email" class=" form-control-label"> Nama Kegiatan</label>
-                  	<input type="text" id="nf-email" name="kegiatan" value="<?php echo $data['kegiatan']; ?>" class="form-control">
-                  	
-                  </div>
-                     <div class="form-group">
-                  	<label for="nf-email" class=" form-control-label"> Isi Kegiatan / Acara</label>
-
-                  	<textarea class="ckeditor" name="isi" id="ckedtor1"><?php echo $data['isi']; ?></textarea>
-                  	
-                  </div>
-                  <div class="form-group">
-                  	<label for="nf-password" class=" form-control-label">Keterangan</label>
-                  	<textarea class="form-control" name="ket"><?php echo $data['keterangan']; ?></textarea>
-                  </div>
-              
-              </div>
-              <div class="card-footer">
-                <button type="submit" name="edit-agenda" class="btn btn-primary">
-                  <i class="fa fa-save"></i> Edit Agenda
-                </button>
-                <a href="javascript:history.back()" class="btn btn-warning"> <span class="fa fa-chevron-left"></span> Batal </a>  
-              </div>
-              
-            </div>
-              </form>
-
-              <?php 
-
-if (isset($_POST['edit-agenda'])) {
-$idg = $_POST['idg'];
-$id_guru = $_POST['id_guru'];
-$tgl     = $_POST['tgl'];
-$judul   = $_POST['kegiatan'];
-$isi     = $_POST['isi'];
-$ket     = $_POST['ket'];
-
-
-
-// simapn ke tb_mapel
-mysqli_query($con, " UPDATE tb_agendalain SET tgl_kgt='$tgl',kegiatan='$judul',isi='$isi',keterangan='$ket' WHERE id_lain='$idg' ") or die(mysqli_error($con)) ;
-
-// header('window.location=?page=add-agenda&idg='.$id_mapel);
-
-
-echo " 
-<script>
-alert('Data Berhasil DiUbah !!');
-window.location='?page=v_aglain&idg=$data[id_guru] ';
-
-
-</script> ";
-}
-
-
-
-
+<?php
+// Ambil ID dari URL
+$id = $_GET['id'];
+$edit = mysqli_query($con, "SELECT * FROM tb_agenda_lain WHERE id_lain='$id'");
+$d = mysqli_fetch_array($edit);
 ?>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <strong><i class="fa fa-edit"></i> Edit Kegiatan Lainnya</strong>
+            </div>
+            <div class="card-body card-block">
+                <form action="?page=act" method="post" class="form-horizontal">
 
+                    <input type="hidden" name="id_lain" value="<?=$d['id_lain'];?>">
 
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tanggal</label></div>
+                        <div class="col-12 col-md-9">
+                            <input type="date" name="tanggal" class="form-control" value="<?=$d['tanggal'];?>" required>
+                        </div>
+                    </div>
 
-		</div>
-	</div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Nama Kegiatan</label></div>
+                        <div class="col-12 col-md-9">
+                            <input type="text" name="nama_kegiatan" class="form-control" value="<?=$d['nama_kegiatan'];?>" required>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Pelaksana</label></div>
+                        <div class="col-12 col-md-9">
+                            <select name="id_guru" class="form-control standardSelect">
+                                <option value="0">Kegiatan Umum / Sekolah</option>
+                                <?php
+                                $guru = mysqli_query($con, "SELECT * FROM tb_guru ORDER BY nama_guru ASC");
+                                while ($g = mysqli_fetch_array($guru)) {
+                                    // Cek jika guru ini yang dipilih sebelumnya
+                                    $selected = ($g['id_guru'] == $d['id_guru']) ? "selected" : "";
+                                    echo "<option value='$g[id_guru]' $selected>$g[nama_guru]</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Waktu</label></div>
+                        <div class="col-12 col-md-4">
+                            <input type="time" name="jam_mulai" class="form-control" value="<?=$d['jam_mulai'];?>" required>
+                            <small>Mulai</small>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <input type="time" name="jam_selesai" class="form-control" value="<?=$d['jam_selesai'];?>" required>
+                            <small>Selesai</small>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Keterangan</label></div>
+                        <div class="col-12 col-md-9">
+                            <textarea name="keterangan" rows="4" class="form-control"><?=$d['keterangan'];?></textarea>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="form-actions form-group">
+                        <button type="submit" name="ubah_agenda_lain" class="btn btn-success btn-sm">
+                            <i class="fa fa-save"></i> Simpan Perubahan
+                        </button>
+                        <a href="?page=v_aglain" class="btn btn-secondary btn-sm">
+                            <i class="fa fa-ban"></i> Batal
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

@@ -11,10 +11,10 @@
   </style>
 </head>
 <body>
-  <?php 
+  <?php
   include '../koneksi.php';
   $idg = $_GET['idg'];
-  $sqlMapel= mysqli_query($con, "SELECT * FROM tb_agendalain INNER JOIN tb_guru ON tb_agendalain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'");
+  $sqlMapel= mysqli_query($con, "SELECT * FROM tb_agenda_lain INNER JOIN tb_guru ON tb_agenda_lain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'");
        $data= mysqli_fetch_array($sqlMapel);
 
    ?>
@@ -48,23 +48,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <?php 
+                    <?php
                     $no=1;
-                    $sql = mysqli_query($con,"SELECT * FROM tb_agendalain INNER JOIN tb_guru ON tb_agendalain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'") 
+                    $sql = mysqli_query($con,"SELECT * FROM tb_agenda_lain INNER JOIN tb_guru ON tb_agenda_lain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'")
                     or die(mysqli_error($con));
                     ;
                   while ( $data=mysqli_fetch_array($sql)) {
                        ?>
                       <tr>
                         <td> <?=$no++;?> </td>
-                        <td> <?=$data['tgl_kgt'];?> </td>
-                        <td> <?=$data['kegiatan'];?></td>
-                         <td> <?=$data['isi'];?></td>
+                        <td> <?=$data['tanggal'];?> </td>
+                        <td> <?=$data['nama_kegiatan'];?></td>
+                         <td> <?=$data['jam_mulai'];?> - <?=$data['jam_selesai'];?></td>
                         <td><?=$data['keterangan'];?></td>
 
-                       
+
                       </tr>
-                      <?php 
+                      <?php
                        }
 
                        ?>
