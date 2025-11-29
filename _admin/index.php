@@ -120,6 +120,10 @@ $data = mysqli_fetch_array($sql);
                                 <i class="menu-icon fa fa-file-text" style="font-size: 20px;color:#f50057 ;"></i>
                                 <a href="?page=v_izin_siswa"> Izin Siswa</a>
                             </li>
+                            <li>
+                                <i class="menu-icon fa fa-calendar" style="font-size: 20px;color:#f50057 ;"></i>
+                                <a href="?page=v_jadwal_piket_mingguan"> Daftar Piket Mingguan</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -272,6 +276,12 @@ $data = mysqli_fetch_array($sql);
                             include 'V-Keterlambatan.php';
                         } elseif ($page == 'v_izin_siswa') {
                             include 'V-IzinSiswa.php';
+                        } elseif ($page == 'v_jadwal_piket_mingguan') {
+                            include 'V-JadwalPiketMingguan.php';
+                        } elseif ($page == 'detail-guru-piket') {
+                            include 'V-DetailGuruPiket.php';
+                        } elseif ($page == 'edit-piket-mingguan') {
+                            include 'E-JadwalPiketMingguan.php';
                         }
                         // AGENDA & KEGIATAN
                         elseif ($page == 'v_agenda') {

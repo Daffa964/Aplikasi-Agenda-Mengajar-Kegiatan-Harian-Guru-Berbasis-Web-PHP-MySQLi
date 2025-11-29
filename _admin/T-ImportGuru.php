@@ -13,7 +13,7 @@
                     <p class="mb-0">Sistem akan melakukan **UPDATE** data jika `id_guru` sudah ada, atau **INSERT** data baru jika `id_guru` belum ada.</p>
                 </div>
 
-                <form action="?page=act" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                <form action="proses.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
                     
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="csv_file" class="form-control-label">Pilih File CSV</label></div>

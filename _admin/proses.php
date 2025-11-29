@@ -457,9 +457,9 @@ elseif (isset($_POST['upload_guru_csv'])) {
 
     $file_path = $_FILES['csv_file']['tmp_name'];
     $file_handle = fopen($file_path, "r");
-    $delimiter = ';'; // Sesuai dengan format CSV Anda
+    $delimiter = ';'; // Delimiter titik koma (;)
     
-    // Lewati baris header (jika baris pertama adalah header)
+    // Lewati baris header
     fgetcsv($file_handle, 1000, $delimiter);
 
     $success_count = 0;
@@ -470,53 +470,53 @@ elseif (isset($_POST['upload_guru_csv'])) {
 
     // Looping membaca data baris per baris
     while (($data = fgetcsv($file_handle, 1000, $delimiter)) !== FALSE) {
-        // Cek apakah jumlah kolom minimal 9
-        if (count($data) < 9) {
+        // Cek apakah jumlah kolom minimal 8 (untuk id_guru hingga password)
+        if (count($data) < 8) {
             $error_count++;
-            $error_messages[] = "Baris data dilewati karena kolom tidak lengkap. Data: " . implode(', ', $data);
+            $error_messages[] = "Baris data tidak lengkap (Kolom kurang dari 8). Data: " . implode(', ', $data);
             continue;
         }
 
-        // Mapping kolom CSV ke variabel
-        $id_guru       = mysqli_real_escape_string($con, $data[0]);
-        $kode_sekolah  = mysqli_real_escape_string($con, $data[1]);
-        $kode_guru     = mysqli_real_escape_string($con, $data[2]);
-        $nama_guru     = mysqli_real_escape_string($con, $data[3]);
-        $nip           = mysqli_real_escape_string($con, $data[4]);
-        $username      = mysqli_real_escape_string($con, $data[5]);
-        $pass_raw      = mysqli_real_escape_string($con, $data[6]); 
-        $password      = mysqli_real_escape_string($con, $data[7]); // Kolom password (diduga hashed)
-        $penugasan     = mysqli_real_escape_string($con, $data[8]);
+        // --- Mapping Kolom CSV ke Kolom DB yang ada ---
+        $id_guru       = mysqli_real_escape_string($con, $data[0]);   // Kolom 1 CSV -> id_guru (DB)
+        $nama_guru     = mysqli_real_escape_string($con, $data[3]);   // Kolom 4 CSV -> nama_guru (DB)
+        $nip           = mysqli_real_escape_string($con, $data[4]);   // Kolom 5 CSV -> nip (DB)
+        $username      = mysqli_real_escape_string($con, $data[5]);   // Kolom 6 CSV -> username (DB)
+        $password      = mysqli_real_escape_string($con, $data[7]);   // Kolom 8 CSV -> password (DB)
         
-        // Pastikan id_guru tidak kosong
+        // Kolom CSV yang diabaikan: kode_sekolah (index 1), kode_guru (index 2), pass (index 6), penugasan (index 8).
+
         if (empty($id_guru)) {
             $error_count++;
-            $error_messages[] = "Baris dilewati karena ID Guru kosong. Data: " . implode(', ', $data);
+            $error_messages[] = "Baris dilewati karena ID Guru kosong.";
             continue;
         }
 
         // Cek apakah id_guru sudah ada di database
         $check = mysqli_query($con, "SELECT id_guru FROM tb_guru WHERE id_guru='$id_guru'");
         
+        // Kolom DB yang TIDAK ADA di CSV (kelamin, alamat, telp, gelar, tempat, tgl, agama, email, photo)
+        // Kolom ini akan menggunakan nilai DEFAULT/NULL yang sudah disetel di DB.
+
+        $columns_to_update = "
+            nama_guru='$nama_guru',
+            nip='$nip',
+            username='$username',
+            password='$password'
+        ";
+        
         if (mysqli_num_rows($check) > 0) {
             // Data sudah ada, lakukan UPDATE
             $query = "UPDATE tb_guru SET 
-                kode_sekolah='$kode_sekolah',
-                kode_guru='$kode_guru',
-                nama_guru='$nama_guru',
-                nip='$nip',
-                username='$username',
-                pass='$pass_raw',
-                password='$password',
-                penugasan='$penugasan'
+                $columns_to_update
                 WHERE id_guru='$id_guru'";
             $update_count++;
         } else {
             // Data belum ada, lakukan INSERT
             $query = "INSERT INTO tb_guru 
-                (id_guru, kode_sekolah, kode_guru, nama_guru, nip, username, pass, password, penugasan) 
+                (id_guru, nama_guru, nip, username, password) 
                 VALUES 
-                ('$id_guru', '$kode_sekolah', '$kode_guru', '$nama_guru', '$nip', '$username', '$pass_raw', '$password', '$penugasan')";
+                ('$id_guru', '$nama_guru', '$nip', '$username', '$password')";
             $insert_count++;
         }
 
@@ -526,26 +526,24 @@ elseif (isset($_POST['upload_guru_csv'])) {
             $success_count++;
         } else {
             $error_count++;
-            // Catat error database spesifik
             $error_messages[] = "Gagal memproses ID: $id_guru. Error Database: " . mysqli_error($con);
         }
     }
 
     fclose($file_handle);
 
-    // Tampilkan hasil dan redirect
-    $message = "Proses Import Selesai. Total Data Diproses: $success_count.";
+    $message = "Proses Import Selesai. Total Data Berhasil: $success_count.";
     $message .= "\nData Baru Ditambahkan: " . ($insert_count) . ".";
     $message .= "\nData Diperbarui: " . ($update_count) . ".";
     $message .= "\nData Gagal Diproses: $error_count.";
 
     if ($error_count > 0) {
-        $message .= "\n\nCatatan: Beberapa data gagal. Silakan periksa log server untuk detail atau pastikan data CSV tidak ada duplikasi ID/NIP atau kesalahan format baris.";
+        $message .= "\n\n5 Detail Error Pertama:\n" . implode("\n", array_slice($error_messages, 0, 5));
     }
     
     echo "<script>
         alert('$message');
-        window.location='index.php?page=v_guru'; // Redirect ke halaman daftar guru
+        window.location='index.php?page=v_guru'; 
     </script>";
 }
 
