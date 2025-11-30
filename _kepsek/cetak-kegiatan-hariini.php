@@ -14,7 +14,7 @@ $data = mysqli_fetch_array($sql);
 	
 </style>
 <center>
-	<img src="../images/logo.jpg" width="60">
+	<img src="../images/logoEsaka.png" width="60">
 <h3 class="tex">LAPORAN KEGIATAN HARIAN GURU <br>
 SMP N 1 Kaliwungu</h3>
         <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
@@ -92,7 +92,7 @@ SMP N 1 Kaliwungu</h3>
       <?php 
     $no=1;
     $now= date('Y-m-d');
-    $sql = mysqli_query($con," SELECT * FROM tb_agendalain WHERE tgl_kgt='$now' AND id_guru = '$idg'") or die(mysqli_error($con));
+    $sql = mysqli_query($con," SELECT * FROM tb_agenda_lain WHERE tanggal='$now' AND id_guru = '$idg'") or die(mysqli_error($con));
     while ( $data1=mysqli_fetch_array($sql)) { ?>
       <li class="list-group-item"><?php echo $data1['kegiatan'] ?></li> 
 
@@ -131,7 +131,7 @@ SMP N 1 Kaliwungu</h3>
       <?php 
     $no=1;
     $now= date('Y-m-d');
-    $sql = mysqli_query($con," SELECT * FROM tb_agendalain WHERE tgl_kgt='$now' AND id_guru = '$idg'") or die(mysqli_error($con));
+    $sql = mysqli_query($con," SELECT * FROM tb_agenda_lain WHERE tanggal='$now' AND id_guru = '$idg'") or die(mysqli_error($con));
     while ( $data1=mysqli_fetch_array($sql)) { ?>
       <li class="list-group-item"><?php echo $data1['keterangan'] ?></li> 
 
@@ -162,7 +162,7 @@ SMP N 1 Kaliwungu</h3>
       <!--  <a href="#" class="no-print" onclick="window.print();"> <button style="height: 40px; width: 70px; background-color: dodgerblue;border:none; color: white; border-radius:7px;font-size: 17px; " type=""> Cetak</button> </a> -->
         <tr>
           <td align="right" colspan="6" rowspan="" headers="">
-            <p>Payakumbuh, <?php echo date (" d F Y") ?>  <br> <br>
+            <p>Kudus, <?php echo date (" d F Y") ?>  <br> <br>
             Kepala Sekolah </p> <br> <br>
             <p> <?php echo $data['nama'] ?> <br>______________________</p>
           </td>

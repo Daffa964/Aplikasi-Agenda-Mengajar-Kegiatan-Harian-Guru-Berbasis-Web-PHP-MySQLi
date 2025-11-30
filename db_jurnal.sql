@@ -141,6 +141,56 @@ INSERT INTO `tb_agenda_lain` (`id_lain`, `id_guru`, `tanggal`, `nama_kegiatan`, 
 (7, 1, '2025-08-19', 'Pembukaan Tahun Ajaran', '07:00:00', '10:00:00', 'Kegiatan pembelajaran dimulai'),
 (8, 1, '2025-11-27', 'Mempersiapkan Ruangan Rapat Persiapan Akhir Tahun', '08:00:00', '13:00:00', 'Menata Ruangan Rapat');
 
+-- Menambahkan seed data untuk guru-guru lain agar setiap guru memiliki setidaknya 1 agenda lain
+INSERT INTO `tb_agenda_lain` (`id_guru`, `tanggal`, `nama_kegiatan`, `jam_mulai`, `jam_selesai`, `keterangan`) VALUES
+(8, '2025-05-30', 'Pembahasan Program Kerja', '09:00:00', '11:00:00', 'Rapat bulanan untuk membahas program kerja minggu ini'),
+(9, '2025-06-01', 'Pembinaan Siswa', '07:30:00', '09:00:00', 'Kegiatan pembinaan dan pengarahan kepada siswa'),
+(10, '2025-06-05', 'Evaluasi Pembelajaran', '10:00:00', '12:00:00', 'Evaluasi terhadap metode pembelajaran yang digunakan'),
+(12, '2025-06-07', 'Persiapan Lomba Sekolah', '13:00:00', '15:00:00', 'Mempersiapkan tim untuk lomba antar sekolah'),
+(13, '2025-06-10', 'Pelatihan ICT', '08:00:00', '12:00:00', 'Pelatihan penerapan Teknologi Informasi dalam pembelajaran'),
+(14, '2025-06-12', 'Kegiatan Ekstrakurikuler', '15:00:00', '17:00:00', 'Membimbing kegiatan ekstrakurikuler siswa'),
+(17, '2025-06-15', 'Pembahasan Silabus', '09:00:00', '11:00:00', 'Menyusun silabus semester gasal tahun ajaran baru'),
+(18, '2025-06-18', 'Pembimbingan UKS', '07:00:00', '09:00:00', 'Kegiatan pembimbingan bagi siswa UKS'),
+(19, '2025-06-20', 'Pembinaan Kelas', '08:00:00', '10:00:00', 'Kegiatan pembinaan kelas dan pengembangan karakter siswa'),
+(20, '2025-06-22', 'Rapat Koordinasi', '10:00:00', '11:30:00', 'Koordinasi dengan wali kelas terkait evaluasi minggu ini'),
+(21, '2025-06-25', 'Pelatihan Komputer', '13:00:00', '15:00:00', 'Pelatihan komputer untuk guru-guru'),
+(22, '2025-06-28', 'Pembinaan OSIS', '14:00:00', '16:00:00', 'Kegiatan pembinaan organisasi siswa'),
+(23, '2025-07-01', 'Bimbingan Karir', '09:00:00', '11:00:00', 'Bimbingan karir dan orientasi kerja untuk siswa kelas akhir'),
+(24, '2025-07-03', 'Pembahasan Kurikulum', '09:30:00', '12:00:00', 'Pembahasan dan pengembangan kurikulum terbaru'),
+(25, '2025-07-05', 'Kegiatan Pramuka', '14:00:00', '16:00:00', 'Membimbing kegiatan Pramuka sekolah'),
+(26, '2025-07-08', 'Pembinaan Siswa Bermasalah', '08:00:00', '10:00:00', 'Kegiatan pembinaan untuk siswa dengan masalah akademik'),
+(27, '2025-07-10', 'Pengembangan Media Pembelajaran', '13:00:00', '15:00:00', 'Membuat media pembelajaran inovatif'),
+(28, '2025-07-12', 'Kegiatan Seni dan Budaya', '15:00:00', '17:00:00', 'Membimbing kegiatan seni dan budaya sekolah'),
+(29, '2025-07-15', 'Pembinaan Paskibra', '06:00:00', '08:00:00', 'Latihan Paskibra dalam rangka hari kemerdekaan'),
+(30, '2025-07-17', 'Pembahasan Program Tahunan', '10:00:00', '12:00:00', 'Menyusun program kerja tahunan pelajaran'),
+(31, '2025-07-20', 'Sosialisasi Program', '09:00:00', '11:00:00', 'Sosialisasi program sekolah kepada wali murid'),
+(32, '2025-07-22', 'Pembinaan Anak Jalanan', '13:00:00', '15:00:00', 'Program pembinaan bagi anak jalanan di lingkungan sekolah'),
+(33, '2025-07-25', 'Kegiatan Bakti Sosial', '08:00:00', '12:00:00', 'Mengkoordinasi kegiatan bakti sosial sekolah'),
+(34, '2025-07-27', 'Pembinaan Kerja Bakti', '07:00:00', '09:00:00', 'Membimbing pelaksanaan kerja bakti mingguan'),
+(35, '2025-07-30', 'Pelatihan Kepemimpinan', '14:00:00', '16:00:00', 'Pelatihan kepemimpinan untuk calon pengurus organisasi siswa'),
+(36, '2025-08-02', 'Pembinaan Sanitasi', '08:00:00', '10:00:00', 'Kegiatan pembinaan kebersihan dan sanitasi sekolah'),
+(37, '2025-08-04', 'Kegiatan Literasi', '09:00:00', '11:00:00', 'Mengembangkan program literasi di sekolah'),
+(38, '2025-08-06', 'Pembinaan Karakter', '08:00:00', '10:00:00', 'Pembinaan karakter dan budi pekerti siswa'),
+(39, '2025-08-09', 'Pembinaan Kedisiplinan', '07:00:00', '08:30:00', 'Membimbing pelaksanaan program kedisiplinan sekolah'),
+(40, '2025-08-11', 'Kegiatan Keagamaan', '15:00:00', '16:30:00', 'Membimbing kegiatan kerohanian siswa'),
+(41, '2025-08-14', 'Pembinaan Minat Bakat', '13:00:00', '15:00:00', 'Mengembangkan minat dan bakat siswa'),
+(42, '2025-08-16', 'Kegiatan Kepramukaan', '08:00:00', '10:00:00', 'Membimbing kegiatan pramuka penggalang'),
+(43, '2025-08-18', 'Pembinaan Baca Tulis Al-Qur\'an', '07:30:00', '09:00:00', 'Membimbing siswa dalam program BTQ'),
+(44, '2025-08-20', 'Pembinaan Tadarus', '06:00:00', '07:00:00', 'Pengelolaan program tadarus pagi hari'),
+(45, '2025-08-23', 'Kegiatan Outbond', '08:00:00', '16:00:00', 'Membimbing kegiatan outbond untuk siswa'),
+(46, '2025-08-25', 'Pembinaan Koperasi Siswa', '14:00:00', '15:30:00', 'Mengembangkan koperasi siswa yang mandiri'),
+(47, '2025-08-27', 'Kegiatan Pecinta Alam', '15:30:00', '17:00:00', 'Membimbing ekstrakurikuler pecinta alam'),
+(48, '2025-08-30', 'Pembinaan Wirausaha', '09:00:00', '11:00:00', 'Pelatihan kewirausahaan untuk siswa'),
+(49, '2025-09-02', 'Pengembangan Soft Skills', '13:00:00', '15:00:00', 'Mengembangkan soft skills pada siswa'),
+(50, '2025-09-05', 'Kegiatan Pariwisata Pendidikan', '06:00:00', '18:00:00', 'Membimbing study tour siswa'),
+(51, '2025-09-07', 'Pembinaan Karya Ilmiah', '10:00:00', '12:00:00', 'Membimbing siswa dalam penulisan karya ilmiah'),
+(52, '2025-09-10', 'Pengembangan Kreativitas', '14:00:00', '16:00:00', 'Mengembangkan kreativitas siswa dalam proyek pembelajaran'),
+(53, '2025-09-12', 'Kegiatan Kewirausahaan', '08:00:00', '10:00:00', 'Pelatihan kewirausahaan berbasis digital'),
+(54, '2025-09-15', 'Pembinaan Literasi Digital', '13:00:00', '15:00:00', 'Mengembangkan literasi digital di kalangan siswa'),
+(55, '2025-09-17', 'Kegiatan Pengembangan Diri', '09:00:00', '11:00:00', 'Kegiatan pendampingan pengembangan diri siswa'),
+(56, '2025-09-19', 'Pembinaan Kemandirian', '08:00:00', '10:00:00', 'Membimbing siswa untuk mandiri dalam belajar'),
+(57, '2025-09-21', 'Kegiatan Kebersamaan', '07:00:00', '09:00:00', 'Mengembangkan kepedulian sosial di lingkungan sekolah');
+
 -- --------------------------------------------------------
 
 --
@@ -214,25 +264,25 @@ INSERT INTO `tb_guru` (`id_guru`, `nama_guru`, `nip`, `kelamin`, `alamat`, `telp
 (50, 'Yani Fuadiyah', '198610102024212029', 'Wanita', 'Ds. Golantepus RT 05 RW 06, Mejobo', '081329485681', 'yani', 'yani', 'S.Pd.', 'Kudus', '1986-10-10', 'Islam', 'yani.fuadiyah@smpn1kaliwungu.sch.id', 'foto/yani.jpg'),
 (51, 'Muryana Ovika Extyan', '199910282024212018', 'Wanita', 'Ds. Ploso RT 03 RW 04, Jati', '081227384534', 'muryana', 'muryana', 'S.Pd.', 'Kudus', '1999-10-28', 'Islam', 'muryana.ovika@smpn1kaliwungu.sch.id', 'foto/muryana.jpg'),
 (52, 'Durrotun Nayyiroh', '199009132024212015', 'Wanita', 'Ds. Kandangmas RT 01 RW 03, Dawe', '081329102944', 'durrotun', 'durrotun', 'S.Kom.I.', 'Kudus', '1990-09-13', 'Islam', 'durrotun.nayyiroh@smpn1kaliwungu.sch.id', 'foto/durrotun.jpg'),
-(53, 'Muflihul Fatih Kusum', '-', 'Pria', 'Ds. Garung Lor RT 07 RW 03, Kaliwungu', '081227485639', 'muflihul', 'muflihul', 'S.Pd.', 'Kudus', '1994-05-15', 'Islam', 'muflihul.fatih@smpn1kaliwungu.sch.id', 'foto/muflihul.jpg'),
-(54, 'Annisa Ayu Rahmasari', '-', 'Wanita', 'Ds. Temulus RT 06 RW 01, Mejobo', '081329485682', 'annisa', 'annisa', 'S.Pd.', 'Kudus', '1997-03-22', 'Islam', 'annisa.ayu@smpn1kaliwungu.sch.id', 'foto/annisa_ayu.jpg'),
-(55, 'Dina Fajar Yunitasar', '19920519202221010', 'Wanita', 'Ds. Garung Kidul RT 03 RW 06, Kaliwungu', '081227384535', 'dina', 'dina', 'S.Pd.', 'Kudus', '1992-05-19', 'Islam', 'dina.fajar@smpn1kaliwungu.sch.id', 'foto/dina.jpg'),
-(56, 'Yulianto Nugroho', '0000000000', 'Laki-laki', '-', '-', 'yulianto', 'yulianto', 'SE', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(57, 'Muhammad Khoirul Uma', '0000000000', 'Laki-laki', '-', '-', 'umam', 'umam', 'SM', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(58, 'Inada Rizky', '-', 'Wanita', '-', '-', 'inada', 'inada', '-', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(59, 'Hening Larasati', '-', 'Wanita', '-', '-', 'hening', 'hening', 'S.Kom', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(60, 'Niniek Ismihartini', '-', 'Wanita', '-', '-', 'niniek', 'niniek', '-', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(61, 'Niniek Ismihartini', '-', 'Wanita', '-', '-', 'niniek', 'niniek', '-', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
+(53, 'Muflihul Fatih Kusum', '199405152024211015', 'Laki-laki', 'Ds. Garung Lor RT 07 RW 03, Kaliwungu', '081227485639', 'muflihul', 'muflihul', 'S.Pd.', 'Kudus', '1994-05-15', 'Islam', 'muflihul.fatih@smpn1kaliwungu.sch.id', 'foto/muflihul.jpg'),
+(54, 'Annisa Ayu Rahmasari', '199703222024212022', 'Perempuan', 'Ds. Temulus RT 06 RW 01, Mejobo', '081329485682', 'annisa', 'annisa', 'S.Pd.', 'Kudus', '1997-03-22', 'Islam', 'annisa.ayu@smpn1kaliwungu.sch.id', 'foto/annisa_ayu.jpg'),
+(55, 'Dina Fajar Yunitasar', '19920519202221010', 'Perempuan', 'Ds. Garung Kidul RT 03 RW 06, Kaliwungu', '081227384535', 'dina', 'dina', 'S.Pd.', 'Kudus', '1992-05-19', 'Islam', 'dina.fajar@smpn1kaliwungu.sch.id', 'foto/dina.jpg'),
+(56, 'Yulianto Nugroho', '197001012000011001', 'Laki-laki', 'Jalan Merdeka No. 10, Kudus', '081234567890', 'yulianto', 'yulianto', 'SE', 'Kudus', '2000-01-01', 'Islam', 'yulianto.nugroho@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(57, 'Muhammad Khoirul Uma', '197501012005011002', 'Laki-laki', 'Jalan Pattimura No. 5, Kudus', '089876543210', 'umam', 'umam', 'SM', 'Kudus', '2000-01-01', 'Islam', 'khoirul.uma@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(58, 'Inada Rizky', '199504012025012001', 'Perempuan', 'Jalan Diponegoro No. 15, Kudus', '082233445566', 'inada', 'inada', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'inada.rizky@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(59, 'Hening Larasati', '199002022020012002', 'Perempuan', 'Jalan Ahmad Yani No. 20, Kudus', '081345678901', 'hening', 'hening', 'S.Kom', 'Kudus', '2000-01-01', 'Islam', 'hening.larasati@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(60, 'Niniek Ismihartini', '198501012015012001', 'Perempuan', 'Jalan MT Haryono No. 25, Kudus', '085678901234', 'niniek', 'niniek', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'niniek.ismihartini@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(61, 'Niniek Ismihartini', '198501012015012001', 'Perempuan', 'Jalan MT Haryono No. 25, Kudus', '085678901234', 'niniek', 'niniek', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'niniek.ismihartini2@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
 (1001, 'Abdul Yamin', '001970769769', 'Laki-laki', 'Desa Sibak, Ipuh Muko-muko', '082214607669', 'yamin', 'yamin', 'S.Pd', 'Sibak', '2018-05-17', 'Islam', 'ocikyamin93@gmail.com', 'userk.png'),
-(1002, 'Kaur Kesiswaan', '202201', '-', 'Jl. Raya Kudus-Jepara KM 8, Kaliwungu', '0291-435123', 'kaur', 'kaur', '', '-', '0000-00-00', 'Islam', 'kesiswaan@smpn1kaliwungu.sch.id', 'foto/kaur.jpg'),
-(1003, 'Guru Coba', '20431', 'Pria', 'Perum Griya Mukti Blok B-12, Kudus', '085878901234', 'guru', 'guru', '', 'Kudus', '1990-01-01', 'Islam', 'guru.coba@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(1002, 'Kaur Kesiswaan', '202201002', 'Laki-laki', 'Jl. Raya Kudus-Jepara KM 8, Kaliwungu', '0291-435123', 'kaur', 'kaur', '', 'Kudus', '2000-01-01', 'Islam', 'kesiswaan@smpn1kaliwungu.sch.id', 'foto/kaur.jpg'),
+(1003, 'Guru Coba', '204310003', 'Laki-laki', 'Perum Griya Mukti Blok B-12, Kudus', '085878901234', 'guru', 'guru', '', 'Kudus', '1990-01-01', 'Islam', 'guru.coba@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
 (1004, 'Randu Franstio', '900808098079', 'Laki-laki', 'Tabek Gadang', '089797', 'rdn', 'rdn', 'S.Pd', 'Sijunjung', '2018-05-01', 'Kristen', 'randu@gmail.com', '10304432100006.png'),
-(1005, 'Andro Sudirno', '08808080', 'Laki-laki', 'dff', '6666', 'tes', 'tes', 'spd', 'sss', '2018-07-19', 'Islam', 'ee@gmail.com', 'userk.png'),
-(1006, 'Drs. H.W. Muryotomo', '-', 'Laki-laki', '-', '-', 'muryotomo', 'muryotomo', 'Drs.', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(1007, 'Diah Ayu Swasti Dita', '-', 'Wanita', '-', '-', 'diahayu', 'diahayu', 'S.Pd', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(1008, 'Mersiska Cahyaningty', '-', 'Wanita', '-', '-', 'mersiska', 'mersiska', '-', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(1010, 'Sri Purwaningsih', '', 'Wanita', '-', '-', 'sri.p', 'sri.p', 'S.Pd', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg'),
-(1011, 'Nadia Rahmalita', '', 'Wanita', '-', '-', 'nadia.r', 'nadia.r', 'S.Pd', '-', '2000-01-01', 'Islam', '-', 'foto/dummy.jpg');
+(1005, 'Andro Sudirno', '08808080005', 'Laki-laki', 'dff', '6666', 'tes', 'tes', 'S.Pd', 'sss', '2018-07-19', 'Islam', 'ee@gmail.com', 'userk.png'),
+(1006, 'Drs. H.W. Muryotomo', '197001012000011006', 'Laki-laki', 'Jl. Merpati No. 5, Kudus', '0291-435123', 'muryotomo', 'muryotomo', 'Drs.', 'Kudus', '2000-01-01', 'Islam', 'muryotomo@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(1007, 'Diah Ayu Swasti Dita', '199001012020012007', 'Wanita', 'Jl. Anggrek No. 10, Kudus', '081234567890', 'diahayu', 'diahayu', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'diah.ayu@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(1008, 'Mersiska Cahyaningty', '199201012022012008', 'Wanita', 'Jl. Mawar No. 12, Kudus', '081234567891', 'mersiska', 'mersiska', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'mersiska.cahya@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(1010, 'Sri Purwaningsih', '198501012015012010', 'Wanita', 'Jl. Kenanga No. 8, Kudus', '081234567892', 'sri.p', 'sri.p', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'sri.purwani@smpn1kaliwungu.sch.id', 'foto/dummy.jpg'),
+(1011, 'Nadia Rahmalita', '199001012020012011', 'Wanita', 'Jl. Cempaka No. 7, Kudus', '081234567893', 'nadia.r', 'nadia.r', 'S.Pd', 'Kudus', '2000-01-01', 'Islam', 'nadia.rahma@smpn1kaliwungu.sch.id', 'foto/dummy.jpg');
 
 -- --------------------------------------------------------
 
@@ -368,7 +418,7 @@ CREATE TABLE `tb_kepsek` (
 --
 
 INSERT INTO `tb_kepsek` (`id_kepsek`, `nama`, `username`, `password`, `photok`) VALUES
-(1, 'Abdul Rochim, S.Pd., M.Pd', 'kepsek', 'kepsek', 'userk.png');
+(1, 'Abdullah Noor, S.Pd', 'kepsek', 'kepsek', 'userk.png');
 
 -- --------------------------------------------------------
 

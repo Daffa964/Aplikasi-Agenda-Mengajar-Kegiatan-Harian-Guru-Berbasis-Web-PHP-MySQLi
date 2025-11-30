@@ -1,3 +1,12 @@
+<?php
+// Pastikan session guru aktif sebelum mengakses data
+if (!isset($_SESSION['guru'])) {
+    header("Location: ../login.php");
+    exit();
+}
+$sesi = $_SESSION['guru'];
+?>
+
 <div class="card">
                         <div class="card-header">
                             <h3><strong class="card-title"> <span class="fa fa-folder-open"></span> File Manager</strong></h3>
@@ -18,33 +27,36 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <?php 
+                    <?php
                     $no=1;
                     $sql = mysqli_query($con,"SELECT tb_mapel.*,tb_kelas.idkelas,tb_kelas.kelas,tb_guru.id_guru
-                    FROM tb_mapel 
+                    FROM tb_mapel
                     INNER JOIN tb_kelas ON tb_mapel.idkelas=tb_kelas.idkelas
-                    INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi'") 
+                    INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi'")
                     or die(mysqli_error($con));
-                    ;
-                  while ( $data=mysqli_fetch_array($sql)) {
-                       ?>
+
+                    if(mysqli_num_rows($sql) == 0) {
+                        echo "<tr><td colspan='4' class='text-center'>Tidak ada data mata pelajaran</td></tr>";
+                    } else {
+                        while ( $data=mysqli_fetch_array($sql)) {
+                    ?>
                       <tr>
                         <td> <?=$no++;?> </td>
                         <td> <?=$data['nama_mapel'];?> </td>
                         <td><?=$data['kelas'];?></td>
                         <td>
-                          <a href="?page=add-file& idg= <?php echo $data['id_mapel']; ?> " title="" class="btn btn-success btn-xs" style="border-top-right-radius: 20px;background-color:#f50057;border:none;"> <span class="fa fa-upload"></span> Upload File Perangkat</a>
+                          <a href="?page=add-file&idg=<?= $data['id_mapel']; ?>" title="" class="btn btn-success btn-xs" style="border-top-right-radius: 20px;background-color:#f50057;border:none;"> <span class="fa fa-upload"></span> Upload File Perangkat</a>
                         </td>
-                      
-                       
+
+
                       </tr>
-                      <?php 
-                       }
+                    <?php
+                        }
+                    }
+                    ?>
 
-                       ?>
 
 
-                     
                     </tbody>
                   </table>
                         </div>

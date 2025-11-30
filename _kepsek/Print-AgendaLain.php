@@ -14,7 +14,7 @@
   <?php 
   include '../koneksi.php';
   $idg = $_GET['idg'];
-  $sqlMapel= mysqli_query($con, "SELECT * FROM tb_agendalain INNER JOIN tb_guru ON tb_agendalain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'");
+  $sqlMapel= mysqli_query($con, "SELECT * FROM tb_agenda_lain INNER JOIN tb_guru ON tb_agenda_lain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'");
        $data= mysqli_fetch_array($sqlMapel);
 
    ?>
@@ -50,16 +50,16 @@
                     <tbody>
                     <?php 
                     $no=1;
-                    $sql = mysqli_query($con,"SELECT * FROM tb_agendalain INNER JOIN tb_guru ON tb_agendalain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'") 
+                    $sql = mysqli_query($con,"SELECT * FROM tb_agenda_lain INNER JOIN tb_guru ON tb_agenda_lain.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$idg'") 
                     or die(mysqli_error($con));
                     ;
                   while ( $data=mysqli_fetch_array($sql)) {
                        ?>
                       <tr>
                         <td> <?=$no++;?> </td>
-                        <td> <?=$data['tgl_kgt'];?> </td>
-                        <td> <?=$data['kegiatan'];?></td>
-                         <td> <?=$data['isi'];?></td>
+                        <td> <?=$data['tanggal'];?> </td>
+                        <td> <?=$data['nama_kegiatan'];?></td>
+                         <td> <?=$data['jam_mulai'];?> - <?=$data['jam_selesai'];?></td>
                         <td><?=$data['keterangan'];?></td>
 
                        
@@ -86,7 +86,7 @@
       <!--  <a href="#" class="no-print" onclick="window.print();"> <button style="height: 40px; width: 70px; background-color: dodgerblue;border:none; color: white; border-radius:7px;font-size: 17px; " type=""> Cetak</button> </a> -->
         <tr>
           <td align="right" colspan="6" rowspan="" headers="">
-            <p>Payakumbuh, <?php echo date (" d F Y") ?>  <br> <br>
+            <p>Kudus, <?php echo date (" d F Y") ?>  <br> <br>
             Kepala Sekolah </p> <br> <br>
             <p> <?php echo $data['nama'] ?> <br>______________________</p>
           </td>

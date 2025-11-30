@@ -1,7 +1,7 @@
 <div class="card">
 	<div class="card-header">
 		<strong class="card-title"> <span class="fa fa-users"></span> Data Guru</strong>
-		<a href="?page=add-guru" class="btn btn-primary float-right btn-sm">
+		<a href="?page=t_guru" class="btn btn-primary float-right btn-sm">
 			<i class="fa fa-plus"></i> Tambah Guru
 		</a>
 		<a href="?page=import_guru" class="btn btn-info float-right btn-sm mr-2">
@@ -54,6 +54,5 @@
 		<hr>
 
 		<a href="javascript:history.back()" class="btn btn-warning"> <span class="fa fa-chevron-left"></span> Kembali </a>
-		<a href="?page=t_guru" class="btn btn-info"> <span class="fa fa-plus-circle"></span> Tambah Data </a>
 	</div>
 </div>

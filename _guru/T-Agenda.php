@@ -82,14 +82,11 @@
 
             <!--  -->
             <?php
-
-
-
             $no = 1;
 
             // QUERY FIX
             $sql = mysqli_query($con, "
-    SELECT 
+    SELECT
         tb_agenda.*,
         tb_mapel.nama_mapel,
         tb_mapel.jurusan,
@@ -104,7 +101,10 @@
     ORDER BY tb_agenda.tgl DESC
 ") or die(mysqli_error($con));
 
-            while ($row = mysqli_fetch_array($sql)) {
+            if(mysqli_num_rows($sql) == 0) {
+                echo "<tr><td colspan='6' class='text-center'>Tidak ada data agenda</td></tr>";
+            } else {
+                while ($row = mysqli_fetch_array($sql)) {
             ?>
               <tr>
                 <td>
@@ -128,7 +128,10 @@
                   </a>
                 </td>
               </tr>
-            <?php } ?>
+            <?php
+                }
+            }
+            ?>
 
 
           </tbody>

@@ -5,7 +5,7 @@
 	</div>
 	<?php 
 	$idg = $_GET['idg'];
-	$sqlMapel= mysqli_query($con, "SELECT * FROM tb_agendalain WHERE id_lain = '$idg'");
+	$sqlMapel= mysqli_query($con, "SELECT * FROM tb_agenda_lain WHERE id_lain = '$idg'");
 	     $data= mysqli_fetch_array($sqlMapel);
 
 	 ?>
@@ -21,18 +21,18 @@
                   	<label for="nf-email" name="" class=" form-control-label">Hari / Tanggal Kegiatan  </label>
                   	<input type="hidden" name="id_guru" value="<?php echo $data['id_guru']; ?>">
                   		<input type="hidden" name="idg" value="<?php echo $data['id_lain']; ?>">
-                  	<input type="date" id="nf-email" name="tgl" class="form-control" value="<?php echo $data['tgl_kgt']; ?>">
+                  	<input type="date" id="nf-email" name="tgl" class="form-control" value="<?php echo $data['tanggal']; ?>">
 
                   </div>
                    <div class="form-group">
                   	<label for="nf-email" class=" form-control-label"> Nama Kegiatan</label>
-                  	<input type="text" id="nf-email" name="kegiatan" value="<?php echo $data['kegiatan']; ?>" class="form-control">
+                  	<input type="text" id="nf-email" name="kegiatan" value="<?php echo $data['nama_kegiatan']; ?>" class="form-control">
                   	
                   </div>
                      <div class="form-group">
                   	<label for="nf-email" class=" form-control-label"> Isi Kegiatan / Acara</label>
 
-                  	<textarea class="ckeditor" name="isi" id="ckedtor1"><?php echo $data['isi']; ?></textarea>
+                  	<textarea class="ckeditor" name="isi" id="ckedtor1"><?php echo $data['keterangan']; ?></textarea>
                   	
                   </div>
                   <div class="form-group">
@@ -64,7 +64,7 @@ $ket     = $_POST['ket'];
 
 
 // simapn ke tb_mapel
-mysqli_query($con, " UPDATE tb_agendalain SET tgl_kgt='$tgl',kegiatan='$judul',isi='$isi',keterangan='$ket' WHERE id_lain='$idg' ") or die(mysqli_error($con)) ;
+mysqli_query($con, " UPDATE tb_agenda_lain SET tanggal='$tgl',nama_kegiatan='$judul',jam_mulai='".$data['jam_mulai']."',jam_selesai='".$data['jam_selesai']."',keterangan='$isi' WHERE id_lain='$idg' ") or die(mysqli_error($con)) ;
 
 // header('window.location=?page=add-agenda&idg='.$id_mapel);
 

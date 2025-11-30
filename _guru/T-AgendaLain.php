@@ -30,13 +30,17 @@ if (!isset($_SESSION['guru'])) {
           </div>
           <div class="form-group">
             <label for="nf-email" class=" form-control-label"> Nama Kegiatan</label>
-            <input type="text" id="nf-email" name="kegiatan" class="form-control">
+            <input type="text" id="nf-email" name="kegiatan" class="form-control" required>
 
           </div>
           <div class="form-group">
-            <label for="nf-email" class=" form-control-label"> Isi Kegiatan / Acara</label>
+            <label for="jam_mulai" class=" form-control-label">Jam Mulai</label>
+            <input type="time" id="jam_mulai" name="jam_mulai" class="form-control" value="08:00">
 
-            <textarea class="ckeditor" name="isi" id="ckedtor1"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="jam_selesai" class=" form-control-label">Jam Selesai</label>
+            <input type="time" id="jam_selesai" name="jam_selesai" class="form-control" value="09:00">
 
           </div>
           <div class="form-group">

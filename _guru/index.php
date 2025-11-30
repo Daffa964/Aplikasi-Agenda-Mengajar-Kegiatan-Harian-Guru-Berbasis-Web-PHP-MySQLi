@@ -25,7 +25,7 @@ $data = mysqli_fetch_array($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
-    <link rel="shortcut icon" href="../images/logo.jpg">
+    <link rel="shortcut icon" href="../images/logoEsaka.png">
 
     <link rel="stylesheet" href="../assets/css/normalize.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">

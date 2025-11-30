@@ -1,3 +1,13 @@
+<?php
+// Pastikan session guru aktif sebelum mengakses data
+if (!isset($_SESSION['guru'])) {
+    header("Location: ../login.php");
+    exit();
+}
+$sesi = $_SESSION['guru'];
+?>
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -19,16 +29,17 @@
                     <tbody>
                         <?php
                         $no = 1;
-                        // Ambil ID Guru dari Session
-                        $sesi = $_SESSION['guru']; 
-                        
-                        $sql = mysqli_query($con, "SELECT tb_mapel.*, tb_kelas.kelas 
-                                                   FROM tb_mapel 
-                                                   INNER JOIN tb_kelas ON tb_mapel.idkelas=tb_kelas.idkelas 
-                                                   WHERE tb_mapel.id_guru='$sesi' 
+
+                        $sql = mysqli_query($con, "SELECT tb_mapel.*, tb_kelas.kelas
+                                                   FROM tb_mapel
+                                                   INNER JOIN tb_kelas ON tb_mapel.idkelas=tb_kelas.idkelas
+                                                   WHERE tb_mapel.id_guru='$sesi'
                                                    ORDER BY tb_mapel.id_mapel DESC");
-                        
-                        while ($data = mysqli_fetch_array($sql)) {
+
+                        if(mysqli_num_rows($sql) == 0) {
+                            echo "<tr><td colspan='5' class='text-center'>Tidak ada data mata pelajaran</td></tr>";
+                        } else {
+                            while ($data = mysqli_fetch_array($sql)) {
                         ?>
                             <tr>
                                 <td><?= $no++; ?></td>
@@ -37,13 +48,16 @@
                                 <td>Kelas <?= $data['tingkat']; ?></td>
                                 <td>
                                     <a href="?page=jurnal&idg=<?= $data['id_mapel']; ?>" class="btn btn-success btn-sm" title="Isi Jurnal"><i class="fa fa-book"></i> Jurnal</a>
-                                    
+
                                     <a href="?page=edit-mapel&id=<?= $data['id_mapel']; ?>" class="btn btn-warning btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
-                                    
+
                                     <a href="?page=hapus-mapel&id=<?= $data['id_mapel']; ?>" onclick="return confirm('Yakin hapus?')" class="btn btn-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php
+                            }
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>

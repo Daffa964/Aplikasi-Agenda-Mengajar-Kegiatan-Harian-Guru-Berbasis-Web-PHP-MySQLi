@@ -49,46 +49,81 @@ if (isset($_POST['mapel'])) {
     echo " <script>alert('Data Telah Diubah !!');
     window.location='?page=v_kejur';</script> ";
 } elseif (isset($_POST['sguru'])) {
-    $nama_guru = $_POST['nama_guru'];
-    $nip       = $_POST['nip'];
-    $kelamin   = $_POST['kelamin'];
+    $nama_guru = mysqli_real_escape_string($con, $_POST['nama_guru']);
+    $nip       = mysqli_real_escape_string($con, $_POST['nip']);
+    $kelamin   = mysqli_real_escape_string($con, $_POST['kelamin']);
     // $mapel     = $_POST['mapel'];
     // $kelas     = $_POST['kelas'];
-    $alamat    = $_POST['alamat'];
-    $telp      = $_POST['telp'];
-    $username  = $_POST['username'];
-    $password  = $_POST['password'];
-    $gelar     = $_POST['gelar'];
-    $tempat    = $_POST['tempat'];
-    $tgl       = $_POST['tgl'];
-    $agama     = $_POST['agama'];
-    $email     = $_POST['email'];
+    $alamat    = mysqli_real_escape_string($con, $_POST['alamat']);
+    $telp      = mysqli_real_escape_string($con, $_POST['telp']);
+    $username  = mysqli_real_escape_string($con, $_POST['username']);
+    $password  = mysqli_real_escape_string($con, $_POST['password']);
+    $gelar     = mysqli_real_escape_string($con, $_POST['gelar']);
+    $tempat    = mysqli_real_escape_string($con, $_POST['tempat']);
+    $tgl       = $_POST['tgl']; // tanggal tidak perlu di-escape
+    $agama     = mysqli_real_escape_string($con, $_POST['agama']);
+    $email     = mysqli_real_escape_string($con, $_POST['email']);
+
     // Untuk Gambar
     $filename  = $_FILES['photo']['name'];
-    $tmp_file  = $_FILES['photo']['tmp_name'];
-    $move      = move_uploaded_file($tmp_file, '../images/' . $filename);
-    mysqli_query($con, " INSERT INTO tb_guru (id_guru,nama_guru,nip,kelamin,alamat,telp,username,password,gelar,tempat,tgl,agama,email,photo) VALUES ('','$nama_guru','$nip','$kelamin','$alamat','$telp','$username','$password','$gelar','$tempat','$tgl','$agama','$email','$filename') ") or die(mysqli_error($con));
-    echo " <script>alert('Data Berhasil Disimpan !!');window.location='?page=v_guru';</script> ";
+    if (!empty($filename)) {
+        $tmp_file  = $_FILES['photo']['tmp_name'];
+        $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
+
+        if (in_array(strtolower($file_extension), $allowed_extensions)) {
+            $new_filename = time() . '_' . basename($filename);
+            $move = move_uploaded_file($tmp_file, '../images/' . $new_filename);
+            if ($move) {
+                $filename = $new_filename;
+            } else {
+                $filename = 'admin.jpg'; // Gunakan foto default jika upload gagal
+            }
+        } else {
+            $filename = 'admin.jpg'; // Gunakan foto default jika ekstensi tidak diizinkan
+        }
+    } else {
+        $filename = 'admin.jpg'; // Gunakan foto default jika tidak ada file diupload
+    }
+
+    // Dapatkan id_guru berikutnya secara manual
+    $result_max = mysqli_query($con, "SELECT MAX(id_guru) AS max_id FROM tb_guru");
+    $row_max = mysqli_fetch_assoc($result_max);
+    $next_id = $row_max['max_id'] ? $row_max['max_id'] + 1 : 1;
+
+    $query = "INSERT INTO tb_guru (id_guru,nama_guru,nip,kelamin,alamat,telp,username,password,gelar,tempat,tgl,agama,email,photo) VALUES ('$next_id','$nama_guru','$nip','$kelamin','$alamat','$telp','$username','$password','$gelar','$tempat','$tgl','$agama','$email','$filename')";
+    $result = mysqli_query($con, $query);
+
+    if ($result) {
+        echo "<script>alert('Data Berhasil Disimpan !!'); window.location='index.php?page=v_guru';</script>";
+    } else {
+        echo "<script>alert('Gagal menyimpan data: " . mysqli_error($con) . "'); window.location='index.php?page=t_guru';</script>";
+    }
 } elseif (isset($_POST['eguru'])) {
-    $idg = $_POST['idg'];
-    $nama_guru = $_POST['nama_guru'];
-    $nip       = $_POST['nip'];
-    $kelamin   = $_POST['kelamin'];
+    $idg = mysqli_real_escape_string($con, $_POST['idg']);
+    $nama_guru = mysqli_real_escape_string($con, $_POST['nama_guru']);
+    $nip       = mysqli_real_escape_string($con, $_POST['nip']);
+    $kelamin   = mysqli_real_escape_string($con, $_POST['kelamin']);
     // $mapel     = $_POST['mapel'];
     // $kelas     = $_POST['kelas'];
-    $alamat    = $_POST['alamat'];
-    $telp      = $_POST['telp'];
-    $username  = $_POST['username'];
-    $password  = $_POST['password'];
-    $gelar     = $_POST['gelar'];
-    $tempat    = $_POST['tempat'];
-    $tgl       = $_POST['tgl'];
-    $agama     = $_POST['agama'];
-    $email     = $_POST['email'];
+    $alamat    = mysqli_real_escape_string($con, $_POST['alamat']);
+    $telp      = mysqli_real_escape_string($con, $_POST['telp']);
+    $username  = mysqli_real_escape_string($con, $_POST['username']);
+    $password  = mysqli_real_escape_string($con, $_POST['password']);
+    $gelar     = mysqli_real_escape_string($con, $_POST['gelar']);
+    $tempat    = mysqli_real_escape_string($con, $_POST['tempat']);
+    $tgl       = $_POST['tgl']; // tanggal tidak perlu di-escape
+    $agama     = mysqli_real_escape_string($con, $_POST['agama']);
+    $email     = mysqli_real_escape_string($con, $_POST['email']);
 
-    mysqli_query($con, " UPDATE tb_guru SET nama_guru='$nama_guru',nip='$nip',kelamin='$kelamin',alamat='$alamat',telp='$telp',username='$username',password='$password',gelar='$gelar',tempat='$tempat',tgl='$tgl',agama='$agama',email='$email'
-        WHERE id_guru='$idg' ") or die(mysqli_error($con));
-    echo " <script>alert('Data Berhasil Diubah !!');window.location='?page=v_guru';</script> ";
+    $query = "UPDATE tb_guru SET nama_guru='$nama_guru',nip='$nip',kelamin='$kelamin',alamat='$alamat',telp='$telp',username='$username',password='$password',gelar='$gelar',tempat='$tempat',tgl='$tgl',agama='$agama',email='$email' WHERE id_guru='$idg'";
+    $result = mysqli_query($con, $query);
+
+    if ($result) {
+        echo "<script>alert('Data Berhasil Diubah !!'); window.location='index.php?page=v_guru';</script>";
+    } else {
+        echo "<script>alert('Gagal mengubah data: " . mysqli_error($con) . "'); window.location='index.php?page=v_guru';</script>";
+    }
 } elseif (isset($_POST['EuserG'])) {
     $id = $_POST['id'];
     $user = $_POST['user'];

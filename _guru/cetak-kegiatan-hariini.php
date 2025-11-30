@@ -14,7 +14,7 @@ $data = mysqli_fetch_array($sql);
 	
 </style>
 <center>
-	<img src="../images/logo.jpg" width="60">
+	<img src="../images/logoEsaka.png" width="60">
 <h3 class="tex">LAPORAN KEGIATAN HARIAN GURU <br>
 SMP N 1 Kaliwungu</h3>
         <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
@@ -264,7 +264,7 @@ $sql_keterlambatan = mysqli_query($con, "SELECT k.*, s.nama_siswa, s.nis, kelas.
       <!--  <a href="#" class="no-print" onclick="window.print();"> <button style="height: 40px; width: 70px; background-color: dodgerblue;border:none; color: white; border-radius:7px;font-size: 17px; " type=""> Cetak</button> </a> -->
         <tr>
           <td align="right" colspan="6" rowspan="" headers="">
-            <p>Payakumbuh, <?php echo date (" d F Y") ?>  <br> <br>
+            <p>Kudus, <?php echo date (" d F Y") ?>  <br> <br>
             Kepala Sekolah </p> <br> <br>
             <p> <?php echo $data['nama'] ?> <br>______________________</p>
           </td>

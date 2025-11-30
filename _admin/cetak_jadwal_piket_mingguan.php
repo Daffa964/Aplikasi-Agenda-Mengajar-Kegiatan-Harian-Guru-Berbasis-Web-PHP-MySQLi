@@ -85,7 +85,7 @@ $data = mysqli_fetch_array($sql);
     <table class="kop" width="100%">
         <tr>
             <td align="center">
-                <img src="../images/logo.jpg" width="60" height="60">
+                <img src="../images/logoEsaka.png" width="60" height="60">
                 <h3>JADWAL PIKET MINGGUAN<br>SMP Negeri 1 Kaliwungu</h3>
                 <p>Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
                 Telepon: (0291) 438068</p>

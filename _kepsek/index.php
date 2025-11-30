@@ -17,7 +17,7 @@ if (@$_SESSION['kepsek']) {
 
     <link rel="apple-touch-icon" href="apple-icon.png">
 
-     <link rel="shortcut icon" href="../images/logo.jpg">
+     <link rel="shortcut icon" href="../images/logoEsaka.png">
 
     <link rel="stylesheet" href="../assets/css/normalize.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">

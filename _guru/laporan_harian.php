@@ -47,7 +47,7 @@ if (@$_SESSION['guru']) {
 
 
     <center>
-        <img src="../images/logo.jpg" width="60">
+        <img src="../images/logoEsaka.png" width="60">
         <h3 class="tex">LAPORAN KEGIATAN HARIAN GURU <br>
             SMP N 1 Kaliwungu</h3>
         <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>

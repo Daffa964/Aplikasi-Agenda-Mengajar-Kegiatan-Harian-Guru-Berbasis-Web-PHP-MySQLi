@@ -29,7 +29,7 @@ $data = mysqli_fetch_array($sql);
 
 
 <center>
-	<img src="../images/logo.jpg" width="60">
+	<img src="../images/logoEsaka.png" width="60">
 	<h3 class="tex">LAPORAN KEGIATAN HARIAN SEKOLAH <br>
 SMP N 1 Kaliwungu</h3>
         <p class="tex">Kedungdowo, Kec. Kaliwungu, Kabupaten Kudus, Jawa Tengah 59361<br>
@@ -184,16 +184,16 @@ SMP N 1 Kaliwungu</h3>
 
 	$no=1;
 
-	$sql_Bayar = mysqli_query($con, "SELECT * FROM tb_agendalain
-	INNER JOIN tb_guru ON tb_agendalain.id_guru = tb_guru.id_guru
-	WHERE tgl_kgt BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' ORDER BY tgl_kgt ASC") or die(mysqli_error($con)) ;
+	$sql_Bayar = mysqli_query($con, "SELECT * FROM tb_agenda_lain
+	INNER JOIN tb_guru ON tb_agenda_lain.id_guru = tb_guru.id_guru
+	WHERE tanggal BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' ORDER BY tanggal ASC") or die(mysqli_error($con)) ;
 	while ($d = mysqli_fetch_array($sql_Bayar)) {
 	?>
 	<tr>
 	<td><?php echo $no++; ?>.</td>
-	<td><?php echo $d['tgl_kgt']; ?> </td>
-	<td><?php echo $d['kegiatan']; ?> (<?php echo $d['nama_guru']; ?>)</td>
-	<td><?php echo $d['isi']; ?> </td>
+	<td><?php echo $d['tanggal']; ?> </td>
+	<td><?php echo $d['nama_kegiatan']; ?> (<?php echo $d['nama_guru']; ?>)</td>
+	<td><?php echo $d['jam_mulai']; ?> - <?php echo $d['jam_selesai']; ?></td>
 	<td><?php echo $d['keterangan']; ?> </td>
 
 	</tr>
@@ -370,30 +370,30 @@ SMP N 1 Kaliwungu</h3>
 		// Untuk sementara, kita ambil dari agenda lain yang mungkin berisi kejadian khusus
 		$no = 1;
 		$sql_kejadian = mysqli_query($con, "SELECT a.*, g.nama_guru
-			FROM tb_agendalain a
+			FROM tb_agenda_lain a
 			LEFT JOIN tb_guru g ON a.id_guru = g.id_guru
-			WHERE a.tgl_kgt BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]'
-			ORDER BY a.tgl_kgt, a.kegiatan") or die(mysqli_error($con));
+			WHERE a.tanggal BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]'
+			ORDER BY a.tanggal, a.nama_kegiatan") or die(mysqli_error($con));
 
 		$ada_kejadian = false;
 		while ($d = mysqli_fetch_array($sql_kejadian)) {
 			// Cek apakah agenda termasuk kejadian khusus
-			if(stripos($d['kegiatan'], 'kecelakaan') !== false ||
-				stripos($d['kegiatan'], 'insiden') !== false ||
-				stripos($d['kegiatan'], 'kebakaran') !== false ||
-				stripos($d['kegiatan'], 'keributan') !== false ||
-				stripos($d['kegiatan'], 'cctv') !== false ||
-				stripos($d['isi'], 'kecelakaan') !== false ||
-				stripos($d['isi'], 'insiden') !== false ||
-				stripos($d['isi'], 'kebakaran') !== false ||
-				stripos($d['isi'], 'keributan') !== false) {
+			if(stripos($d['nama_kegiatan'], 'kecelakaan') !== false ||
+				stripos($d['nama_kegiatan'], 'insiden') !== false ||
+				stripos($d['nama_kegiatan'], 'kebakaran') !== false ||
+				stripos($d['nama_kegiatan'], 'keributan') !== false ||
+				stripos($d['nama_kegiatan'], 'cctv') !== false ||
+				stripos($d['keterangan'], 'kecelakaan') !== false ||
+				stripos($d['keterangan'], 'insiden') !== false ||
+				stripos($d['keterangan'], 'kebakaran') !== false ||
+				stripos($d['keterangan'], 'keributan') !== false) {
 				$ada_kejadian = true;
 		?>
 			<tr>
 				<td><?php echo $no++; ?>.</td>
-				<td><?php echo $d['tgl_kgt']; ?></td>
-				<td><?php echo $d['kegiatan']; ?></td>
-				<td><?php echo $d['isi']; ?></td>
+				<td><?php echo $d['tanggal']; ?></td>
+				<td><?php echo $d['nama_kegiatan']; ?></td>
+				<td><?php echo $d['keterangan']; ?></td>
 				<td><?php echo $d['nama_guru'] ? $d['nama_guru'] : 'N/A'; ?></td>
 			</tr>
 		<?php
@@ -423,7 +423,7 @@ SMP N 1 Kaliwungu</h3>
       <!--  <a href="#" class="no-print" onclick="window.print();"> <button style="height: 40px; width: 70px; background-color: dodgerblue;border:none; color: white; border-radius:7px;font-size: 17px; " type=""> Cetak</button> </a> -->
         <tr>
           <td align="right" colspan="6" rowspan="" headers="">
-            <p>Payakumbuh, <?php echo date (" d F Y") ?>  <br> <br>
+            <p>Kudus, <?php echo date (" d F Y") ?>  <br> <br>
             Kepala Sekolah </p> <br> <br>
             <p> <?php echo $data['nama'] ?> <br>______________________</p>
           </td>

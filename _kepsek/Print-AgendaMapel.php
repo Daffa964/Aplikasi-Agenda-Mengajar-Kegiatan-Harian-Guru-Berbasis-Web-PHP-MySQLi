@@ -24,7 +24,7 @@
 	 ?>
 <!-- 	<center>
 		 <h3><p>
-	 	Agenda Mengajar Guru <br> SMKN 4 PAYAKUMBUH <br>
+	 	Agenda Mengajar Guru <br> SMP N 1 Kaliwungu <br>
 	 	Tahun Ajaran 2025/2026 </h3>
 	 </p>
 	</center> -->
@@ -37,7 +37,7 @@
     <hr style="border: 2px;">
     <br>
 
-    <p align="center" class="style1"><img src="../images/logo.jpg" width="155" height="149" /></p>
+    <p align="center" class="style1"><img src="../images/logoEsaka.png" width="155" height="149" /></p>
     <table width="200" align="center">
       <tr>
         <td><span class="style2">NAMA</span></td>
@@ -144,7 +144,7 @@
       <!--  <a href="#" class="no-print" onclick="window.print();"> <button style="height: 40px; width: 70px; background-color: dodgerblue;border:none; color: white; border-radius:7px;font-size: 17px; " type=""> Cetak</button> </a> -->
         <tr>
           <td align="right" colspan="6" rowspan="" headers="">
-            <p>Payakumbuh, <?php echo date (" d F Y") ?>  <br> <br>
+            <p>Kudus, <?php echo date (" d F Y") ?>  <br> <br>
             Kepala Sekolah </p> <br> <br>
             <p> <?php echo $data['nama'] ?> <br>______________________</p>
           </td>

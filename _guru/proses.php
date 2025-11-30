@@ -335,20 +335,22 @@ elseif (isset($_POST['s_izin_siswa'])) {
 // --- Proses Simpan Agenda Lain (Non-Mapel) ---
 elseif (isset($_POST['add-agendalain'])) {
 
-    $id_guru  = $_POST['id_guru'];
-    $tgl      = $_POST['tgl'];
-    $kegiatan = mysqli_real_escape_string($con, $_POST['kegiatan']);
-    $isi      = mysqli_real_escape_string($con, $_POST['isi']);
-    $ket      = mysqli_real_escape_string($con, $_POST['ket']);
+    $id_guru      = $_POST['id_guru'];
+    $tgl          = $_POST['tgl'];
+    $nama_kegiatan = mysqli_real_escape_string($con, $_POST['kegiatan']);
+    $keterangan   = mysqli_real_escape_string($con, $_POST['ket']);
+    // Tambahkan field jam_mulai dan jam_selesai
+    $jam_mulai = isset($_POST['jam_mulai']) ? $_POST['jam_mulai'] : '08:00:00';
+    $jam_selesai = isset($_POST['jam_selesai']) ? $_POST['jam_selesai'] : '09:00:00';
 
     // Validasi sederhana
-    if (empty($kegiatan) || empty($tgl)) {
-         echo "<script>alert('Kegiatan dan Tanggal tidak boleh kosong!'); window.location='index.php?page=taglain';</script>";
+    if (empty($nama_kegiatan) || empty($tgl)) {
+         echo "<script>alert('Nama kegiatan dan Tanggal tidak boleh kosong!'); window.location='index.php?page=taglain';</script>";
          exit();
     }
 
-    // Query Insert (Pastikan tb_agendalain sudah AUTO_INCREMENT)
-    $insert = mysqli_query($con, "INSERT INTO tb_agendalain (id_guru, tgl_kgt, kegiatan, isi, keterangan) VALUES ('$id_guru', '$tgl', '$kegiatan', '$isi', '$ket')");
+    // Query Insert (Menggunakan struktur tabel yang benar: tb_agenda_lain)
+    $insert = mysqli_query($con, "INSERT INTO tb_agenda_lain (id_guru, tanggal, nama_kegiatan, jam_mulai, jam_selesai, keterangan) VALUES ('$id_guru', '$tgl', '$nama_kegiatan', '$jam_mulai', '$jam_selesai', '$keterangan')");
 
     if ($insert) {
         echo "

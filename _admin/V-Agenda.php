@@ -5,13 +5,13 @@
   </div>
 
   <!-- SELECT tb_mapel.*,tb_kelas.idkelas,tb_kelas.kelas,tb_guru.id_guru
-                    FROM tb_mapel 
+                    FROM tb_mapel
                     INNER JOIN tb_kelas ON tb_mapel.idkelas=tb_kelas.idkelas
                     INNER JOIN tb_guru ON tb_mapel.id_guru=tb_guru.id_guru WHERE tb_guru.id_guru = '$sesi' -->
 <!-- /# column -->
 <div class="col-lg-12">
     <div class="card">
-        <div class="card-body"><!-- 
+        <div class="card-body"><!--
             <p class="text-muted m-b-15">To make the tabs toggleable, add the </p> -->
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,17 +37,17 @@
                       <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
-                        <th>Guru</th> 
-                          <th>Kelas</th> 
-                       <th>Mapel</th> 
+                        <th>Guru</th>
+                          <th>Kelas</th>
+                       <th>Mapel</th>
                         <th>Materi</th>
                         <th>Absen</th>
                         <th>Keterangan</th>
-                        <th>Opsi</th>                     
+                        <th>Opsi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php 
+                      <?php
                       $now = date('y-m-d');
                       $no=1;
                         $sql = mysqli_query($con,"SELECT tb_agenda.*,tb_mapel.nama_mapel,tb_mapel.jurusan,tb_mapel.tingkat,tb_kelas.idkelas,tb_kelas.kelas,tb_guru.nama_guru
@@ -73,11 +73,11 @@
                            <a onclick="return confirm('Yakin !! Ingin Hapus Data Tanggal [ <?php echo $data['tgl']; ?> ]')" href="?page=del-agenda&idg= <?php echo $data['id_agenda']; ?> " title="Hapus" class="btn btn-danger"> <span class="fa fa-trash"></span></a>
                         </td>
                       </tr>
-                      <?php 
+                      <?php
                        }
 
                        ?>
-                     
+
                     </tbody>
                   </table>
 
@@ -91,16 +91,16 @@
                       <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
-                       <th>Mapel</th> 
+                       <th>Mapel</th>
                         <!-- <th>Kelas</th> -->
                         <th>Materi</th>
                         <th>Absen</th>
                         <th>Keterangan</th>
-                        <th>Opsi</th>                     
+                        <th>Opsi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php 
+                      <?php
                       $no=1;
                         $sql = mysqli_query($con,"SELECT tb_agenda.*,tb_mapel.nama_mapel,tb_mapel.jurusan,tb_mapel.tingkat,tb_kelas.idkelas,tb_kelas.kelas
                         FROM tb_agenda INNER JOIN tb_mapel ON tb_agenda.id_mapel=tb_mapel.id_mapel
@@ -121,11 +121,11 @@
                            <a onclick="return confirm('Yakin !! Ingin Hapus Data Tanggal [ <?php echo $data['tgl']; ?> ]')" href="?page=del-agenda&idg= <?php echo $data['id_agenda']; ?> " title="Hapus" class="btn btn-danger"> <span class="fa fa-trash"></span></a>
                         </td>
                       </tr>
-                      <?php 
+                      <?php
                        }
 
                        ?>
-                     
+
                     </tbody>
                   </table>
 
@@ -143,12 +143,12 @@
 </div>
 </div>
 <!-- /# column -->
-  
 
-      
+
+
 
       <div class="card">
-         
+
 
 <!--               <div class="card-body card-block">
                  <h3> <span class="fa fa-folder-open"></span> Daftar Agenda Guru</h3>
@@ -158,16 +158,16 @@
                       <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
-                       <th>Mapel</th> 
-                      <th>Kelas</th> 
+                       <th>Mapel</th>
+                      <th>Kelas</th>
                         <th>Materi</th>
                         <th>Absen</th>
                         <th>Keterangan</th>
-                        <th>Opsi</th>                     
+                        <th>Opsi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php 
+                      <?php
                       $no=1;
                         $sql = mysqli_query($con,"SELECT tb_agenda.*,tb_mapel.nama_mapel,tb_mapel.jurusan,tb_mapel.tingkat,tb_kelas.idkelas,tb_kelas.kelas
                         FROM tb_agenda INNER JOIN tb_mapel ON tb_agenda.id_mapel=tb_mapel.id_mapel
@@ -190,14 +190,14 @@
                            <a onclick="return confirm('Yakin !! Ingin Hapus Data Tanggal [ <?php echo $data['tgl']; ?> ]')" href="?page=del-agenda&idg= <?php echo $data['id_agenda']; ?> " title="Hapus" class="btn btn-danger"> <span class="fa fa-trash"></span> Hapus</a>
                         </td>
                       </tr>
-                      <?php 
+                      <?php
                        }
 
                        ?>
-                     
+
                     </tbody>
                   </table>
-               
+
               </div>
             </div> -->
 
